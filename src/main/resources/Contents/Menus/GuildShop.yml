@@ -1,0 +1,42 @@
+title: '&c&l公会商店'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+placeholder:
+  Day: '&c每日限购: &a%left%/%max%'
+  Week: '&c每周限购: &a%left%/%max%'
+  Month: '&c每月限购: &a%left%/%max%'
+  Once: '&c终身限购: &a%left%/%max%'
+#商品出现的位置
+#The location where the product appears
+layout: [11-15,20-24,29-33]
+customItem:
+  pre:
+    display: '&f&l< &e上一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: pre
+    slot: [48]
+  next:
+    display: '&f&l< &e下一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [50]
+  back:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [49]

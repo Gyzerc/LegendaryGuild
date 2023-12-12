@@ -1,0 +1,26 @@
+items:
+  shop1:
+    display: '商品1'
+    material: APPLE
+    amount: 1
+    data: 0
+    model: 0
+    lore:
+      - '&f'
+      - '&f商品内容:'
+      - '&f &7- 游戏币 ×50'
+      - ''
+      - '&f价格: &a100贡献点'
+      - '&f当前可用贡献点为: &a%points%'
+      #%limit%为限购提示，若该商品没有限购则不显示
+      - '%limit%'
+    requirements:
+      - 'guild_points;100'
+    run:
+      - '[console]money give %player% 50'
+    #限购相关
+    #buy_limit:
+    #  类型列表 —— once：终身限购 day：每日限购 week：每周限购 month：每月限购
+    #  type: once
+    #  限购数量
+    #  amount: 5

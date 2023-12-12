@@ -1,0 +1,132 @@
+#是否启用该功能
+# Is this feature enabled
+enable: true
+#属性插件
+# Attribute Plugin
+#可选插件： AP3 (AttributesPlus3.0) , AP2 (AttributesPlus2.0) , SX2 (Sx-Attributes2.0) MythicLib(同时也对MMOITEMS的属性生效)
+plugin: AP3
+buffs:
+  buff1:
+    #buff的名称
+    display: '&c群体攻击BUFF'
+    #buff的最高等级
+    max: 5
+    #buff各级的花费以及属性
+    upgrade:
+      0:
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&a&l下一级属性加成:'
+            - '&7 &7 - 攻击力 +5'
+            - '&c&l升级花费:'
+            - '&7 &7 公会资金 ×10000'
+            - ''
+            - '&f[ &b点击升级 &f]'
+      1:
+        #该等级在BUFF界面中显示的图标
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&a&l下一级属性加成:'
+            - '&7 &7 - 攻击力 +5'
+            - '&c&l升级花费:'
+            - '&7 &7 公会资金 ×1000'
+            - ''
+            - '&f[ &b点击升级 &f]'
+        #从上一级升到该级的花费
+        requirements:
+          - 'guild_money;10000'
+        #生效的属性
+        attr:
+          - '攻击力 +5'
+      2:
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&d&l当前级别属性加成:'
+            - '&7 &7 - 攻击力 +5'
+            - '&a&l下一级属性加成:'
+            - '&7 &7 - 攻击力 +25'
+            - '&c&l升级花费:'
+            - '&7 &7 公会资金 ×50000'
+            - ''
+            - '&f[ &b点击升级 &f]'
+        requirements:
+          - 'guild_money;50000'
+        attr:
+          - '攻击力 +25'
+      3:
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&d&l当前级别属性加成:'
+            - '&7 &7 - 攻击力 +25'
+            - '&a&l下一级属性加成:'
+            - '&7 &7 - 攻击力 +55'
+            - '&c&l升级花费:'
+            - '&7 &7 公会资金 ×100000'
+            - ''
+            - '&f[ &b点击升级 &f]'
+        requirements:
+          - 'guild_money;100000'
+        attr:
+          - '攻击力 +55'
+      4:
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&d&l当前级别属性加成:'
+            - '&7 &7 - 攻击力 +55'
+            - '&a&l下一级属性加成:'
+            - '&7 &7 - 攻击力 +100'
+            - '&c&l升级花费:'
+            - '&7 &7 公会资金 ×500000'
+            - ''
+            - '&f[ &b点击升级 &f]'
+        requirements:
+          - 'guild_money;500000'
+        attr:
+          - '攻击力 +100'
+      5:
+        preview:
+          display: '%buff_display% &f- &e%buff_level%/%buff_maxlevel%'
+          material: NETHER_STAR
+          data: 0
+          model: 0
+          lore:
+            - '&f可为全体成员带来 &c攻击力 &f加成'
+            - ''
+            - '&d&l当前级别属性加成:'
+            - '&7 &7 - 攻击力 +250'
+            - ''
+            - '&4当前已经是最高级'
+        requirements:
+          - 'guild_money;1000000'
+        attr:
+          - '攻击力 +250'

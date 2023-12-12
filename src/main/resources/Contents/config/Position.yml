@@ -1,0 +1,22 @@
+#当玩家加入一个公会默认的职位ID
+default: 普通成员
+#公会会长的职位ID （请不要更改）
+owner: 会长
+#职位列表（按格式向下添加）
+positions:
+  会长:
+    #职位权重 用于成员列表界面的按公会职位排序
+    weight: 0
+    display: '&6会长'
+  普通成员:
+    weight: 3
+    display: '&f普通成员'
+  精英成员:
+    weight: 2
+    display: '&a精英成员'
+    #最多可以任命多少个该职位的人数
+    max: 5
+  长老:
+    weight: 1
+    display: '&e长老'
+    max: 2

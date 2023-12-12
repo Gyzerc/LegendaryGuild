@@ -1,0 +1,177 @@
+package com.legendaryrealms.LegendaryGuild.Data.User;
+
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
+import com.legendaryrealms.LegendaryGuild.Files.Lang;
+import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import org.bukkit.Bukkit;
+
+public class User {
+    private final Lang lang = LegendaryGuild.getInstance().getFileManager().getLang();
+    private String player;
+    private String guild;
+    private String position;
+    private String date;
+    private WaterDataStore waterDataStore;
+    private int cooldown;
+    private boolean wish;
+    private boolean teleport_guild_home;
+    private double points;
+    private double total_points;
+    private PvpType pvp;
+
+    public User(String player, String guild, String position, String date, WaterDataStore waterDataStore, int cooldown, boolean wish, boolean teleport_guild_home, double points, double total_points,PvpType pvp) {
+        this.player = player;
+        this.guild = guild;
+        this.position = position;
+        this.date = date;
+        this.waterDataStore = waterDataStore;
+        this.cooldown = cooldown;
+        this.wish = wish;
+        this.teleport_guild_home = teleport_guild_home;
+        this.points = points;
+        this.total_points = total_points;
+        this.pvp = pvp;
+    }
+
+
+
+
+    public boolean hasGuild(){
+        if (this.guild == null){
+            return false;
+        }
+        if (this.guild.equals(lang.default_guild)){
+            return false;
+        }
+        return true;
+    }
+    public PvpType getPvp() {
+        return pvp;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public String getGuild() {
+        return guild;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public WaterDataStore getWaterDataStore() {
+        return waterDataStore;
+    }
+
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    public boolean isWish() {
+        return wish;
+    }
+
+    public boolean isTeleport_guild_home() {
+        return teleport_guild_home;
+    }
+
+    public double getPoints() {
+        return points;
+    }
+
+    public double getTotal_points() {
+        return total_points;
+    }
+
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public void setPvp(PvpType pvp) {
+        this.pvp = pvp;
+    }
+
+    public void setWish(boolean wish) {
+        this.wish = wish;
+    }
+
+    public void setWaterDataStore(WaterDataStore waterDataStore) {
+        this.waterDataStore = waterDataStore;
+    }
+
+    public void setTeleport_guild_home(boolean teleport_guild_home) {
+        this.teleport_guild_home = teleport_guild_home;
+    }
+
+
+
+    public void setTotal_points(double total_points) {
+        this.total_points = total_points;
+    }
+
+    public void setGuild(String guild) {
+        this.guild = guild;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void addPoints(double amount,boolean sendMsg){
+        this.points += amount;
+        this.total_points += amount;
+        if (sendMsg){
+            LegendaryGuild.getInstance().getMsgUtils().sendMessage(player,lang.plugin+lang.uset_recive_points.replace("%value%",amount+""));
+        }
+    }
+    public void takePoints(double amount,boolean sendMsg){
+        this.points = this.points - amount >= 0? this.points - amount : 0;
+        if (sendMsg){
+            LegendaryGuild.getInstance().getMsgUtils().sendMessage(player,lang.plugin+lang.uset_decrease_points.replace("%value%",""+amount));
+        }
+    }
+    public void setPoints(double points,boolean sendMsg) {
+        this.points = points;
+
+        if (sendMsg){
+            LegendaryGuild.getInstance().getMsgUtils().sendMessage(player,lang.plugin+lang.uset_set_points.replace("%value%",points+""));
+        }
+    }
+
+
+    public void update() {
+        LegendaryGuild.getInstance().getUsersManager().updateUser(this, false);
+        if (LegendaryGuild.getInstance().getNetWork().isEnable()) {
+            new NetWorkMessageBuilder()
+                    .setReciver("ALL")
+                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_USER, this.player))
+                    .setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+                    .sendPluginMessage(Bukkit.getPlayerExact(this.player));
+        }
+    }
+
+    public enum PvpType {
+        ALL,
+        NO_SAME_GUILD,
+        BLACK_GUILD;
+        public static PvpType getType(String str){
+            try {
+                PvpType type = PvpType.valueOf(str);
+                return type;
+            } catch (IllegalArgumentException e){
+                return ALL;
+            }
+        }
+    }
+}

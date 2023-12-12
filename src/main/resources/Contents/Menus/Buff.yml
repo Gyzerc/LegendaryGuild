@@ -1,0 +1,35 @@
+title: '&c&l公会BUFF商店'
+size: 54
+#buff出现的位置
+layout: [11,13,15,29,31,33]
+customItem:
+  pre:
+    display: '&f&l< &e上一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: pre
+    slot: [48]
+  next:
+    display: '&f&l< &e下一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [50]
+  back:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [49]

@@ -1,0 +1,48 @@
+icons:
+  icon1:
+    #该图标的名称
+    #The name of the icon
+    display: "&f金锭图标"
+    #该图标的材质
+    #The material of this icon
+    material: GOLDEN_INGOT
+    #该图标的子id
+    #The data of this icon
+    data: 0
+    #该图标的子 custommodeldata 值 （1.13+）
+    #The custommodeldata of this icon （1.13+）
+    model: 0
+    #该图标的描述
+    #The description of this icon
+    description:
+      - '&2一个亮晶晶的图标.'
+      - ''
+      - '&e解锁需 &f1000 &e公会资金'
+    #该图标解锁价格需求
+    #This icon unlocks price requirements
+    requirements:
+      - 'guild_money;1000'
+  icon2:
+    display: "&f钻石图标"
+    material: DIAMOND
+    data: 0
+    model: 0
+    description:
+      - '&2一个亮晶晶的图标.'
+      - ''
+      - '&e解锁需 &f1000 &e公会资金'
+    requirements:
+      - 'guild_money;1000'
+  icon3:
+    display: "&f下届之星图标"
+    material: NETHER_STAR
+    data: 0
+    model: 0
+    description:
+      - '&2限定图标.'
+      - ''
+      - '&7公会需达到 &f3 &7级！'
+      - '&e解锁需 &f10000 &e公会资金'
+    requirements:
+      - 'guild_level;3'
+      - 'guild_money;10000'

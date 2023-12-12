@@ -1,0 +1,194 @@
+title: '&6&l公会神树'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+#神树各个等级的显示图标 &  Display icons for each level of the guild tree
+tree:
+  #等级 & level
+  #config中设定了神树最大等级为多少，则这里就需要设置多少个 & If the maximum level of the divine tree is set in config, then how many need to be set here
+  0:
+    display: '&f&l公会神树 &eLv.0'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%/%next% &7(%bar%&7)'
+      - '&f升级需:'
+      - '&f - &7游戏币×3000'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+  1:
+    display: '&f&l公会神树 &eLv.1'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%/%next% &7(%bar%&7)'
+      - '&f升级需:'
+      - '&f - &7游戏币×5000'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+  2:
+    display: '&f&l公会神树 &eLv.2'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%/%next% &7(%bar%&7)'
+      - '&f升级需:'
+      - '&f - &7游戏币×10000'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+  3:
+    display: '&f&l公会神树 &eLv.3'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%/%next% &7(%bar%&7)'
+      - '&f升级需:'
+      - '&f - &7游戏币×15000'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+  4:
+    display: '&f&l公会神树 &eLv.4'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%/%next% &7(%bar%&7)'
+      - '&f升级需:'
+      - '&f - &7游戏币×20000'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+  5:
+    display: '&f&l公会神树 &eLv.MAX'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f神树等级: &e%level%'
+      - '&f神树成长值: &e%exp%'
+      - '&f当前已经是最大等级'
+      - ''
+      - '&e点击升级神树'
+    slot: [13]
+customItem:
+  wish:
+    display: '&e每日许愿'
+    material: NETHER_STAR
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&f每日进行一次 &e许愿 &f以获得神树的 &e馈赠.'
+      - '&f神树等级 &c越高 &f获得的馈赠就越好.'
+      - ''
+      - '&f[ &a点击许愿 &f]'
+    slot: [31]
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #wish：神树许愿 & The guild tree makes a wish
+    #pot：浇水壶 & Watering pot
+    fuction:
+      type: wish
+  water1:
+    display: '&3破损的水壶'
+    material: BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    lore:
+      - '&f '
+      - '&7价格: &a免费'
+      - '&7神树成长值: &a1点'
+      - '&f'
+      - '&c该水壶每日限用 &a%use%/3 &c次.'
+    fuction:
+      type: pot
+      #对应着 WaterPots.yml 中的水壶ID & Corresponding to the water pot ID in WaterPots.yml
+      value: pot1
+    slot: [38]
+  water2:
+    display: '&a稀有的水壶'
+    material: WATER_BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    lore:
+      - '&f '
+      - '&7价格: &a1000游戏币'
+      - '&7神树成长值: &a5点'
+      - '&f'
+      - '&c该水壶每日限用 &a%use%/10 &c次.'
+    fuction:
+      type: pot
+      value: pot2
+    slot: [40]
+  water3:
+    display: '&5史诗的水壶'
+    material: LAVA_BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    lore:
+      - '&f '
+      - '&7价格: &a500点券'
+      - '&7神树成长值: &a50点'
+      - '&f'
+      - '&c该水壶每日限用 &a%use%/3 &c次.'
+    fuction:
+      type: pot
+      value: pot3
+    slot: [41]
+  water4:
+    display: '&6超级水壶'
+    material: LAVA_BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    lore:
+      - '&f '
+      - '&7价格: &c高级水壶兑换权券 &a×3'
+      - '&7神树成长值: &a200点'
+      - '&f'
+      - '&c该水壶每日限用 &a%use%/3 &c次.'
+    fuction:
+      type: pot
+      value: pot4
+    slot: [42]
+  back:
+    display: '&c返回'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [36]

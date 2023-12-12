@@ -1,0 +1,180 @@
+#语言 & Language
+lang: Chinese
+#储存方法 ： SQLite MYSQL
+#Store method : SQLite MYSQL
+Store: SQLite
+Mysql:
+  address: localhost
+  port: 3306
+  database: test
+  user: root
+  password: 123456
+HikariCP:
+  connectionTimeout: 30000
+  #连接超时时间 默认值：30000（30秒）
+  #Default connection timeout value: 30000 (30 seconds)
+  minimumIdle: 10
+  #最小空闲连接数
+  #Minimum number of idle connections
+  maximumPoolSize: 50
+  #池允许达到的最大大小，包括空闲和正在使用的连接
+  #The maximum allowed size of the pool, including idle and in use connections
+settings:
+  #跨服模式 数据将会同步各个子服务器
+  #Cross server mode data will be synchronized with each sub server
+  Cross_Server:
+    enable: false
+    #该子服的名称（需与Bungeecord端的config下设定的一致）
+    # The name of the sub server (must be consistent with the config.yml set in Bungerecord)
+    server_name: 主服务器
+  #创建公会相关设置
+  #Create guild related settings
+  create:
+    #最长名字限制 （包含颜色字符）
+    #Maximum name limit (including color characters)
+    max-length: 6
+    #退出、被踢出、解散公会后再次进入或创建一个公会的冷却时间。(分钟为单位)
+    #The cooldown time for entering or creating a guild again after exiting, being kicked out, or disbanding the guild. (in minutes)
+    cooldown: 240
+    #默认组
+    default:
+      #有关于requirements配置请查看
+      #Regarding the requirements configuration, please check
+      #https://gyzerc.github.io/Gyzer.github.io/LegendaryGuild/Requirements.html
+      requirements:
+       - 'vault;5000'
+       - 'playerpoints;100'
+    groups:
+      #ID 可随意取，不能重复
+      #Can be taken freely and cannot be repeated
+      普通会员组:
+        #权重.越小先检测,不可重复
+        #Weight. The smaller the value, the first to be detected and cannot be repeated
+        weight: 3
+        permission: 'legendaryguild.vip'
+        requirements:
+          - 'vault;4000'
+          - 'playerpoints;80'
+      高级会员组:
+        weight: 2
+        permission: 'legendaryguild.svip'
+        requirements:
+          - 'vault;3000'
+          - 'playerpoints;50'
+      超级会员组:
+        weight: 1
+        permission: 'legendaryguild.mvp'
+        requirements:
+          - 'vault;2000'
+          - 'playerpoints;20'
+  #公会红包相关设置
+  #Guild red packet related settings
+  redpacket:
+    #最低红包金额
+    #Minimum red packet money
+    min_total: 100
+    #最低红包个数
+    #Minimum number of red packet
+    min_amount: 2
+  #Guild related settings
+  guild:
+    #每捐赠1游戏币获得多少点贡献
+    #How many contributions do you earn for each donation of 1 game coin (Valut)
+    moneyToPoints: 0.1
+    level:
+      #最高等级
+      #the highest guild level
+      max: 5
+      #每级需要的经验
+      #Experience required for each level
+      require: [ 1000.0,5000.0,10000.0,50000.0,100000.0 ]
+      #每级最大人数
+      #Maximum number of people per level
+      maxmembers: [ 5,10,15,20,25,50 ]
+    #公会神树相关
+    #Guild Tree related
+    tree:
+      #等级
+      #Level
+      level:
+        #最大等级
+        #the highest guild tree level
+        max: 5
+        #Experience required for each level
+        requireExp: [ 1000.0,5000.0,10000.0,50000.0,100000.0 ]
+        #进度条配置
+        #Progress bar configuration
+        bar:
+          #长度
+          length: 10
+          #已达到进度字符
+          #Progress Characters Reached
+          completed: '&a■'
+          #未达到进度字符
+          #Progress character not reached
+          empty: '&c■'
+        #每级升级需要的花费
+        #The cost required for each level of upgrade
+        requirements:
+          0:
+            - 'guild_money;3000'
+          1:
+            - 'guild_money;5000'
+          2:
+            - 'guild_money;10000'
+          3:
+            - 'guild_money;15000'
+          4:
+            - 'guild_money;20000'
+      #神树许愿设置
+      #Guild Tree Wishing Setting
+      wish:
+        #0 级时候许愿执行
+        #Make a wish to execute at level 0
+        0:
+          # %player% 为玩家名称
+          #[player]指令 以玩家执行
+          #[op]xx 以OP权限执行
+          #[console]xx 从后台执行
+          #[message]xx 向玩家发送消息
+          #[title]xx;xx 向玩家发送标题
+          #在最后面添加 ~chance:几率 代表有指定几率执行该行命令
+
+          # %player% For player name
+          #[player]xxx Executed by player
+          #[op]xx Execute with OP permission
+          #[console]xx Execute from the console
+          #[message]xx Send messages to players
+          #[title]xx;xx Send titles to players
+          #Add '~chance:(0~1.0)' on the last side probability represents a specified chance to execute the command line
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 50'
+            #下面为 10%概率执行
+            #The following is a 10% probability of execution
+            - '[console]money give %player% 50 ~chance:0.1'
+        1:
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 150'
+            - '[console]money give %player% 50 ~chance:0.1'
+        2:
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 250'
+            - '[console]money give %player% 50 ~chance:0.1'
+        3:
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 350'
+            - '[console]money give %player% 50 ~chance:0.1'
+        4:
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 450'
+            - '[console]money give %player% 50 ~chance:0.1'
+        5:
+          run:
+            - '[player]say 我完成了每日许愿'
+            - '[console]money give %player% 550'
+            - '[console]money give %player% 50 ~chance:0.1'

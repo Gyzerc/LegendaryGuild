@@ -1,0 +1,80 @@
+title: '&3公会仓库'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+#每个仓库图标的位置
+layout: [11,12,13,14,15,20,21,22,23,24]
+#文本变量
+placeholder:
+  can: '&c点击解锁该仓库'
+  cant: '&7公会等级不足,不可解锁'
+  users_all: '&e全体成员'
+store_item_unlock:
+  display: '&f%id% 号仓库'
+  material: CHEST
+  data: 0
+  model: 0
+  lore:
+    - ''
+    - '&f存储空间: &a%full%/%size%'
+    - '&f可使用的公会成员: &a%users%'
+    - ''
+    - '&b&l➡ &7点击打开'
+    - '&2&l➡ &7Shift+左键添加可使用的成员'
+    - '&c&l➡ &7Shift+右键删去可使用的成员'
+store_item_locked:
+  display: '&f%id% 号仓库'
+  material: CHEST
+  data: 0
+  model: 0
+  lore:
+    - ''
+    - '&f解锁需要:'
+    - '&7 - 公会资金 ×5000'
+    - '&f当前公会资金: &e%money%'
+    - ''
+    - '%placeholder_LockOrCant%'
+customItem:
+  item0:
+    display: '&f&l< &e上一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #next: 下一页 & next page
+    #pre: 上一页 & previous page
+    fuction:
+      type: pre
+    slot: [39]
+  item1:
+    display: '&f&l< &e下一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [41]
+  item5:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [40]

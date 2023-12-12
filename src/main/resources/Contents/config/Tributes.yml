@@ -1,0 +1,37 @@
+tributes:
+  #自定义名称物品示例
+  #Custom display item example
+  tribute1:
+    #检测名称
+    #detection name
+    display: '&c西域宝物'
+    #每个该物品转化的贡献点
+    #The contribution points of each item conversion
+    points: 50
+    #每进贡一个该物品获得的公会经验
+    #Guild experience gained from each tribute of this item
+    exp: 5
+    #是否进行公会内播报
+    #Whether to broadcast within the guild
+    broad: true
+    broad_message: '&a公会成员 &f%player% &a贡献了 &c西域宝物 ×%amount%'
+  #原版物品示例
+  #Vanilla item example
+  tribute2:
+    material: NETHER_STAR
+    data: 0
+    points: 100
+    exp: 10
+    broad: true
+    broad_message: '&a公会成员 &f%player% &a贡献了 &e下届之星 ×%amount%'
+  tribute3:
+    material: DIAMOND
+    display: '&c超级钻石'
+    data: 0
+    points: 200
+    exp: 50
+    broad: true
+    broad_message: '&a公会成员 &f%player% &a贡献了 &c超级钻石 ×%amount%'
+
+
+

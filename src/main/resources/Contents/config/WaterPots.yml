@@ -1,0 +1,43 @@
+pots:
+  # ID
+  pot1:
+    #该水壶的名称 &  The name of the water pot
+    display: '&3破损的水壶'
+    #该水壶的价格、需求.留空则为免费 & The price and demand of this kettle.If left blank, it will be free of charge
+    requirements: []
+    #使用水壶后执行命令组 &  Execute command group after using the water pot
+    run: []
+    #每日该水壶的可使用次数 & The number of times this water pot can be used per day
+    # -1为无限 & -1 is infinite
+    day: 3
+    #增加公会神树成长值 & Increase the growth value of guild tree
+    addExp: 1.0
+    #增加该玩家的公会贡献值 & Increase the guild points value of this player
+    addPoints: 10.0
+  pot2:
+    display: '&a稀有的水壶'
+    run: []
+    #下面的例子为需要 1000 游戏币（Vault） & The following example requires 1000 game coins（Vault）
+    requirements:
+      - 'vault;1000'
+    day: 10
+    addExp: 5.0
+    addPoints: 100.0
+  pot3:
+    display: '&5史诗的水壶'
+    run: []
+    #下面的例子为需要 500 点券（PlayerPoints） & The following example requires 500 points（PlayerPoints）
+    requirements:
+      - 'playerpoints;500'
+    day: 3
+    addExp: 50.0
+    addPoints: 500.0
+  pot4:
+    display: '&6超级水壶'
+    run: []
+    #下面的例子为需要特殊名称的物品×3 & The following examples are three items that require special names
+    requirements:
+      - 'customitem;&c超级水壶兑换权券;3'
+    day: 1
+    addExp: 200.0
+    addPoints: 1000.0

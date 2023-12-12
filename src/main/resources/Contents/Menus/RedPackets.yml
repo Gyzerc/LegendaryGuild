@@ -1,0 +1,81 @@
+title: '&3公会红包'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+#每个红包图标的位置
+layout: [11,12,13,14,15,20,21,22,23,24]
+#文本变量
+placeholder:
+  luck_null: '&c暂无成员'
+#领取前
+redpacket_item_before:
+  display: '&f公会红包 &e(可领取)'
+  material: GOLDEN_APPLE
+  data: 0
+  model: 0
+  lore:
+    - '&f发放成员: &e%owner%'
+    - '&f发放日期: &e%date%'
+    - '&f红包余额: &e%less%/%total%'
+    - '&f红包数量: &e%less_amount%/%amount%'
+    - '&f当前运气王: &e%luck% - %luck_value%'
+    - ''
+    - '&b&l➡ &7点击立即抢红包'
+#领取后
+redpacket_item_after:
+  display: '&f公会红包 &e(已领取)'
+  material: APPLE
+  data: 0
+  model: 0
+  lore:
+    - '&f发放成员: &e%owner%'
+    - '&f发放日期: &e%date%'
+    - '&f红包余额: &e%less%/%total%'
+    - '&f红包数量: &e%less_amount%/%amount%'
+    - '&f当前运气王: &e%luck% - %luck_value%'
+    - ''
+    - '&7[ &c你已经领取过该红包 &7]'
+customItem:
+  item0:
+    display: '&f&l< &e上一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #next: 下一页 & next page
+    #pre: 上一页 & previous page
+    fuction:
+      type: pre
+    slot: [39]
+  item1:
+    display: '&f&l< &e下一页 &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [41]
+  item5:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [40]
