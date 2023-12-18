@@ -4,6 +4,8 @@ import com.legendaryrealms.LegendaryGuild.Data.User.Position;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Manager.User.PositionsManager;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class PostionFile extends FileProvider{
@@ -20,10 +22,10 @@ public class PostionFile extends FileProvider{
         String owner = getValue("owner","会长");
         String member = getValue("default","普通成员");
 
-        Position ownerPos = new Position(owner,legendaryGuild.color(getValue("positions."+owner+".display","&6会长")),getValue("positions."+owner+".weight",0),1);
+        Position ownerPos = new Position(owner,legendaryGuild.color(getValue("positions."+owner+".display","&6会长")),getValue("positions."+owner+".weight",0),1,getValue("positions."+owner+".attrs",new ArrayList<>()));
         manager.setOwnerPosition(ownerPos);
 
-        Position memberPos = new Position(member,legendaryGuild.color(getValue("positions."+member+".display","&f普通成员")),getValue("positions."+member+".weight",99),-1);
+        Position memberPos = new Position(member,legendaryGuild.color(getValue("positions."+member+".display","&f普通成员")),getValue("positions."+member+".weight",99),-1,getValue("positions."+member+".attrs",new ArrayList<>()));
         manager.setDefaultPosition(memberPos);
 
         getSection("positions").ifPresent(configurationSection -> {
@@ -55,7 +57,8 @@ public class PostionFile extends FileProvider{
                     max = configurationSection.getInt(id+".max");
                 }
 
-                manager.addPostion(id,new Position(id,display,weight,max));
+                List<String> attrs = configurationSection.getStringList(id+".attrs");
+                manager.addPostion(id,new Position(id,display,weight,max,attrs));
             }
         });
 

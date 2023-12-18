@@ -1,5 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Data.Others;
 
+import com.legendaryrealms.LegendaryGuild.Utils.serializeUtils;
+
 import java.util.*;
 
 public class StringStore<T>{
@@ -19,7 +21,13 @@ public class StringStore<T>{
         StringBuilder builder = new StringBuilder();
         try {
             for (Map.Entry<String, T> entry : map.entrySet()){
-                builder.append(entry.getKey()).append(":").append(String.valueOf(entry.getValue())).append("⁝");
+                T value = entry.getValue();
+                String add = value.toString();
+                if (value instanceof List){
+                    add = serializeUtils.ListToStr((List<String>) value);
+                    System.out.println("检测到list");
+                }
+                builder.append(entry.getKey()).append(":").append(add).append("⁝");
             }
             return builder.toString();
         } catch (ClassCastException e){

@@ -15,7 +15,9 @@ public class PlayerPositionChangeEvent extends Event {
     private User user;
     private String oldPositionId;
     private String newPositionId;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public PlayerPositionChangeEvent(User user, String oldPositionId, String newPositionId) {
         this.user = user;
         this.oldPositionId = oldPositionId;

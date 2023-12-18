@@ -8,7 +8,7 @@ import com.legendaryrealms.LegendaryGuild.Menu.Loaders.MembersLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
-import me.clip.placeholderapi.PlaceholderAPI;
+import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -33,11 +33,11 @@ public class MembersPanel extends MenuDraw {
         DrawEssentailSpecial(inv,menuItem -> {
             if (menuItem.getFuction().equals("sort")){
                 ItemStack i = menuItem.getI();
-                ItemMeta id = i.getItemMeta();
-                List<String> lore = id.hasLore() ? new ArrayList<>(id.getLore()) : new ArrayList<>();
-                lore.replaceAll(l -> l.replace("%placeholder_sort%",getPlaceHolder(sort.getPlaceholder())));
-                id.setLore(lore);
-                i.setItemMeta(id);
+
+                ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                        .addSinglePlaceHolder("placeholder_sort",getPlaceHolder(sort.getPlaceholder()));
+
+                menuItem.setI(replaceHolderUtils.startReplace(i,false,null));
             }
         });
     }
@@ -62,7 +62,7 @@ public class MembersPanel extends MenuDraw {
                         ItemMeta id = i.getItemMeta();
                         id.setDisplayName(load.getMm_display().replace("%player%",target));
                         List<String> lore = load.getMm_lore();
-                        lore = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(target),lore);
+                        lore = LegendaryGuild.getInstance().getHookManager().getPlaceholderAPIHook().replaceHolder(lore, Bukkit.getOfflinePlayer(target));
                         lore.replaceAll(l -> l.replace("%date%",targetUser.getDate())
                                 .replace("%total_points%",""+targetUser.getTotal_points())
                                 .replace("%position%",position.getDisplay()));

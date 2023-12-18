@@ -101,10 +101,15 @@ public class BuffPanel extends MenuDraw {
                 if (buff != null) {
                     User user = UserAPI.getUser(p.getName());
                     Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
-                    if (GuildAPI.addGuildBuffLevel(guild,p,buff)){
-                        BuffPanel panel=new BuffPanel(p,page);
-                        panel.open();
+                    if (guild.getOwner().equals(p.getName())) {
+                        if (GuildAPI.addGuildBuffLevel(guild, p, buff)) {
+                            BuffPanel panel = new BuffPanel(p, page);
+                            panel.open();
+                        }
+                        return;
                     }
+                    p.sendMessage(lang.plugin+lang.notowner);
+                    return;
                 }
             }
         }

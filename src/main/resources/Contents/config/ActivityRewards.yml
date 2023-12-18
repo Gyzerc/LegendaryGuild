@@ -1,0 +1,32 @@
+rewards:
+  # ID
+  rewards1:
+    #名称
+    # display
+    display: '&7活跃度奖励.1'
+    # 活跃度要求
+    # Activity requirements
+    activity: 500
+    # 领取后执行
+    # Execute after receiving
+    run:
+      - '[guild_points]50'
+      - '[console]money give %player% 100'
+  rewards2:
+    display: '&e活跃度奖励.2'
+    activity: 2000
+    run:
+      - '[guild_points]150'
+      - '[console]money give %player% 500'
+  rewards3:
+    display: '&c活跃度奖励.3'
+    activity: 6000
+    run:
+      - '[guild_points]300'
+      - '[console]money give %player% 1000'
+  rewards4:
+    display: '&6活跃度奖励.4'
+    activity: 10000
+    run:
+      - '[guild_points]500'
+      - '[console]money give %player% 2000'

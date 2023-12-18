@@ -67,8 +67,8 @@ public class BuffsManager {
         return new LinkedList<>(cache.values());
     }
 
-    public void hook(AttributePlus3 attributePlus3) {
-        provider = attributePlus3;
+    public void hook(AttributePluginProvider attributePluginProvider) {
+        provider = attributePluginProvider;
     }
 
     public AttributePluginProvider getProvider() {

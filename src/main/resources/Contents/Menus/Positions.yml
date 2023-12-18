@@ -1,0 +1,81 @@
+title: '&6&l公会职位'
+size: 27
+sound: ENTITY_PLAYER_LEVELUP
+customItem:
+  owner:
+    display: '&9职位 &f- %display%'
+    material: DIAMOND_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&e在位人数: &a%amount%'
+      - ''
+      - '&2职位Buff:'
+      - '&f - 攻击力 +20'
+      - '&3会长名称:'
+      - '&f · &b%members%'
+    slot: [ 4 ]
+    fuction:
+      type: position
+      value: 会长
+  zl:
+    display: '&9职位 &f- %display%'
+    material: GOLDEN_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&e在位人数: &a%amount%'
+      - ''
+      - '&2职位Buff:'
+      - '&f - 攻击力 +15'
+      - '&3在位成员:'
+      - '&f · &b%members%'
+      - ''
+      - '&8[ &a左键任命成员 &8]'
+      - '&8[ &c右键取消任命 &8]'
+    slot: [ 12 ]
+    fuction:
+      type: position
+      value: 长老
+  jycy:
+    display: '&9职位 &f- %display%'
+    material: GOLDEN_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&e在位人数: &a%amount%'
+      - ''
+      - '&2职位Buff:'
+      - '&f - 攻击力 +10'
+      - '&3在位成员:'
+      - '&f · &b%members%'
+      - ''
+      - '&8[ &a左键任命成员 &8]'
+      - '&8[ &c右键取消任命 &8]'
+    slot: [ 14 ]
+    fuction:
+      type: position
+      value: 精英成员
+  back:
+    display: '&c返回'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [22]
+  deco1:
+    display: '&f'
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26]

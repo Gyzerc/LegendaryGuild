@@ -1,6 +1,8 @@
 package com.legendaryrealms.LegendaryGuild.Manager.Guild;
 
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
+import com.legendaryrealms.LegendaryGuild.Menu.Panels.GuildListPanel;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
@@ -11,11 +13,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class GuildsManager {
 
@@ -33,7 +33,48 @@ public class GuildsManager {
     }
 
     public void reloadGuildIfCached(String guild){
-        cache.put(guild,legendaryGuild.getDataBase().getGuild(guild).get());
+        if (cache.containsKey(guild)) {
+            cache.put(guild, legendaryGuild.getDataBase().getGuild(guild).get());
+        }
+    }
+    public void removeGuildCache(String guild){
+        cache.remove(guild);
+    }
+
+
+    public List<Guild> getGuildsBy(GuildListPanel.Sort sort){
+
+        List<Guild> guilds = legendaryGuild.getGuildsManager().getGuilds().stream().map(s -> {
+            return legendaryGuild.getGuildsManager().getGuild(s);
+        }).collect(Collectors.toList());
+
+        if (sort.equals(GuildListPanel.Sort.DEFAULT)){
+            return guilds;
+        }
+
+        Collections.sort(guilds, new Comparator<Guild>() {
+            @Override
+            public int compare(Guild o1, Guild o2) {
+                switch (sort){
+                    case LEVEL:
+                        return (o1.getLevel() > o2.getLevel()) ? -1 : ((o1.getLevel() == o2.getLevel()) ? 0 : 1);
+                    case MONEY:
+                        return (o1.getMoney() > o2.getMoney()) ? -1 : ((o1.getMoney() == o2.getMoney()) ? 0 : 1);
+                    case MEMBERS:
+                        int a1 = o1.getMembers().size();
+                        int a2 = o2.getMembers().size();
+                        return (a1 > a2) ? -1 : ((a1 == a2) ? 0 : 1);
+                    case ACTIVITY:
+                        GuildActivityData data1 = legendaryGuild.getGuildActivityDataManager().getData(o1.getGuild());
+                        GuildActivityData data2 = legendaryGuild.getGuildActivityDataManager().getData(o2.getGuild());
+                        return (data1.getPoints() > data2.getPoints()) ? -1 : ((data1.getPoints() == data2.getPoints()) ? 0 : 1);
+                    case TREELEVEL:
+                        return (o1.getTreelevel() > o2.getTreelevel()) ? -1 : ((o1.getTreelevel() == o2.getTreelevel()) ? 0 : 1);
+                }
+                return -1;
+            }
+        });
+        return guilds;
     }
 
     public Guild createGuild(String guild, User user){
@@ -97,6 +138,9 @@ public class GuildsManager {
     }
 
     public void loadGuilds(){
+        legendaryGuild.sync(new Runnable() {
+            @Override
+            public void run() {
                 getGuilds().forEach(g -> {
                     Guild guild = legendaryGuild.getDataBase().getGuild(g).orElse(null);
                     if (guild != null) {
@@ -104,5 +148,8 @@ public class GuildsManager {
                     }
                 });
                 legendaryGuild.info("载入 "+cache.size()+" 个公会.", Level.INFO);
+            }
+        });
+
     }
 }

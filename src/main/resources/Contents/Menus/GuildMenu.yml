@@ -1,0 +1,268 @@
+title: '&6&l公会面板'
+#公会界面尺寸
+size: 54
+customItem:
+  infomation:
+    display: '&3公会信息'
+    material: OAK_SIGN
+    data: 0
+    model: 0
+    lore:
+      - '&2&o创建于 %date%'
+      - ''
+      - '&f公会会长: &a%owner%'
+      - '&f公会等级: &a%level% &8(&e%exp%/%next%&8)'
+      - '&f公会神树等级: &a%treelevel% &8(&e%treeexp%/%treenext%&8)'
+      - '&f公会资金: &a%money%'
+      - '&f公会人数: &a%members%/%maxmembers%'
+      - '&f公会活跃度: &a%activity%'
+      - '&f公会介绍:'
+      - '%intro%'
+      - ''
+      - '&f[ &b左键增加一条公会介绍 &f]'
+      - '&f[ &c右键删去最后一条介绍 &f]'
+    fuction:
+      type: information
+    slot: [11]
+  notice:
+    display: '&3公会公告'
+    material: BOOK
+    data: 0
+    model: 0
+    lore:
+      - '&f - &e%notice%'
+      - ''
+      - '&f[ &b左键增加一条公会介绍 &f]'
+      - '&f[ &c右键删去最后一条介绍 &f]'
+    fuction:
+      type: notice
+    slot: [12]
+  home:
+    display: '&b公会驻地'
+    material: ENDER_EYE
+    data: 0
+    model: 0
+    lore:
+      - '&f返回或设置公会 &6驻地'
+      - ''
+      - '&f[ &b左键返回公会驻地 &f]'
+      - '&f[ &c右键设置公会驻地 &f]'
+    fuction:
+      type: home
+    slot: [13]
+  tree:
+    display: '&b公会神树'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6公会神树 &f界面'
+      - '&f在这里为神树 &e浇灌、许愿'
+      - ''
+      - '&c&l神树信息:'
+      - ' &f· 等级: &b%level%'
+      - ' &f· 成长值: &b%exp%/%next% &8(%bar%&8)'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: tree
+    slot: [14]
+  shop:
+    display: '&b公会商店'
+    material: BEACON
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6公会商店 &f界面'
+      - '&f在这里用 &e贡献值 &f购买商品'
+      - ''
+      - '&c&l信息:'
+      - ' &f· 当前可用贡献点: &b%points%'
+      - ' &f· 历史累计贡献点: &b%total_points%'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: shop
+    slot: [15]
+  activity:
+    display: '&a公会活跃度奖励'
+    material: EXPERIENCE_BOTTLE
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6活跃度奖励 &f界面'
+      - '&f在这里领取 &e公会活跃度奖励'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: activity
+    slot: [29]
+  tribute:
+    display: '&c贡献宝物'
+    material: EMERALD
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6宝物贡献 &f界面'
+      - '&f在这里用 &e贡献宝物 &f以获取 &e贡献值以及公会经验.'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: tributes
+    slot: [30]
+  redpackets:
+    display: '&c公会红包'
+    material: JUKEBOX
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6公会红包 &f界面'
+      - '&f在这里抢公会成员发放的 &e红包'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: redpackets
+    slot: [31]
+  stores:
+    display: '&c公会仓库'
+    material: CHEST
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6公会仓库 &f界面'
+      - '&f在这里使用公会共同的仓库'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: stores
+    slot: [32]
+  buff:
+    display: '&c公会增益'
+    material: REDSTONE
+    data: 0
+    model: 0
+    lore:
+      - '&f进入 &6公会Buff &f界面'
+      - '&f在这里 &e查看、升级 &f公会增益'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: buff
+    slot: [33]
+  giveMoney:
+    display: '&d捐赠资金'
+    material: GOLD_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&f向公会捐赠 &6资金 &f以获得贡献点'
+      - ''
+      - '&f[ &e请使用&a/guild money 数量 &f]'
+    fuction:
+      type: none
+    slot: [38]
+  POSITION:
+    display: '&6公会职位'
+    material: NETHER_STAR
+    data: 0
+    model: 0
+    lore:
+      - '&f查看公会所有 &6职位 &f以及在位成员'
+      - ''
+      - '&c&l信息:'
+      - ' &f· 你的职位: %position%'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: positions
+    slot: [39]
+  members:
+    display: '&2公会成员'
+    material: PLAYER_HEAD
+    data: 0
+    model: 0
+    lore:
+      - '&f查看公会所有 &6成员'
+      - ''
+      - '&c&l信息:'
+      - ' &f· 当前公会人数: %members%/%maxmembers%'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: members
+    slot: [40]
+  appplications:
+    display: '&e入会申请'
+    material: WRITABLE_BOOK
+    data: 0
+    model: 0
+    lore:
+      - '&f查看公会所有待处理的 &6入会申请'
+      - ''
+      - '&c&l信息:'
+      - ' &f· 待处理请求: %amount%'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: applications
+    slot: [41]
+  icons:
+    display: '&7公会图标'
+    material: PAPER
+    data: 0
+    model: 0
+    lore:
+      - '&f更换公会的 &6图标'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: icon
+    slot: [42]
+  pvp:
+    display: '&c公会保护模式'
+    material: SHIELD
+    data: 0
+    model: 0
+    lore:
+      - '&f切换公会 &6PVP保护'
+      - '&f当开启时,你将不会受到 &e同公会玩家 &f的伤害'
+      - '&f且不会对 &e同公会玩家 &f造成伤害'
+      - ''
+      - '&f[ &a点击切换 &f]'
+    fuction:
+      type: pvp
+    slot: [47]
+  chat:
+    display: '&b公会聊天'
+    material: STRING
+    data: 0
+    model: 0
+    lore:
+      - '&f切换公会 &6聊天'
+      - '&f当开启时,你的聊天不会被 &e非公会'
+      - '&f的玩家所看见'
+      - ''
+      - '&f[ &a点击切换 &f]'
+    fuction:
+      type: chat
+    slot: [48]
+  deco1:
+    display: '&f '
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26,27,35,36,44,45,53]
+  deco2:
+    display: '&f '
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [1-7,10,16,19-25,28,34,37,43,46,52]

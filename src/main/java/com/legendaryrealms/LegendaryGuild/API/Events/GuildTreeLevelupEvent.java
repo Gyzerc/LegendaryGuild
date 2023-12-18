@@ -10,7 +10,9 @@ public class GuildTreeLevelupEvent extends Event {
     public HandlerList getHandlers() {
         return handlers;
     }
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     private Guild guild;
     private int oldLevel;
     private int newLevel;

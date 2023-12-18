@@ -19,6 +19,7 @@ public class User {
     private double points;
     private double total_points;
     private PvpType pvp;
+    private boolean chat;
 
     public User(String player, String guild, String position, String date, WaterDataStore waterDataStore, int cooldown, boolean wish, boolean teleport_guild_home, double points, double total_points,PvpType pvp) {
         this.player = player;
@@ -32,10 +33,16 @@ public class User {
         this.points = points;
         this.total_points = total_points;
         this.pvp = pvp;
+        this.chat = false;
     }
 
+    public boolean isChat() {
+        return chat;
+    }
 
-
+    public void setChat(boolean chat) {
+        this.chat = chat;
+    }
 
     public boolean hasGuild(){
         if (this.guild == null){

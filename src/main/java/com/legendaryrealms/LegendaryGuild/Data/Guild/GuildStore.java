@@ -74,7 +74,6 @@ public class GuildStore {
         data.forEach((integer, storeData) -> {
             String nbt = NBT.itemStackArrayToNBT(storeData.getContents()).toString();
             builder.append(storeData.getId()).append("⁝").append(storeData.getUse()).append("⁝").append(serializeUtils.ListToStr(storeData.getWhite())).append("⁝").append(nbt).append("⁞");
-
         });
         return builder.toString();
     }

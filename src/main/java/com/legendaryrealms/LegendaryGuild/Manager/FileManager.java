@@ -16,6 +16,7 @@ public class FileManager {
         this.tributesFile = new TributesFile(legendaryGuild);
         this.guildShopFile = new GuildShopFile(legendaryGuild);
         this.buffFile = new BuffFile(legendaryGuild);
+        this.activityRewardsFile = new ActivityRewardsFile(legendaryGuild);
     }
 
     public Config getConfig() {
@@ -54,6 +55,10 @@ public class FileManager {
         return buffFile;
     }
 
+    public ActivityRewardsFile getActivityRewardsFile() {
+        return activityRewardsFile;
+    }
+
     private Config config;
     private Lang lang;
     private PostionFile postionFile;
@@ -63,5 +68,5 @@ public class FileManager {
     private TributesFile tributesFile;
     private GuildShopFile guildShopFile;
     private BuffFile buffFile;
-
+    private ActivityRewardsFile activityRewardsFile;
 }

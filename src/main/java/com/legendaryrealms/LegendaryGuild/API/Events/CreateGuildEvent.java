@@ -7,6 +7,9 @@ import org.bukkit.event.HandlerList;
 
 public class CreateGuildEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     private Player p;
     private Guild guild;
 

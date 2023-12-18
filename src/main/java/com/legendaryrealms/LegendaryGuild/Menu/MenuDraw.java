@@ -4,7 +4,7 @@ import com.legendaryrealms.LegendaryGuild.Data.Others.Buff;
 import com.legendaryrealms.LegendaryGuild.Data.Others.IntStore;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
-import me.clip.placeholderapi.PlaceholderAPI;
+import com.legendaryrealms.LegendaryGuild.Menu.Panels.GuildMenuPanel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -69,7 +69,8 @@ public abstract class MenuDraw implements InventoryHolder{
                     ItemStack i = newMenu.getI();
                     ItemMeta id =i.getItemMeta();
                     List<String> lore = id.hasLore() ? id.getLore() : new ArrayList<>();
-                    lore = PlaceholderAPI.setPlaceholders(p,lore);
+                    lore = LegendaryGuild.getInstance().getHookManager().getPlaceholderAPIHook().replaceHolder(lore, Bukkit.getOfflinePlayer(p.getName()));
+
                     id.setLore(lore);
                     i.setItemMeta(id);
 
@@ -94,7 +95,8 @@ public abstract class MenuDraw implements InventoryHolder{
                     return true;
                 }
                 case "back": {
-
+                    GuildMenuPanel guildMenuPanel = new GuildMenuPanel(p);
+                    guildMenuPanel.open();
                     return true;
                 }
                 case "none":

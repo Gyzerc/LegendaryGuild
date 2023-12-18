@@ -1,0 +1,90 @@
+title: '&a&l公会活跃度奖励'
+size: 27
+placeholder:
+  wait: '&a可领取'
+  already: '&e已领取'
+  cant: '&c无法领取'
+customItem:
+  reward1:
+    display: '&7活跃度奖励.1'
+    material: COAL
+    data: 0
+    model: 0
+    lore:
+      - '&3活跃度要求: &f500'
+      - '&3当前公会活跃度: &f%activity%'
+      - ''
+      - '&a&l奖励:'
+      - '&f - 贡献点 ×50'
+      - '&f - 游戏币 ×100'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [12]
+    fuction:
+      type: activity
+      #对应者 Contents/config/ActivityRewards.yml 的奖励id
+      value: rewards1
+  reward2:
+    display: '&e活跃度奖励.2'
+    material: IRON_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&3活跃度要求: &f2000'
+      - '&3当前公会活跃度: &f%activity%'
+      - ''
+      - '&a&l奖励:'
+      - '&f - 贡献点 ×150'
+      - '&f - 游戏币 ×500'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [13]
+    fuction:
+      type: activity
+      value: rewards2
+  reward3:
+    display: '&C活跃度奖励.3'
+    material: GOLD_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&3活跃度要求: &f6000'
+      - '&3当前公会活跃度: &f%activity%'
+      - ''
+      - '&a&l奖励:'
+      - '&f - 贡献点 ×300'
+      - '&f - 游戏币 ×1000'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [14]
+    fuction:
+      type: activity
+      value: rewards3
+  reward4:
+    display: '&6活跃度奖励.4'
+    material: DIAMOND
+    data: 0
+    model: 0
+    lore:
+      - '&3活跃度要求: &f10000'
+      - '&3当前公会活跃度: &f%activity%'
+      - ''
+      - '&a&l奖励:'
+      - '&f - 贡献点 ×500'
+      - '&f - 游戏币 ×2000'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [15]
+    fuction:
+      type: activity
+      value: rewards4
+  item5:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [10]

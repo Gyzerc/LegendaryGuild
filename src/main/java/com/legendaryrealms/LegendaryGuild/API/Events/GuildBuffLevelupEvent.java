@@ -20,7 +20,9 @@ public class GuildBuffLevelupEvent extends Event {
         this.buff = buff;
         this.amount = amount;
     }
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public Guild getGuild() {
         return guild;
     }

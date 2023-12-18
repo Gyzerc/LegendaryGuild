@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.legendaryrealms.LegendaryGuild</groupId>
   <artifactId>LegendaryGuild</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>5.0.1-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -61,6 +61,14 @@
       <id>codemc-repo</id>
       <url>https://repo.codemc.io/repository/maven-public/</url>
     </repository>
+    <repository>
+      <id>phoenix</id>
+      <url>https://nexus.phoenixdevt.fr/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <id>dmulloy2-repo</id>
+      <url>https://repo.dmulloy2.net/repository/public/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -100,11 +108,38 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>io.lumine</groupId>
+      <artifactId>MythicLib-dist</artifactId>
+      <version>1.5.2-SNAPSHOT</version>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.comphenix.protocol</groupId>
+      <artifactId>ProtocolLib</artifactId>
+      <version>5.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.serverct.ersha</groupId>
       <artifactId>AttributePlus3.0</artifactId>
       <version>3.3.2.0</version>
       <scope>system</scope>
       <systemPath>${basedir}/src/depend/AttributePlus-3.3.2.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.serverct.ersha.jd</groupId>
+      <artifactId>AttributePlus2.0</artifactId>
+      <version>2.3.7</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/src/depend/AttributePlus-2.3.7.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>github.saukiya.sxattribute</groupId>
+      <artifactId>SX-Attribute-2.0.3</artifactId>
+      <version>2.0.3</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/src/depend/SX-Attribute-2.0.3.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>

@@ -1,6 +1,8 @@
 package com.legendaryrealms.LegendaryGuild.Utils;
 
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
+import com.legendaryrealms.LegendaryGuild.Command.AdminCommands.ActivityCommand;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
@@ -96,6 +98,33 @@ public class RunUtils {
                         }
                     }
                     break;
+                case "guild_money":
+                    if ((new Random()).nextInt(101) <= chance*100){
+                        User user = UserAPI.getUser(p.getName());
+                        if (user.hasGuild()) {
+                            Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
+                            double amount = Double.parseDouble(dealStr);
+                            guild.addMoney(amount);
+                            guild.updata();
+                        }
+                    }
+                    break;
+                case "guild_points":
+                    if ((new Random()).nextInt(101) <= chance*100) {
+                        User user = UserAPI.getUser(p.getName());
+                        if (user.hasGuild()) {
+                            user.addPoints(Double.parseDouble(dealStr),true);
+                            user.update();
+                        }
+                    }
+                    break;
+                case "guild_activity":
+                    if ((new Random()).nextInt(101) <= chance*100) {
+                        User user = UserAPI.getUser(p.getName());
+                        if (user.hasGuild()) {
+                            GuildAPI.addGuildActivity(p,null,Double.parseDouble(dealStr), ActivityCommand.AddType.PLAYER);
+                        }
+                    }
             }
             return;
         }

@@ -100,7 +100,7 @@ customItem:
       - '&f神树等级 &c越高 &f获得的馈赠就越好.'
       - ''
       - '&f[ &a点击许愿 &f]'
-    slot: [31]
+    slot: [29]
     #none:点击后没有任何效果 &  No effect after clicking
     #cmd:点击后执行指令 &  Execute command after clicking
     # - format：
@@ -191,4 +191,24 @@ customItem:
       - ''
     fuction:
       type: back
-    slot: [36]
+    slot: [49]
+  deco1:
+    display: '&f '
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [1-7,10-12,14-16,19-25,28,34,37,43,46-48,50-52]
+  deco2:
+    display: '&f '
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26,27,35,36,44,45,53]

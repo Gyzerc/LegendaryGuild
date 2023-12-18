@@ -8,7 +8,9 @@ public class GuildExpChangeEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
     private Guild guild;
     private double amount;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuildExpChangeEvent(Guild guild, double amount) {
         this.guild = guild;
         this.amount = amount;

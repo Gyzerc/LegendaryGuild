@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.API;
 
 import com.legendaryrealms.LegendaryGuild.API.Events.*;
+import com.legendaryrealms.LegendaryGuild.Command.AdminCommands.ActivityCommand;
 import com.legendaryrealms.LegendaryGuild.Data.Others.Buff;
 import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
 import com.legendaryrealms.LegendaryGuild.Files.Config;
@@ -393,6 +394,10 @@ public class GuildAPI {
 
         StringStore data = guild.getBuffs();
         int current = Integer.parseInt(data.getValue(buff.getId(),0).toString());
+        if (current >= guild.getLevel()){
+            owner.sendMessage(lang.plugin+lang.buff_cant);
+            return false;
+        }
         int max = buff.getMax();
         if (current >= max) {
             owner.sendMessage(lang.plugin+lang.buff_max);
@@ -418,6 +423,99 @@ public class GuildAPI {
         return true;
     }
 
+    public static void deleteGuild(Guild guild){
+
+        String name = guild.getGuild();
+        guild.getMembers().forEach(m -> {
+
+            User user = UserAPI.getUser(m);
+            user.setGuild(lang.default_guild);
+            user.setPosition(lang.default_position);
+            user.setPoints(0,false);
+            user.setTotal_points(0);
+            user.update();
+
+            //发送消息
+            legendaryguild.getMsgUtils().sendMessage(m,lang.plugin+lang.delete_broad_members);
+        });
+        //移除公会数据并同步至其他子服务器
+        guild.delete();
+
+        //发送通报
+        lang.delete_broad.forEach(msg -> {
+            legendaryguild.getMsgUtils().sendBroad(msg.replace("%value%",name));
+        });
+
+        Bukkit.getPluginManager().callEvent(new GuildDeleteEvent(guild));
+    }
+
+    public static void addGuildActivity(Player p, Guild guild, double amount, ActivityCommand.AddType type){
+
+        Guild addGuild = guild;
+        if (type.equals(ActivityCommand.AddType.PLAYER)){
+            if (p!=null){
+                p.sendMessage(lang.plugin+lang.activity_gain.replace("%value%",""+amount));
+            }
+            User user = UserAPI.getUser(p.getName());
+            if (!user.hasGuild()){
+                return;
+            }
+            addGuild = legendaryguild.getGuildsManager().getGuild(user.getGuild());
+
+        }
+
+        GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(addGuild.getGuild());
+        data.setPoints( data.getPoints() + amount);
+        data.updata();
+
+        Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(addGuild, GuildActivityChangeEvent.ChangeType.Add,amount));
+    }
+
+    public static double takeGuildActivity(Player p, Guild guild,double amount, ActivityCommand.AddType type){
+        Guild takeGuild = guild;
+        if (type.equals(ActivityCommand.AddType.PLAYER)){
+            if (p==null){
+                return 0.0;
+            }
+            User user = UserAPI.getUser(p.getName());
+            if (!user.hasGuild()){
+                return 0.0;
+            }
+            takeGuild = legendaryguild.getGuildsManager().getGuild(user.getGuild());
+        }
+
+        GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(takeGuild.getGuild());
+        double take = Math.min(data.getPoints(), amount);
+        data.setPoints( data.getPoints() - take);
+        data.updata();
+
+        Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(takeGuild, GuildActivityChangeEvent.ChangeType.Take,take));
+
+        return take;
+    }
+
+    public static double setGuildActivity(Player p, Guild guild,double amount, ActivityCommand.AddType type){
+        Guild setGuild = guild;
+        if (type.equals(ActivityCommand.AddType.PLAYER)){
+            if (p==null){
+                return 0.0;
+            }
+            User user = UserAPI.getUser(p.getName());
+            if (!user.hasGuild()){
+                return 0.0;
+            }
+            setGuild = legendaryguild.getGuildsManager().getGuild(user.getGuild());
+        }
+
+        GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(setGuild.getGuild());
+        double set = Math.min(0,amount);
+        data.setPoints(set);
+        data.updata();
+
+        Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(setGuild, GuildActivityChangeEvent.ChangeType.Set,set));
+
+        return set;
+    }
 
     public static void updataGuildMembersBuff(Guild guild) {
         if (legendaryguild.getBuffsManager().getProvider() != null) {

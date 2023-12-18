@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Data.Database;
 
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild_Redpacket;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
@@ -18,10 +19,13 @@ public abstract class DataProvider {
     public abstract void closeDataBase();
     public abstract void createTable(DatabaseTable table);
     public abstract boolean isExist(DatabaseTable table);
+    public abstract Optional<String> getSystemData(String key);
+    public abstract void saveSystemData(String key,String value);
     public abstract Optional<User> getUser(String player);
     public abstract void saveUser(User user);
     public abstract List<String> getGuilds();
     public abstract Optional<Guild> getGuild(String guild);
+    public abstract void deleteGuild(String string);
     public abstract void saveGuild(Guild guild);
     public abstract GuildStore getStore(String guild);
     public abstract void saveStore(GuildStore store);
@@ -30,11 +34,21 @@ public abstract class DataProvider {
     public abstract GuildShopData getGuildShopData();
     public abstract void saveGuildShopData(GuildShopData data);
     public abstract void deleteGuildShopData(String type);
+
+    public abstract Optional<GuildActivityData> getGuildActivityData(String guild);
+    public abstract void saveGuildActivityData(GuildActivityData data);
+    public abstract void deleteGuildActivityData();
+
     public enum DatabaseType {
         MYSQL,SQLite
     }
 
     public enum DatabaseTable{
+        SYSTEM_PLACEHODER("system_placeholder",new Builder("system_placeholder")
+                .addVarcharKey("name",32)
+                .addTextKey("value")
+                .build("name")),
+
         GUILD_DATA("guild_data",
                 new Builder("guild_data")
                         .addVarcharKey("guild",32)
@@ -77,14 +91,23 @@ public abstract class DataProvider {
                 .addVarcharKey("guild",32)
                 .addTextKey("data")
                 .build("guild")),
+
         GUILD_REDPACKET("guild_redpacket",new Builder("guild_redpacket")
                 .addVarcharKey("guild",32)
                 .addTextKey("data")
                 .build("guild")),
+
         GUILD_SHOP("guild_shop",new Builder("guild_shop")
                 .addVarcharKey("type",32)
                 .addTextKey("data")
-                .build("type"));
+                .build("type")),
+
+        GUILD_ACTIVITY_DATA("guild_activity_data",new Builder("guild_activity_data")
+                .addVarcharKey("guild",32)
+                .addDoubleKey("points")
+                .addTextKey("claimed")
+                .build("guild"));
+
 
         private String name;
         private Builder builder;
@@ -106,6 +129,7 @@ public abstract class DataProvider {
         private String tableName;
         private String mainKey;
         private StringBuilder stringBuilder;
+
 
         public Builder(String tableName) {
             this.tableName = tableName;

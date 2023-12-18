@@ -1,9 +1,14 @@
 package com.legendaryrealms.LegendaryGuild.Manager.Guild;
 
+import com.google.common.collect.Iterables;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -31,41 +36,19 @@ public class GuildShopDataManager {
             @Override
             public void run() {
                 legendaryGuild.getDataBase().saveGuildShopData(data);
+                Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
+                if (p != null) {
+                    new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+                            .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_GUILD_SHOP, "null"))
+                            .setReciver("ALL")
+                            .sendPluginMessage(p);
+                }
             }
         });
 
     }
 
-    public void saveData(){
-        legendaryGuild.getDataBase().saveGuildShopData(data);
-    }
-
     public void reloadData() {
         data = legendaryGuild.getDataBase().getGuildShopData();
-    }
-
-    public void checkDate(){
-        Calendar calendar = Calendar.getInstance();
-        int today = calendar.get(Calendar.DATE);
-        int thisWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        int thisMonth = calendar.get(Calendar.MONTH);
-        if (data.getLast_date() != today) {
-            data.setLast_date(today);
-            saveData();
-            legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Day.name());
-            legendaryGuild.info("新的一天到来了,公会日常限购数据刷新.",Level.INFO);
-        }
-        if (data.getLast_week() != thisWeek) {
-            data.setLast_week(thisWeek);
-            saveData();
-            legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Week.name());
-            legendaryGuild.info("新的一周到来了,公会每周限购数据刷新.",Level.INFO);
-        }
-        if (data.getLast_month() != thisMonth) {
-            data.setLast_month(thisMonth);
-            saveData();
-            legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Month.name());
-            legendaryGuild.info("新的月份到来了,公会每月限购数据刷新.",Level.INFO);
-        }
     }
 }

@@ -7,16 +7,25 @@ positions:
   会长:
     #职位权重 用于成员列表界面的按公会职位排序
     weight: 0
+    #展示名称
     display: '&6会长'
+    #buff （需Buff.yml中开启该模块功能才生效）
+    attrs:
+      - '攻击力 +20'
   普通成员:
     weight: 3
     display: '&f普通成员'
+    attrs: []
   精英成员:
     weight: 2
     display: '&a精英成员'
     #最多可以任命多少个该职位的人数
     max: 5
+    attrs:
+      - '攻击力 +10'
   长老:
     weight: 1
     display: '&e长老'
     max: 2
+    attrs:
+      - '攻击力 +15'

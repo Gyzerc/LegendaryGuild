@@ -32,6 +32,7 @@ public class Lang extends FileProvider{
     public String nopass_position;
     public String nopass_chance;
     public String no_panel;
+    public String input;
     public String isowner;
     public String member_max;
     public List<String> help_player;
@@ -68,6 +69,9 @@ public class Lang extends FileProvider{
     public String admin_bufflevel_take;
     public String admin_bufflevel_set;
     public String admin_buff_null;
+    public String admin_activity_add;
+    public String admin_activity_take;
+    public String admin_activity_set;
     public String default_null;
     public String default_guild;
     public String default_position;
@@ -133,6 +137,49 @@ public class Lang extends FileProvider{
     public String shop_limit;
     public String buff_levelup;
     public String buff_max;
+    public String buff_cant;
+    public String pvp_enable;
+    public String pvp_disable;
+    public String pvp_cant;
+    public String pvp_cant_target;
+    public String quit_message;
+    public String quit_broad;
+    public String quit_owner;
+    public String delete_confirm;
+    public String delete_message;
+    public String delete_broad_members;
+    public List<String> delete_broad;
+    public String give_message;
+    public String give_message_target;
+    public String give_broad;
+    public String activity_gain;
+    public String activity_join_tip;
+    public String activity_claim;
+    public String activity_cant_claim;
+    public String activity_already_claimed;
+    public String positions_add_write;
+    public String positions_remove_write;
+    public String positions_max;
+    public String positions_message;
+    public String positions_message_target;
+    public String positions_message_cancel;
+    public String positions_message_cancel_target;
+    public String money_message;
+    public String money_message_broad;
+    public String home_home_null;
+    public String home_set;
+    public String home_set_broad;
+    public String home_wait;
+    public String home_teleport;
+    public String home_cancel;
+    public String home_cant_world;
+    public String home_cant_server;
+    public String intro_add;
+    public String intro_remove;
+    public String notice_add;
+    public String notice_remove;
+    public String chat_enable;
+    public String chat_disable;
 
 
     @Override
@@ -153,6 +200,7 @@ public class Lang extends FileProvider{
         this.nopass_position = legendaryGuild.color(getValue("nopass_position","&c你的公会职位不允许进行该操作."));
         this.nopass_chance = legendaryGuild.color(getValue("nopass_chance","&c你的运气似乎不太好..."));
         this.no_panel = legendaryGuild.color(getValue("no_panel","&f没有该界面."));
+        this.input = legendaryGuild.color(getValue("input","&0请在下方输入内容"));
         this.vault_noenough = legendaryGuild.color(getValue("vault_noenough","&f你的游戏币不足 &e%value%"));
         this.member_max = legendaryGuild.color(getValue("member_max","&f公会人数已满，无法再招募更多成员！"));
         this.isowner = legendaryGuild.color(getValue("isowner","&f该玩家是会长！"));
@@ -197,6 +245,9 @@ public class Lang extends FileProvider{
         this.admin_bufflevel_take = legendaryGuild.color(getValue("admin.bufflevel_take","&f你将公会 &e%target% &f的buff %buff% &f等级降低了 &e%value% &f级！"));
         this.admin_bufflevel_set = legendaryGuild.color(getValue("admin.bufflevel_set","&f你将公会 &e%target% &f的buff %buff% &f等级设置为 &e%value% &f级！"));
         this.admin_buff_null = legendaryGuild.color(getValue("admin.buff_null","&f该buff不存在！"));
+        this.admin_activity_add = legendaryGuild.color(getValue("admin.activity_add","&f你将公会 &e%target% &f的活跃度提升了 &e%value%"));
+        this.admin_activity_take = legendaryGuild.color(getValue("admin.activity_take","&f你将公会 &e%target% &f的活跃度减少了 &e%value%"));
+        this.admin_activity_set = legendaryGuild.color(getValue("admin.activity_set","&f你将公会 &e%target% &f的活跃度设置为 &e%value%"));
 
         this.default_null = legendaryGuild.color(getValue("default.null","无"));
         this.default_guild = legendaryGuild.color(getValue("default.guild","无公会"));
@@ -274,6 +325,60 @@ public class Lang extends FileProvider{
 
         this.buff_levelup = legendaryGuild.color(getValue("buff.levelup","&d公会buff %target% &d等级提升,目前为 &e%value% &d级."));
         this.buff_max = legendaryGuild.color(getValue("buff.max","&c该Buff的等级已经达到上限."));
+        this.buff_cant = legendaryGuild.color(getValue("buff.cant","&cBuff的等级不能超过公会等级."));
+
+        this.pvp_cant = legendaryGuild.color(getValue("pvp.cant","&f你已开启公会保护模式,无法攻击同一个公会的玩家！"));
+        this.pvp_cant_target = legendaryGuild.color(getValue("pvp.cant_target","&f对方已开启公会保护模式，无法对其造成伤害！"));
+        this.pvp_enable = legendaryGuild.color(getValue("pvp.enable","&c你已关闭公会保护模式，现在将会对同一个公会的玩家造成伤害."));
+        this.pvp_disable = legendaryGuild.color(getValue("pvp.disable","&f你已开启公会保护模式,无法攻击同一个公会的玩家！"));
+
+        this.quit_message = legendaryGuild.color(getValue("quit.message","&4你退出了公会 %value%"));
+        this.quit_broad = legendaryGuild.color(getValue("quit.broad","&c公会成员 %position%%value% &c退出了公会...."));
+        this.quit_owner = legendaryGuild.color(getValue("quit.owner","&f你的公会会长，你只能&e转让、解散&f公会."));
+
+
+        this.delete_confirm = legendaryGuild.color(getValue("delete.confirm","&4你确定要解散公会吗？请使用指令 &e/guild delete confirm &4以解散公会."));
+        this.delete_message = legendaryGuild.color(getValue("delete.message","&7你解散了 %value%"));
+        this.delete_broad_members = legendaryGuild.color(getValue("delete.broad_members","&c你所在的公会已被解散..."));
+        this.delete_broad = legendaryGuild.color(getValue("delete.broad",Arrays.asList("","&7[&6公会&7] &C公会 &e%value% &C已被解散了..","")));
+
+        this.give_message = legendaryGuild.color(getValue("give.message","&c你将公会 %value% &c转让给了 &e%target%"));
+        this.give_message_target = legendaryGuild.color(getValue("give.message_target","&6原公会会长已将公会 %value% &6转让给你了."));
+        this.give_broad = legendaryGuild.color(getValue("give.broad","&e新的会长 &a%value% &e上任，原会长已卸甲归田..."));
+
+        this.activity_gain = legendaryGuild.color(getValue("activity.gain","&a公会活跃度提升了 &e%value%"));
+        this.activity_join_tip = legendaryGuild.color(getValue("activity.join_tip","&a你有未领取的公会活跃度奖励."));
+        this.activity_claim = legendaryGuild.color(getValue("activity.claim","&e你领取了 %value%"));
+        this.activity_cant_claim = legendaryGuild.color(getValue("activity.cant_claim","&c当前公会活跃度不足 &e%value%"));
+        this.activity_already_claimed = legendaryGuild.color(getValue("activity.already_claimed","&c你已经领取过该活跃度奖励了."));
+
+        this.positions_add_write = legendaryGuild.color(getValue("positions.add_write","&0请输入成员名称以任命 %position%"));
+        this.positions_remove_write = legendaryGuild.color(getValue("positions.remove_write","&0请输入成员名称以取消任命 %position%"));
+        this.positions_max = legendaryGuild.color(getValue("positions.max","&f该职位当前在位人数已经达到上限.."));
+        this.positions_message = legendaryGuild.color(getValue("positions.message","&e你任命成员 &a%target% &e为 %value%"));
+        this.positions_message_target = legendaryGuild.color(getValue("positions.message_target","&a你被公会会长任命为 %value%"));
+        this.positions_message_cancel= legendaryGuild.color(getValue("positions.message_cancel","&c你将 &f%value% &c的职位取消了."));
+        this.positions_message_cancel_target= legendaryGuild.color(getValue("positions.message_cancel_target","&c你的职位已被取消."));
+
+        this.money_message= legendaryGuild.color(getValue("money.message","&a你向公会捐赠了 &e%value%"));
+        this.money_message_broad= legendaryGuild.color(getValue("money.message_broad","&b公会成员 &f%target% &b向公会捐赠了 &f%value% &b资金."));
+
+        this.home_home_null= legendaryGuild.color(getValue("home.home_null","&c公会还未设置驻地."));
+        this.home_set= legendaryGuild.color(getValue("home.set","&e你将公会驻地更改到当前位置."));
+        this.home_set_broad= legendaryGuild.color(getValue("home.set_broad","&c公会驻地已被更改."));
+        this.home_wait= legendaryGuild.color(getValue("home.wait","&e请等待 &a%value%s &e后返回公会驻地,在此期间请不要移动.."));
+        this.home_teleport= legendaryGuild.color(getValue("home.teleport","&a已传送至公会驻地."));
+        this.home_cancel= legendaryGuild.color(getValue("home.cancel","&c你取消了本次传送."));
+        this.home_cant_world= legendaryGuild.color(getValue("home.cant_world","&c该世界禁止设置驻地"));
+        this.home_cant_server= legendaryGuild.color(getValue("home.cant_server","&c该大区禁止设置驻地"));
+
+        this.intro_add= legendaryGuild.color(getValue("intro.add","&a你添加了一条新的公会介绍：&f%value%"));
+        this.intro_remove= legendaryGuild.color(getValue("intro.remove","&c你移除了最新后一条公会介绍：&f%value%"));
+        this.notice_add= legendaryGuild.color(getValue("notice.add","&a你添加了一条新的公会公告：&f%value%"));
+        this.notice_remove= legendaryGuild.color(getValue("notice.remove","&c你移除了最新后一条公会公告：&f%value%"));
+
+        this.chat_enable = legendaryGuild.color(getValue("chat.enable","&a你已开启公会聊天,接下来的消息仅会被公会成员所看见."));
+        this.chat_disable = legendaryGuild.color(getValue("chat.disable","&c你关闭了公会聊天,接下的消息将被全体玩家所看见."));
 
 
         saveYml();

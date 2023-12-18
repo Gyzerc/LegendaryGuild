@@ -2,6 +2,7 @@ package com.legendaryrealms.LegendaryGuild.Data.Guild.Shop;
 
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ItemBuyData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
+import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,9 +66,8 @@ public class GuildShopData {
         return builder.toString();
     }
 
-    public static GuildShopData getData(String dateArg,String... args){
-        String[] dates = dateArg != null ? dateArg.split(";") : new String[]{"0","0","0"};
-        GuildShopData data = new GuildShopData(new HashMap<>(),Integer.parseInt(dates[0]),Integer.parseInt(dates[1]),Integer.parseInt(dates[2]));
+    public static GuildShopData getData(int day,int week,int month,String... args){
+        GuildShopData data = new GuildShopData(new HashMap<>(),day,week,month);
         if ( args != null ) {
             ShopType[] types = new ShopType[]{ShopType.Once, ShopType.Day, ShopType.Week, ShopType.Month};
             for (int in = 0; in < types.length; in++) {
@@ -93,5 +93,9 @@ public class GuildShopData {
             }
         }
         return data;
+    }
+
+    public void updata(){
+        LegendaryGuild.getInstance().getGuildShopDataManager().updateData();
     }
 }

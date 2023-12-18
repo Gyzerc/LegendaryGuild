@@ -27,6 +27,7 @@ public class TributesPanel extends MenuDraw {
         this.tributesLoader = (TributesLoader) getLoader();
         this.inv = Bukkit.createInventory(this,getLoader().getSize(),getLoader().getTitle());
         DrawEssentail(inv);
+
         ItemStack i = tributesLoader.getConfirmItem().clone();
         ItemMeta id = i.getItemMeta();
         List<String> lore = id.getLore();

@@ -26,9 +26,12 @@ public class NetWorkMessage {
     public enum NetWorkType {
         UPDATE_USER,
         UPDATE_GUILD,
+        REMOVE_GUILD,
         SCAN_PLAYER_IS_OPEN_STORE,
         UPDATE_REDPACKEY,
         UPDATE_GUILD_SHOP,
+        UPDATE_GUILD_ACTIVITY_DATA,
+        REFRESH_ACTIVITY,
         UPDATE_STORE;
 
     }

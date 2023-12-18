@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Data.Database;
 
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild_Redpacket;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
@@ -30,6 +31,7 @@ public class MysqlStore extends DataProvider{
         //连接数据库
         setConnection();
         //创建表
+        createTable(DatabaseTable.SYSTEM_PLACEHODER);
         createTable(DatabaseTable.GUILD_DATA);
         createTable(DatabaseTable.USER_DATA);
         if (legendaryGuild.getFileManager().getStores().isEnable()) {
@@ -37,6 +39,7 @@ public class MysqlStore extends DataProvider{
         }
         createTable(DatabaseTable.GUILD_REDPACKET);
         createTable(DatabaseTable.GUILD_SHOP);
+        createTable(DatabaseTable.GUILD_ACTIVITY_DATA);
     }
 
     @Override
@@ -89,7 +92,43 @@ public class MysqlStore extends DataProvider{
             closeCon(connection);
         }
     }
+    @Override
+    public Optional<String> getSystemData(String key) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = connectPool.getConnection();
+            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.SYSTEM_PLACEHODER.getName() + " WHERE `name` = '" + key + "' LIMIT 1;");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return Optional.of(rs.getString("value"));
+            }
+        } catch (SQLException e){
+            legendaryGuild.info("获取系统变量数据时出错！ ",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
+        }
+        return Optional.empty();
+    }
 
+    @Override
+    public void saveSystemData(String key,String value) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            connection = connectPool.getConnection();
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.SYSTEM_PLACEHODER.getName()+" (`name`,`value`) VALUES(?,?)");
+            ps.setString(1,key);
+            ps.setString(2,value);
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            legendaryGuild.info("保存系统变量数据时出错！ ",Level.SEVERE,ex);
+        } finally {
+            closeCon(connection);
+        }
+    }
     @Override
     public Optional<User> getUser(String player) {
         Connection connection = null;
@@ -242,6 +281,25 @@ public class MysqlStore extends DataProvider{
 
     }
 
+
+    @Override
+    public void deleteGuild(String string) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = connectPool.getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM `"+DatabaseTable.GUILD_DATA.getName()+"` WHERE guild=?");
+            preparedStatement.setString(1, string);
+            preparedStatement.execute();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            legendaryGuild.info("删除公会数据时出错！ ",Level.SEVERE,e);
+        }finally {
+            closeCon(connection);
+        }
+    }
+
     @Override
     public void saveGuild(Guild guild) {
         PreparedStatement ps = null;
@@ -312,7 +370,7 @@ public class MysqlStore extends DataProvider{
         Connection connection = null;
         try {
             connection = connectPool.getConnection();
-            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.STORE_DATA.getName()+" (guild,data) VALUES(?,?)",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.STORE_DATA.getName()+" (guild,data) VALUES(?,?)");
             ps.setString(1, store.getGuild());
             ps.setString(2, serializeUtils.sts(store.toString()));
             ps.executeUpdate();
@@ -350,7 +408,7 @@ public class MysqlStore extends DataProvider{
         Connection connection = null;
         try {
             connection = connectPool.getConnection();
-            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.GUILD_REDPACKET.getName()+" (guild,data) VALUES(?,?)",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.GUILD_REDPACKET.getName()+" (guild,data) VALUES(?,?)");
             ps.setString(1, redpacket.getGuild());
             ps.setString(2, redpacket.toString());
             ps.executeUpdate();
@@ -369,12 +427,11 @@ public class MysqlStore extends DataProvider{
         try {
             connection = connectPool.getConnection();
 
-            String dateArg = "0;0;0";
-            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.GUILD_SHOP.getName() + " WHERE type = 'date' LIMIT 1;");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-               dateArg =  rs.getString("data");
-            }
+            int day = Integer.parseInt(getSystemData("last_date").orElse("0"));
+            int week = Integer.parseInt(getSystemData("last_week").orElse("0"));
+            int month = Integer.parseInt(getSystemData("last_month").orElse("0"));
+
+
             String[] args = new String[4];
             ShopType[] types = new ShopType[]{ShopType.Once,ShopType.Day,ShopType.Week,ShopType.Month};
             for (int in = 0; in < types.length ; in++) {
@@ -385,10 +442,13 @@ public class MysqlStore extends DataProvider{
                     args[in] = rs.getString("data");
                 }
             }
-            return GuildShopData.getData(dateArg,args);
+            return GuildShopData.getData(day,week,month,args);
         } catch (SQLException e){
             legendaryGuild.info("获取公会商店数据时出错！ ",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
         }
+
         int date = calendar.get(Calendar.DATE);
         int week = calendar.get(Calendar.WEEK_OF_MONTH);
         int month = calendar.get(Calendar.MONTH);
@@ -411,9 +471,10 @@ public class MysqlStore extends DataProvider{
                 ps.executeUpdate();
             }
 
-            return;
         } catch (SQLException ex) {
             legendaryGuild.info("保存公会商店数据时出错！ ",Level.SEVERE,ex);
+        } finally {
+            closeCon(connection);
         }
     }
 
@@ -427,22 +488,69 @@ public class MysqlStore extends DataProvider{
                 preparedStatement.setString(1, type);
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                legendaryGuild.info("删除会商店数据时出错！ ",Level.SEVERE,e);
             } finally {
-                try {
-                    if (connection!=null){
-                        connection.close();
-                    }
-                    if (preparedStatement!=null)
-                    {
-                        preparedStatement.close();
-                    }
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
+                closeCon(connection);
             }
+    }
 
+
+
+    @Override
+    public Optional<GuildActivityData> getGuildActivityData(String guild) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = connectPool.getConnection();
+            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.GUILD_ACTIVITY_DATA.getName() + " WHERE guild = '" + guild + "' LIMIT 1;");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                double points = rs.getDouble("points");
+                String claimedStr = rs.getString("claimed");
+                StringStore claimed = serializeUtils.StringToActivityData(claimedStr);
+                return Optional.of(new GuildActivityData(guild,points,claimed));
+            }
+        } catch (SQLException ex){
+            legendaryGuild.info("获取公会活跃度数据时出错！ ",Level.SEVERE,ex);
+        } finally {
+            closeCon(connection);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveGuildActivityData(GuildActivityData data) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            connection = connectPool.getConnection();
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+" (guild,points,claimed) VALUES(?,?,?)");
+            ps.setString(1, data.getGuild());
+            ps.setDouble(2,data.getPoints());
+            ps.setString(3,data.getClaimed().toString());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            legendaryGuild.info("保存公会活跃度数据时出错！ ",Level.SEVERE,ex);
+        } finally {
+            closeCon(connection);
+        }
+    }
+
+    @Override
+    public void deleteGuildActivityData(){
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        try {
+            connection = connectPool.getConnection();
+            preparedStatement = connection.prepareStatement("TRUNCATE TABLE `"+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+"`");
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            legendaryGuild.info("删除会活跃度数据时出错！ ",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
+        }
     }
 
     private void setConnectPool() {
@@ -470,8 +578,6 @@ public class MysqlStore extends DataProvider{
         }
         legendaryGuild.info("config.yml中缺少了 HikariCP 配置,请重新生成配置文件进行修改..", Level.SEVERE);
     }
-
-
     public boolean executeUpdate(String execute) {
         Connection connection=null;
         Statement stat = null;

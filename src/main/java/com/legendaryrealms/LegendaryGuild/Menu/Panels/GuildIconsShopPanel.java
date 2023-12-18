@@ -8,6 +8,7 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.GuildIconsShopLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
+import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -27,6 +28,7 @@ public class GuildIconsShopPanel extends MenuDraw {
         this.page = page;
         this.inv = Bukkit.createInventory(this,getLoader().getSize(),getLoader().getTitle());
         DrawEssentail(inv);
+        loadPage(page);
     }
     private HashMap<Integer,GuildIcon> slot_toicon;
 
@@ -58,18 +60,16 @@ public class GuildIconsShopPanel extends MenuDraw {
                         ItemMeta id = i.getItemMeta();
                         id.setDisplayName(loader.getIcon_display().replace("%icon%",guildIcon.getDisplay()));
                         List<String> lore = loader.getIcon_lore();
-                        List<String> l = new ArrayList<>();
-                        for (String str : lore){
-                            if (str.equals("%description%")){
-                                l.addAll(guildIcon.getDescription());
-                            }
-                            else {
-                                l.add(str.replace("%placeholder%",current));
-                            }
-                        }
-                        id.setLore(l);
+                        id.setLore(lore);
                         i.setItemMeta(id);
-                        inv.setItem(getLayout().get(a), i);
+
+
+                        ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                                .addListPlaceHolder("description",guildIcon.getDescription())
+                                .addSinglePlaceHolder("placeholder",current);
+
+
+                        inv.setItem(getLayout().get(a), replaceHolderUtils.startReplace(i,false,null));
                         slot_toicon.put(getLayout().get(a),guildIcon);
                         a++;
                     }

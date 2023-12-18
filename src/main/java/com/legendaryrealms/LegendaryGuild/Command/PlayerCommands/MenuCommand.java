@@ -20,15 +20,14 @@ public class MenuCommand extends LegendaryCommand {
     public void handle(CommandSender sender, String[] args) {
         if (sender instanceof Player) {
             User user = legendaryGuild.getUsersManager().getUser(sender.getName());
-            if (!user.hasGuild()){
+            String menuId = args[1];
+            if (!menuId.equals("GuildList") && !user.hasGuild()){
                 sender.sendMessage(lang.plugin+lang.nothasguild);
                 return;
             }
-            String menuId = args[1];
             switch (menuId) {
                 case "GuildList":
                     GuildListPanel guildListPanel = new GuildListPanel((Player) sender,1, GuildListPanel.Sort.DEFAULT);
-                    guildListPanel.loadGuilds(1);
                     guildListPanel.open();
                     break;
                 case "Applications":
@@ -76,6 +75,14 @@ public class MenuCommand extends LegendaryCommand {
                         buffPanel.open();
                     }
                     break;
+                case "ActivityRewards":
+                    ActivityRewardsPanel rewardsPanel = new ActivityRewardsPanel((Player) sender);
+                    rewardsPanel.open();
+                    return;
+                case "Positions":
+                    PositionsPanel positionsPanel = new PositionsPanel((Player) sender);
+                    positionsPanel.open();
+                    return;
                 default:
                     sender.sendMessage(lang.plugin+lang.no_panel);
                     break;

@@ -3,7 +3,7 @@
 enable: true
 #属性插件
 # Attribute Plugin
-#可选插件： AP3 (AttributesPlus3.0) , AP2 (AttributesPlus2.0) , SX2 (Sx-Attributes2.0) MythicLib(同时也对MMOITEMS的属性生效)
+#可选插件： AP3 (AttributesPlus3.0) , AP2 (AttributesPlus2.0) , SX2 (Sx-Attributes2.0), SX3 (Sx-Attributes3.0) MythicLib(同时也对MMOITEMS的属性生效)
 plugin: AP3
 buffs:
   buff1:

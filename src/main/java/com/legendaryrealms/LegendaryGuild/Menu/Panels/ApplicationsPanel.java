@@ -8,7 +8,6 @@ import com.legendaryrealms.LegendaryGuild.Menu.Loaders.ApplicationsLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -49,10 +48,11 @@ public class ApplicationsPanel extends MenuDraw {
                     ItemMeta id = i.getItemMeta();
                     id.setDisplayName(loader.getApp_display().replace("%player%",player));
                     List<String> lore = loader.getApp_lore();
-                    lore = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(player),lore);
+                    lore = LegendaryGuild.getInstance().getHookManager().getPlaceholderAPIHook().replaceHolder(lore, Bukkit.getOfflinePlayer(player));
                     lore.replaceAll(l->l
                             .replace("%apply_date%",date));
                     id.setLore(lore);
+
                     if (LegendaryGuild.getInstance().version_high){
                         id.setCustomModelData(loader.getApp_model());
                     }

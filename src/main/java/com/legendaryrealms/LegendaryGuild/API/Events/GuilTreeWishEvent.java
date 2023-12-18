@@ -13,7 +13,9 @@ public class GuilTreeWishEvent extends Event {
     }
     private Player p;
     private Guild guild;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuilTreeWishEvent(Player p, Guild guild) {
         this.p = p;
         this.guild = guild;

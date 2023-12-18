@@ -47,6 +47,7 @@ public class GuildIconsManager {
     }
 
     public Optional<GuildIcon> getIcon(String iconId){
+        if (iconId == null) {return Optional.empty();}
         return cache.containsKey(iconId) ? Optional.of(cache.get(iconId)) : Optional.empty();
     }
 

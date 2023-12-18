@@ -2,11 +2,14 @@ package com.legendaryrealms.LegendaryGuild.Menu.Panels;
 
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildIcon;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.GuildListLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
+import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -35,13 +38,13 @@ public class GuildListPanel extends MenuDraw {
         DrawEssentailSpecial(inv, menuItem -> {
             if (menuItem.getFuction().equals("sort")){
                 ItemStack i = menuItem.getI();
-                ItemMeta id = i.getItemMeta();
-                List<String> lore = id.hasLore() ? new ArrayList<>(id.getLore()) : new ArrayList<>();
-                lore.replaceAll(l -> l.replace("%placeholder_sort%",getPlaceHolder(sort.getPlaceholder())));
-                id.setLore(lore);
-                i.setItemMeta(id);
+                ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                        .addSinglePlaceHolder("placeholder_sort",getPlaceHolder(sort.getPlaceholder()));
+                menuItem.setI(replaceHolderUtils.startReplace(i,false,null));
             }
         });
+
+        loadGuilds(page);
 
     }
 
@@ -57,7 +60,7 @@ public class GuildListPanel extends MenuDraw {
         int end = layout.size() + (page-1)*layout.size();
 
         List<Guild> returnList = new ArrayList<>();
-        List<Guild> guilds = getGuildsBy(sort);
+        List<Guild> guilds = legendaryGuild.getGuildsManager().getGuildsBy(sort);
         for (int get = start;get <= end;get++) {
             if (guilds.size() <= get) {
                 break;
@@ -75,9 +78,17 @@ public class GuildListPanel extends MenuDraw {
                 List<Integer> layout = getLayout();
                 int a = 0;
                 for (Guild guild : getPage(page)) {
+                    GuildIcon icon = legendaryGuild.getGuildIconsManager().getIcon(guild.getIcon()).orElse(null);
+
                     String guildName = guild.getGuild();
+                    GuildActivityData activityData = legendaryGuild.getGuildActivityDataManager().getData(guildName);
+
                     ItemStack i = new ItemStack(loader.getGuild_icon(),1,(short) loader.getGuild_data());
+                    if (icon != null){
+                        i = icon.getIcon();
+                    }
                     ItemMeta id = i.getItemMeta();
+
                     id.setDisplayName(loader.getGuild_display().replace("%guild%", guildName));
                     List<String> lore = new ArrayList<>(loader.getGuild_lore());
                     lore.replaceAll(l -> l
@@ -91,7 +102,8 @@ public class GuildListPanel extends MenuDraw {
                             .replace("%maxmembers%", "" + legendaryGuild.getFileManager().getConfig().MEMBERS.get(guild.getLevel()))
                             .replace("%treelevel%", "" + guild.getTreelevel())
                             .replace("%treeexp%", "" + guild.getTreeexp())
-                            .replace("%treeexp_next%",""+legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel())));
+                            .replace("%treeexp_next%",""+legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel()))
+                            .replace("%activity%",""+activityData.getPoints()));
                     int index = lore.indexOf("%intro%");
                     if (index != -1) {
                         int size = guild.getIntro().size();
@@ -168,31 +180,7 @@ public class GuildListPanel extends MenuDraw {
         }
     }
 
-    public List<Guild> getGuildsBy(Sort sort){
-        List<Guild> guilds = legendaryGuild.getGuildsManager().getGuilds().stream().map(s -> {
-            return legendaryGuild.getGuildsManager().getGuild(s);
-        }).collect(Collectors.toList());
-        if (sort.equals(Sort.DEFAULT)){
-            return guilds;
-        }
-        Collections.sort(guilds, new Comparator<Guild>() {
-            @Override
-            public int compare(Guild o1, Guild o2) {
-                switch (sort){
-                    case LEVEL:
-                        return (o1.getLevel() > o2.getLevel()) ? -1 : ((o1.getLevel() == o2.getLevel()) ? 0 : 1);
-                    case MONEY:
-                        return (o1.getMoney() > o2.getMoney()) ? -1 : ((o1.getMoney() == o2.getMoney()) ? 0 : 1);
-                    case MEMBERS:
-                        int a1 = o1.getMembers().size();
-                        int a2 = o2.getMembers().size();
-                        return (a1 > a2) ? -1 : ((a1 == a2) ? 0 : 1);
-                }
-                return -1;
-            }
-        });
-        return guilds;
-    }
+
 
     public int getPage() {
         return page;
@@ -210,8 +198,10 @@ public class GuildListPanel extends MenuDraw {
 
 
     public enum Sort{
+        ACTIVITY("sort_activity"),
         MEMBERS("sort_members"),
         LEVEL("sort_level"),
+        TREELEVEL("sort_treelevel"),
         MONEY("sort_money"),
         DEFAULT("sort_default");
         private String placeholder;

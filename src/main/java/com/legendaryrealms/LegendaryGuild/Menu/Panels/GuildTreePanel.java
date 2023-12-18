@@ -9,6 +9,7 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.GuildTreeLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
+import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -33,15 +34,13 @@ public class GuildTreePanel extends MenuDraw {
             if (menuItem.getFuction().equals("pot")){
                 WaterDataStore waterDataStore = LegendaryGuild.getInstance().getUsersManager().getUser(p.getName()).getWaterDataStore();
                 ItemStack i = menuItem.getI();
-                ItemMeta id = i.getItemMeta();
-                List<String> lore = id.hasLore() ? id.getLore() : new ArrayList<>();
+
                 if (LegendaryGuild.getInstance().getWaterPotsManager().getWaterPot(menuItem.getValue()).isPresent()){
                     String pot = menuItem.getValue();
-                    lore.replaceAll( l -> l.replace("%use%",waterDataStore.getAmount(pot, WaterDataStore.WaterDataType.TODAY)+""));
+                    ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                            .addSinglePlaceHolder("use",waterDataStore.getAmount(pot, WaterDataStore.WaterDataType.TODAY)+"");
+                    menuItem.setI(replaceHolderUtils.startReplace(i,true,p.getName()));
                 }
-                id.setLore(lore);
-                i.setItemMeta(id);
-                menuItem.setI(i);
             }
         });
         loadPanel();
@@ -54,19 +53,27 @@ public class GuildTreePanel extends MenuDraw {
                 User user = LegendaryGuild.getInstance().getUsersManager().getUser(p.getName());
                 Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
                 int level = guild.getTreelevel();
+                double next = LegendaryGuild.getInstance().getFileManager().getConfig().TREEEXP.getOrDefault(level, Double.valueOf(-1));
                 GuildTreeLoader.GuildTreeIcon icon = loader.getTreeIcon();
+
                 ItemStack i = icon.getPreviewItem(level).clone();
                 ItemMeta id = i.getItemMeta();
                 List<String> lore = id.hasLore() ? id.getLore() : new ArrayList<>();
-                lore.replaceAll(l -> l.replace("%level%",""+level)
-                        .replace("%exp%",""+guild.getTreeexp())
-                        .replace("%bar%", GuildAPI.getGuildTreeExpProgressBar(guild))
-                        .replace("%next%",""+LegendaryGuild.getInstance().getFileManager().getConfig().TREEEXP.get(level)));
                 id.setLore(lore);
                 i.setItemMeta(id);
+
+                ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                        .addSinglePlaceHolder("level",""+level)
+                        .addSinglePlaceHolder("exp",""+guild.getTreeexp())
+                        .addSinglePlaceHolder("bar",GuildAPI.getGuildTreeExpProgressBar(guild))
+                        .addSinglePlaceHolder("next",next+"");
+                i = replaceHolderUtils.startReplace(i,true,p.getName());
+
                 List<Integer> slots = icon.getSlots(level);
                 tree_slots = slots;
-                slots.forEach(s -> inv.setItem(s,i));
+
+                ItemStack finalI = i;
+                slots.forEach(s -> inv.setItem(s, finalI));
             }
         });
     }

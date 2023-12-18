@@ -1,10 +1,10 @@
 package com.legendaryrealms.LegendaryGuild.Command;
 
+import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Command.AdminCommands.*;
-import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.CreateGuildCommand;
-import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.MenuCommand;
-import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.PositionCommand;
-import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.RedPacketCommand;
+import com.legendaryrealms.LegendaryGuild.Command.AdminCommands.MoneyCommand;
+import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.*;
+import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.DeleteCommand;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.command.Command;
@@ -20,17 +20,26 @@ public class Commands implements CommandExecutor, TabCompleter {
 
     private static final LegendaryGuild legendaryguild=LegendaryGuild.getInstance();
     private static final Lang lang=legendaryguild.getFileManager().getLang();
-    private static HashMap<String,LegendaryCommand> commands;
+    private static LinkedHashMap<String,LegendaryCommand> commands;
     private static HashMap<String,LegendaryCommand> admin_commands;
     public static void register(){
-        commands = new HashMap<>();
+        commands = new LinkedHashMap<>();
         admin_commands = new HashMap<>();
 
+        commands.put("list",new ListCommand());
+        commands.put("open",new OpenCommand());
+        commands.put("join",new JoinCommand());
         commands.put("create",new CreateGuildCommand());
-        commands.put("redpacket",new RedPacketCommand());
-        commands.put("menu",new MenuCommand());
-        commands.put("admin",new AdminCommand());
+        commands.put("money",new com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.MoneyCommand());
         commands.put("position",new PositionCommand());
+        commands.put("redpacket",new RedPacketCommand());
+        commands.put("chat",new ChatCommand());
+        commands.put("pvp",new PvpCommand());
+        commands.put("menu",new MenuCommand());
+        commands.put("quit",new QuitCommand());
+        commands.put("give",new GiveCommand());
+        commands.put("delete",new DeleteCommand());
+        commands.put("admin",new AdminCommand());
 
         admin_commands.put("points",new PointsCommand());
         admin_commands.put("money",new MoneyCommand());
@@ -39,6 +48,8 @@ public class Commands implements CommandExecutor, TabCompleter {
         admin_commands.put("treelevel",new TreeLevelCommand());
         admin_commands.put("treeexp",new TreeExpCommand());
         admin_commands.put("buff",new BuffCommand());
+        admin_commands.put("activity",new ActivityCommand());
+        admin_commands.put("delete",new com.legendaryrealms.LegendaryGuild.Command.AdminCommands.DeleteCommand());
 
     }
     @Override

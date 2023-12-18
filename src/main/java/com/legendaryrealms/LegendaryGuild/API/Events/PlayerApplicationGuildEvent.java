@@ -11,6 +11,9 @@ public class PlayerApplicationGuildEvent extends Event {
     public HandlerList getHandlers() {
         return handlers;
     }
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     private User user;
     private Guild guild;
 

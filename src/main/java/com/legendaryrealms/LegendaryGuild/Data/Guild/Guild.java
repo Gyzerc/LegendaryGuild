@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
 
 public class Guild {
     private String guild;
@@ -215,6 +216,17 @@ public class Guild {
                     .sendPluginMessage(p);
         }
     }
+    public void delete(){
+        LegendaryGuild.getInstance().getDataBase().deleteGuild(guild);
+        Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
+        if (p != null) {
+            new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.REMOVE_GUILD, guild))
+                    .setReciver("ALL")
+                    .sendPluginMessage(p);
+        }
+    }
+
     public static class GuildHomeLocation {
         private String world;
         private String server;
@@ -262,6 +274,14 @@ public class Guild {
         public String toString(){
             StringBuilder builder=new StringBuilder(server);
             return builder.append(",").append(world).append(",").append(x).append(",").append(y).append(",").append(z).toString();
+        }
+
+        public Optional<Location> getLocation(){
+            if (Bukkit.getWorld(world) != null){
+                return Optional.of(new Location(Bukkit.getWorld(world), x, y, z));
+            }
+            LegendaryGuild.getInstance().info("该服务器不存在世界："+world, Level.SEVERE);
+            return Optional.empty();
         }
     }
 

@@ -178,3 +178,38 @@ settings:
             - '[player]say 我完成了每日许愿'
             - '[console]money give %player% 550'
             - '[console]money give %player% 50 ~chance:0.1'
+    #公会活跃度 & Guild activity
+    activity:
+      #活跃度刷新周期. 天为单位
+      #Activity refresh cycle In days
+      cycle: 7
+    #公会驻地设置 & Guild home settings
+    home:
+      #传送前等待多少秒
+      #How many seconds to wait before transmission
+      teleport_wait: 5
+      #音效设置
+      #sound settings
+      sound:
+        #传送前每秒发送的音效
+        #Sound effects sent per second before teleport
+        second: block_note_block_banjo
+        #传送取消时的音效
+        #Sound effects when teleport cancellation
+        cancel: entity_villager_trade
+        #传送音效
+        #teleport sound
+        teleport: entity_enderman_teleport
+      #公会驻地设置不允许的世界名称
+      #World names not allowed for guild residences
+      black_world:
+        - 'testWorld'
+      #不允许的子服务器名称
+      #Sub server name not allowed
+      black_server:
+        - '资源服'
+    chat:
+      # %player%
+      #可使用 papi 变量
+      #can use PlaceholderAPI
+      format: '&f[&e公会聊天&f][%position%&f]&3%player%&f: %message%'

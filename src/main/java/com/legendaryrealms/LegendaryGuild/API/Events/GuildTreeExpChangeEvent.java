@@ -12,7 +12,9 @@ public class GuildTreeExpChangeEvent extends Event {
     }
     private Guild guild;
     private double amount;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuildTreeExpChangeEvent(Guild guild, double amount) {
         this.guild = guild;
         this.amount = amount;

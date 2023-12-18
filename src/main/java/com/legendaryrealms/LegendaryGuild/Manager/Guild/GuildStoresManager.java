@@ -36,9 +36,20 @@ public class GuildStoresManager {
     }
 
     public void reload(String guild){
-       cache.remove(guild);
+        legendaryGuild.sync(new Runnable() {
+            @Override
+            public void run() {
+                cache.put(guild,legendaryGuild.getDataBase().getStore(guild));
+            }
+        });
+
     }
     public void loadStores(){
-        legendaryGuild.getGuildsManager().getGuilds().forEach(guild -> cache.put(guild,legendaryGuild.getDataBase().getStore(guild)));
+        legendaryGuild.sync(new Runnable() {
+            @Override
+            public void run() {
+                legendaryGuild.getGuildsManager().getGuilds().forEach(guild -> cache.put(guild,legendaryGuild.getDataBase().getStore(guild)));
+            }
+        });
     }
 }

@@ -28,7 +28,7 @@ public class PositionCommand extends LegendaryCommand {
                 sender.sendMessage(lang.plugin+lang.notplayer);
                 return;
             }
-            UserAPI.setPlayerPosition((Player) sender,player,id);
+            UserAPI.setPlayerPositionByPlayer((Player) sender,player,id);
         }
     }
 

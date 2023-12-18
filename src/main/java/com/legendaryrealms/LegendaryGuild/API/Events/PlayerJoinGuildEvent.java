@@ -13,7 +13,9 @@ public class PlayerJoinGuildEvent extends Event {
     }
     private User user;
     private Guild guild;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public PlayerJoinGuildEvent(User user, Guild guild) {
         this.user = user;
         this.guild = guild;

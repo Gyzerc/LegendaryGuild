@@ -28,7 +28,9 @@ public class GuildLevelupEvent extends Event {
     public int getNewLevel() {
         return newLevel;
     }
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     @Override
     public HandlerList getHandlers() {
         return handlers;

@@ -3,15 +3,15 @@ package com.legendaryrealms.LegendaryGuild.Files;
 import com.legendaryrealms.LegendaryGuild.Data.Database.DataProvider;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 
 public class Config extends FileProvider{
+    public String GUILD_CHAT;
+
     public Config(LegendaryGuild legendaryGuild) {
         super(legendaryGuild, "./plugins/LegendaryGuild","", "config.yml");
 
@@ -40,6 +40,15 @@ public class Config extends FileProvider{
     public HashMap<Integer, List<String>> WISH;
     public double MIN_REDPACKET_TOTAL;
     public int MIN_REDPACKET_AMOUNT;
+    public int ACTIVITY_CYCLE;
+
+    public int HOME_WAIT;
+    public Sound HOME_SOUND_SECOND;
+    public Sound HOME_SOUND_TELEPORT;
+    public Sound HOME_SOUND_CANCEL;
+    public List<String> HOME_BLACK_WORLD;
+    public List<String> HOME_BLACK_SERVER;
+
     @Override
     public void readDefault() {
 
@@ -132,9 +141,34 @@ public class Config extends FileProvider{
             WISH.put(Integer.parseInt(levelStr),getValue("settings.guild.tree.wish."+levelStr+".run",new ArrayList<>()));
         }
 
+        //公会活跃度刷新周期
+        ACTIVITY_CYCLE = getValue("settings.guild.activity.cycle",7);
+
         MIN_REDPACKET_AMOUNT = getValue("settings.redpacket.min_amount",2);
         MIN_REDPACKET_TOTAL = getValue("settings.min_total",100.0);
 
+
+        //公会驻地设置
+        HOME_WAIT = getValue("settings.guild.home.teleport_wait",5);
+        HOME_SOUND_SECOND = getSound(getValue("settings.guild.home.sound.second","block_note_block_banjo")).orElse(null);
+        HOME_SOUND_TELEPORT = getSound(getValue("settings.guild.home.sound.teleport","ENTITY_ENDERMAN_TELEPORT")).orElse(null);
+        HOME_SOUND_CANCEL = getSound(getValue("settings.guild.home.sound.cancel","entity_villager_trade")).orElse(null);
+        HOME_BLACK_WORLD = getValue("settings.guild.home.black_world",new ArrayList<>());
+        HOME_BLACK_SERVER = getValue("settings.guild.home.black_server",new ArrayList<>());
+
+        GUILD_CHAT = getValue("settings.guild.chat.format","&f[&e公会聊天&f][%position%&f]&3%player%&f: %message%");
         saveYml();
+    }
+
+    private Optional<Sound> getSound(String sound){
+        if (sound == null){
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(Sound.valueOf(sound.toUpperCase()));
+        } catch (Exception e){
+            legendaryGuild.info("音效ID出错！+file.getName()++file.getName()+ -> "+sound, Level.SEVERE,e);
+            return Optional.empty();
+        }
     }
 }

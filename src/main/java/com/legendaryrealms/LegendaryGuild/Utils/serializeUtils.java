@@ -30,6 +30,16 @@ public class serializeUtils {
         return stringStore;
     }
 
+    public static StringStore StringToActivityData(String str){
+        StringStore stringStore = new StringStore();
+        if (str != null && !str.isEmpty()){
+            for (String sub : str.split("⁝")){
+                String[] data = sub.split(":");
+                stringStore.setValue(data[0],StrToList(data[1]),null);
+            }
+        }
+        return stringStore;
+    }
 
     public static HashMap<String,Integer> StrToMap_string_int(String str){
         HashMap<String,Integer> map = new HashMap<>();

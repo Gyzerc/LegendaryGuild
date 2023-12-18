@@ -15,7 +15,9 @@ public class GuildTreeWaterEvent extends Event {
     private Player p;
     private WaterPot waterPot;
     private Guild guild;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuildTreeWaterEvent(Player p, WaterPot waterPot, Guild guild) {
         this.p = p;
         this.waterPot = waterPot;

@@ -13,7 +13,9 @@ public class GuildShopBuyEvent extends Event {
     }
     private Player p;
     private ShopItem shopItem;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuildShopBuyEvent(Player p, ShopItem shopItem) {
         this.p = p;
         this.shopItem = shopItem;

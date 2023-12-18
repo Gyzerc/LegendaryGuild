@@ -15,7 +15,9 @@ public class GuildTributesEvent extends Event {
     }
     private Player p;
     private List<TributeItem> tributeItems;
-
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
     public GuildTributesEvent(Player p, List<TributeItem> tributeItems) {
         this.p = p;
         this.tributeItems = tributeItems;

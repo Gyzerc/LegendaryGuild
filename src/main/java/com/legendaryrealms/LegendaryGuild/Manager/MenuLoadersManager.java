@@ -22,21 +22,28 @@ public class MenuLoadersManager {
     }
 
     public void registerAll(){
-
-        cache.put("GuildList",new GuildListLoader(legendaryGuild));
-        cache.put("Applications",new ApplicationsLoader(legendaryGuild));
-        cache.put("Members",new MembersLoader(legendaryGuild));
+        register(new GuildListLoader(legendaryGuild));
+        register(new ApplicationsLoader(legendaryGuild));
+        register(new ApplicationsLoader(legendaryGuild));
+        register(new MembersLoader(legendaryGuild));
         if (legendaryGuild.getFileManager().getStores().isEnable()) {
-            cache.put("Stores", new StoresLoader(legendaryGuild));
+            register(new StoresLoader(legendaryGuild));
         }
-        cache.put("RedPackets",new RedPacketsLoader(legendaryGuild));
-        cache.put("GuildTree",new GuildTreeLoader(legendaryGuild));
-        cache.put("GuildIconsShop",new GuildIconsShopLoader(legendaryGuild));
-        cache.put("Tributes",new TributesLoader(legendaryGuild));
-        cache.put("GuildShop",new GuildShopLoader(legendaryGuild));
+        register(new RedPacketsLoader(legendaryGuild));
+        register(new GuildTreeLoader(legendaryGuild));
+        register(new GuildIconsShopLoader(legendaryGuild));
+        register(new TributesLoader(legendaryGuild));
+        register(new GuildShopLoader(legendaryGuild));
         if (legendaryGuild.getBuffsManager().isEnable()){
-            cache.put("Buff",new BuffLoader(legendaryGuild));
+            register(new BuffLoader(legendaryGuild));
         }
+        register(new ActivityRewardsLoader(legendaryGuild));
+        register(new PositionsLoader(legendaryGuild));
+        register(new GuildMenuLoader(legendaryGuild));
+    }
+
+    private void register(MenuLoader loader){
+        cache.put(loader.getClass().getSimpleName().replace("Loader",""),loader);
     }
 
     public List<String> getMenuIds(){

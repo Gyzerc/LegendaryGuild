@@ -1,19 +1,28 @@
 package com.legendaryrealms.LegendaryGuild.Listener;
 
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
+import com.legendaryrealms.LegendaryGuild.Files.Config;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class PlayerJoin implements Listener {
     private final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();
     private final Lang lang = legendaryGuild.getFileManager().getLang();
+    private final Config config = legendaryGuild.getFileManager().getConfig();
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
 
@@ -47,5 +56,27 @@ public class PlayerJoin implements Listener {
 
         //刷新公会buff属性
         UserAPI.updataPlayerBuffAttribute(p);
+
+        //检测是否是要传送至驻地
+        Bukkit.getScheduler().runTaskLater(legendaryGuild,()->{
+            if (user.isTeleport_guild_home()){
+                Guild guild = UserAPI.getGuild(p.getName()).orElse(null);
+                if (guild != null && guild.getHome()!=null){
+                    if (guild.getHome().getServer().equals(legendaryGuild.SERVER)) {
+                        user.setTeleport_guild_home(false);
+                        user.update();
+
+                        Location location = guild.getHome().getLocation().orElse(null);
+                        if (location != null) {
+                            p.teleport(location);
+                            p.playSound(p.getLocation(), config.HOME_SOUND_TELEPORT, 1, 1);
+                            p.sendMessage(lang.plugin + lang.home_teleport);
+                        }
+                    }
+                }
+            }
+        },20);
     }
+
+
 }

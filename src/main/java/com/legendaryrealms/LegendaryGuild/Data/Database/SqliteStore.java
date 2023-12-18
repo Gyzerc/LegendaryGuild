@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Data.Database;
 
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild_Redpacket;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
@@ -33,6 +34,7 @@ public class SqliteStore extends DataProvider{
         //连接数据库
         setConnection();
         //创建表
+        createTable(DatabaseTable.SYSTEM_PLACEHODER);
         createTable(DatabaseTable.GUILD_DATA);
         createTable(DatabaseTable.USER_DATA);
         if (legendaryGuild.getFileManager().getStores().isEnable()) {
@@ -40,6 +42,8 @@ public class SqliteStore extends DataProvider{
         }
         createTable(DatabaseTable.GUILD_REDPACKET);
         createTable(DatabaseTable.GUILD_SHOP);
+        createTable(DatabaseTable.GUILD_ACTIVITY_DATA);
+
     }
 
     @Override
@@ -98,6 +102,35 @@ public class SqliteStore extends DataProvider{
             return true;
         } catch (SQLException e) {
             return false;
+        }
+    }
+    @Override
+    public Optional<String> getSystemData(String key) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.SYSTEM_PLACEHODER.getName() + " WHERE name = '" + key + "' LIMIT 1;");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return Optional.of(rs.getString("value"));
+            }
+        } catch (SQLException ex){
+            legendaryGuild.info("获取系统变量数据时出错！ ",Level.SEVERE,ex);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveSystemData(String key,String value) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.SYSTEM_PLACEHODER.getName()+" (name,value) VALUES(?,?)");
+            ps.setString(1,key);
+            ps.setString(2,value);
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            legendaryGuild.info("保存系统变量数据时出错！ ",Level.SEVERE,ex);
         }
     }
 
@@ -238,6 +271,18 @@ public class SqliteStore extends DataProvider{
     }
 
     @Override
+    public void deleteGuild(String string) {
+        PreparedStatement preparedStatement=null;
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM `"+DatabaseTable.GUILD_DATA.getName()+"` WHERE guild=?");
+            preparedStatement.setString(1, string);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            legendaryGuild.info("删除公会数据时出错！ ",Level.SEVERE,e);
+        }
+    }
+
+    @Override
     public void saveGuild(Guild guild) {
         PreparedStatement ps = null;
         try {
@@ -297,7 +342,7 @@ public class SqliteStore extends DataProvider{
     public void saveRedPacket(Guild_Redpacket redpacket) {
         PreparedStatement ps = null;
         try {
-            ps = connection.prepareStatement("REPLACE INTO " + DatabaseTable.GUILD_REDPACKET.getName() + " (guild,data) VALUES(?,?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps = connection.prepareStatement("REPLACE INTO " + DatabaseTable.GUILD_REDPACKET.getName() + " (guild,data) VALUES(?,?)");
             ps.setString(1, redpacket.getGuild());
             ps.setString(2, redpacket.toString());
             ps.executeUpdate();
@@ -312,12 +357,11 @@ public class SqliteStore extends DataProvider{
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String dateArg = "0;0;0";
-            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.GUILD_SHOP.getName() + " WHERE type = 'date' LIMIT 1;");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                dateArg =  rs.getString("data");
-            }
+
+            int day = Integer.parseInt(getSystemData("last_date").orElse("0"));
+            int week = Integer.parseInt(getSystemData("last_week").orElse("0"));
+            int month = Integer.parseInt(getSystemData("last_month").orElse("0"));
+
             String[] args = new String[4];
             ShopType[] types = new ShopType[]{ShopType.Once,ShopType.Day,ShopType.Week,ShopType.Month};
             for (int in = 0; in < types.length ; in++) {
@@ -328,7 +372,7 @@ public class SqliteStore extends DataProvider{
                     args[in] = rs.getString("data");
                 }
             }
-            return GuildShopData.getData(dateArg,args);
+            return GuildShopData.getData(day,week,month,args);
         } catch (SQLException e){
             legendaryGuild.info("获取公会商店数据时出错！ ",Level.SEVERE,e);
         }
@@ -371,6 +415,52 @@ public class SqliteStore extends DataProvider{
             legendaryGuild.info("保存公会商店数据时出错！ ",Level.SEVERE,e);
         }
     }
+
+    @Override
+    public Optional<GuildActivityData> getGuildActivityData(String guild) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.GUILD_ACTIVITY_DATA.getName() + " WHERE guild = '" + guild + "' LIMIT 1;");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                double points = rs.getDouble("points");
+                String claimedStr = rs.getString("claimed");
+                StringStore claimed = serializeUtils.StringToActivityData(claimedStr);
+                return Optional.of(new GuildActivityData(guild,points,claimed));
+            }
+        } catch (SQLException ex){
+            legendaryGuild.info("获取公会活跃度数据时出错！ ",Level.SEVERE,ex);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveGuildActivityData(GuildActivityData data) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+" (guild,points,claimed) VALUES(?,?,?)");
+            ps.setString(1, data.getGuild());
+            ps.setDouble(2,data.getPoints());
+            ps.setString(3,data.getClaimed().toString());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            legendaryGuild.info("保存公会活跃度数据时出错！ ",Level.SEVERE,ex);
+        }
+    }
+
+    @Override
+    public void deleteGuildActivityData(){
+        PreparedStatement preparedStatement=null;
+        try {
+            preparedStatement = connection.prepareStatement("TRUNCATE TABLE `"+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+"`");
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            legendaryGuild.info("删除会活跃度数据时出错！ ",Level.SEVERE,e);
+        }
+    }
+
 
     public boolean executeUpdate(String execute) {
         if (connection != null) {

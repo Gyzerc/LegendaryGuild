@@ -1,7 +1,11 @@
 package com.legendaryrealms.LegendaryGuild.Utils.BungeeCord;
 
+import com.legendaryrealms.LegendaryGuild.API.UserAPI;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import com.legendaryrealms.LegendaryGuild.Listener.MoveEvent;
+import com.legendaryrealms.LegendaryGuild.Listener.PlayerJoin;
 import com.legendaryrealms.LegendaryGuild.Menu.Panels.StoresPanel;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import org.bukkit.Bukkit;
@@ -47,6 +51,10 @@ public class NetWorkHandle extends NetWork{
                 legendaryGuild.getGuildsManager().reloadGuildIfCached(value);
                 break;
             }
+            case REMOVE_GUILD: {
+                legendaryGuild.getGuildsManager().removeGuildCache(value);
+                break;
+            }
             case UPDATE_STORE: {
                 legendaryGuild.getStoresManager().reload(value);
                 break;
@@ -58,6 +66,12 @@ public class NetWorkHandle extends NetWork{
                 legendaryGuild.getRedPacketsManager().reloadRedPacket(value);
                 break;
             }
+            case UPDATE_GUILD_ACTIVITY_DATA:
+                legendaryGuild.getGuildActivityDataManager().reloadGuildIfCached(value);
+                break;
+            case REFRESH_ACTIVITY:
+                legendaryGuild.getGuildActivityDataManager().removeAll();
+                break;
             case SCAN_PLAYER_IS_OPEN_STORE: {
                 String player = value.split("/")[0];
                 int id = Integer.parseInt(value.split("/")[1]);

@@ -34,6 +34,7 @@ public class StoresPanel extends MenuDraw {
         this.inv = Bukkit.createInventory(this,loader.getSize(),legendaryGuild.color(loader.getTitle()));
         this.slotToId = new HashMap<>();
         DrawEssentail(inv);
+        load();
     }
 
     private HashMap<Integer,Integer> slotToId;

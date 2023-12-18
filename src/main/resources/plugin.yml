@@ -7,6 +7,8 @@ depend:
   - PlaceholderAPI
 softdepend:
   - PlayerPoints
+  - AttributePlus
+  - SX-Attribute
 commands:
   legendaryguild:
     aliases:
