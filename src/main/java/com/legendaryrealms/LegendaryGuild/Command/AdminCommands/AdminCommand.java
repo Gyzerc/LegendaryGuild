@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AdminCommand extends com.legendaryrealms.LegendaryGuild.Command.LegendaryCommand {
     public AdminCommand() {
-        super("legendaryguild.admin", "admin", 2, true);
+        super("legendaryguild.admin", "admin", 1, true);
     }
 
     @Override

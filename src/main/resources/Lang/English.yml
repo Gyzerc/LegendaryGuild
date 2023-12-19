@@ -48,6 +48,7 @@ help_admin:
   - '&8 - level add/take/set [Guild] [Amount] &f- &7"Operate the guild level of the specified guild"'
   - '&8 - buff add/take/set [Guild] buffID [Amount] &f- &7"Operate the specified guild buff"'
   - '&8 - activity add/take/set [Guild] [Amount] &f- &7"Operate the guild activity of the specified guild"'
+  - '&8 - activity add/take/set [Guild] [Amount] &f- &7"Operate the guild activity level of the specified player guild"'
   - '&8 - delete [Guild] &f- &7"Delete guild"'
 user:
   recive_points: '&fYour guild contribution points have increased &a%value%'
