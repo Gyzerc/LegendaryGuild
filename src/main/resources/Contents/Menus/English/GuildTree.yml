@@ -1,0 +1,213 @@
+title: '&6&lGuild Tree'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+#神树各个等级的显示图标 &  Display icons for each level of the guild tree
+tree:
+  #等级 & level
+  #config中设定了神树最大等级为多少，则这里就需要设置多少个 & If the maximum level of the divine tree is set in config, then how many need to be set here
+  0:
+    display: '&f&lGuild Tree &eLv.0'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%/%next% &7(%bar%&7)'
+      - '&fUpgrade required:'
+      - '&f - &7Guild Money×3000'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+  1:
+    display: '&f&lGuild Tree &eLv.1'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%/%next% &7(%bar%&7)'
+      - '&fUpgrade required:'
+      - '&f - &7Guild Money×5000'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+  2:
+    display: '&f&lGuild Tree &eLv.2'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%/%next% &7(%bar%&7)'
+      - '&fUpgrade required:'
+      - '&f - &7Guild Money×10000'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+  3:
+    display: '&f&lGuild Tree &eLv.3'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%/%next% &7(%bar%&7)'
+      - '&fUpgrade required:'
+      - '&f - &7Guild Money×15000'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+  4:
+    display: '&f&lGuild Tree &eLv.4'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%/%next% &7(%bar%&7)'
+      - '&fUpgrade required:'
+      - '&f - &7Guild Money×20000'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+  5:
+    display: '&f&lGuild Tree &eLv.MAX'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fLevel: &e%level%'
+      - '&fExp: &e%exp%'
+      - '&fCurrently at maximum level'
+      - ''
+      - '&eClick to upgrade'
+    slot: [13]
+customItem:
+  wish:
+    display: '&eWish'
+    material: NETHER_STAR
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&fMake a wish once a day to receive a gift from the tree'
+      - '&fThe higher the level, the better the reward obtained.'
+      - ''
+      - '&f[ &aClick to wish &f]'
+    slot: [29]
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #wish：神树许愿 & The guild tree makes a wish
+    #pot：浇水壶 & Watering pot
+    fuction:
+      type: wish
+  water1:
+    display: '&3Damaged pot'
+    material: BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    #%use% is the number of times the kettle has been used today
+    lore:
+      - '&f '
+      - '&7Price: &aFree'
+      - '&7Exp: &a1'
+      - '&f'
+      - '&cLimited to &a%use%/3 &ctimes per day.'
+    fuction:
+      type: pot
+      #对应着 WaterPots.yml 中的水壶ID & Corresponding to the water pot ID in WaterPots.yml
+      value: pot1
+    slot: [38]
+  water2:
+    display: '&aRare pot'
+    material: WATER_BUCKET
+    data: 0
+    model: 0
+    #%use% 为今日该水壶使用次数
+    lore:
+      - '&f '
+      - '&7Pirce: &a1000Guild Money'
+      - '&7Exp: &a5'
+      - '&f'
+      - '&cLimited to &a%use%/10 &ctimes per day.'
+    fuction:
+      type: pot
+      value: pot2
+    slot: [40]
+  water3:
+    display: '&5Epic pot'
+    material: LAVA_BUCKET
+    data: 0
+    model: 0
+    lore:
+      - '&f '
+      - '&7Price: &a500 Points'
+      - '&7Exp: &a50'
+      - '&f'
+      - '&cLimited to &a%use%/3 &ctimes per day.'
+    fuction:
+      type: pot
+      value: pot3
+    slot: [41]
+  water4:
+    display: '&6超级水壶'
+    material: LAVA_BUCKET
+    data: 0
+    model: 0
+    lore:
+      - '&f '
+      - '&7Price: &c高级水壶兑换权券 &a×3'
+      - '&7Exp: &a200'
+      - '&f'
+      - '&cLimited to &a%use%/1 &ctimes per day.'
+    fuction:
+      type: pot
+      value: pot4
+    slot: [42]
+  back:
+    display: '&cBack'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [49]
+  deco1:
+    display: '&f '
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [1-7,10-12,14-16,19-25,28,34,37,43,46-48,50-52]
+  deco2:
+    display: '&f '
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26,27,35,36,44,45,53]

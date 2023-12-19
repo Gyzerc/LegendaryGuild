@@ -1,0 +1,39 @@
+title: '&6&l宝物贡献'
+size: 36
+#检测宝物的格子
+#Detecting the grid of treasures
+layout: '[10-16,19-25]'
+sell_confirm:
+  display: '&bSubmit these tributes'
+  material: END_CRYSTAL
+  data: 0
+  model: 0
+  lore:
+    - ''
+    - '&f Their value :'
+    - '&f  &a%points% &fGuild Points'
+    - '&f  &a%exp% &fGuild Exp'
+    - ''
+    - '&f[ &eClick to submit &f]'
+  slot: '[31]'
+customItem:
+  i1:
+    display: '&f '
+    material: GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    slot: '[0-9,17-18,26-30,32-35]'
+    fuction:
+      type: none
+  item5:
+    display: '&f&l< &cBack &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [27]

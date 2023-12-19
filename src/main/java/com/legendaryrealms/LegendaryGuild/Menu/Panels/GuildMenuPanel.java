@@ -120,7 +120,7 @@ public class GuildMenuPanel extends MenuDraw {
                                 .addSinglePlaceHolder("maxmembers",maxmembers+"");
                         menuItem.setI(replaceHolderUtils.startReplace(i,true,p.getName()));
                     }
-                    case "appplications" : {
+                    case "applications" : {
                         ItemStack i = menuItem.getI();
                         ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
                                 .addSinglePlaceHolder("amount",guild.getApplications().size()+"");

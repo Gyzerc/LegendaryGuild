@@ -26,6 +26,7 @@ public class RedPacketsPanel extends MenuDraw {
         this.page = page;
         this.slotToRed = new HashMap<>();
         DrawEssentail(inv);
+        load();
     }
 
     private HashMap<Integer,UUID> slotToRed;

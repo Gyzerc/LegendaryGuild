@@ -1,0 +1,66 @@
+title: '&2Guild Applications'
+size: 45
+sound: ENTITY_PLAYER_LEVELUP
+#申请玩家的位置
+layout: [11-15,20-24]
+playeritem:
+  display: '%player%'
+  material: BOOK
+  data: 0
+  model: 0
+  lore:
+    - ''
+    - '&fDate: &a%apply_date%'
+    - ''
+    #这里使用的是 PAPI变量
+    #Here use PlaceholderAPI
+    - '&fLevel: %player_level%'
+    - '&fExp: %player_exp%'
+    - ''
+    - '&7- &3Left Click to agree'
+    - '&7- &CRight Click to disagree'
+customItem:
+  item0:
+    display: '&f&l< &ePrevious page &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #next: 下一页 & next page
+    #pre: 上一页 & previous page
+    fuction:
+      type: pre
+    slot: [39]
+  item1:
+    display: '&f&l< &eNext Page &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [41]
+  item3:
+    display: '&f&l< &bBack &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [40]

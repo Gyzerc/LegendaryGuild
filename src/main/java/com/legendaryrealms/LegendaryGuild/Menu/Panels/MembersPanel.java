@@ -40,6 +40,7 @@ public class MembersPanel extends MenuDraw {
                 menuItem.setI(replaceHolderUtils.startReplace(i,false,null));
             }
         });
+        loadPage();
     }
 
     @Override

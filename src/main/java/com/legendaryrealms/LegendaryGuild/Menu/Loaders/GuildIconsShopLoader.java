@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GuildIconsShopLoader extends MenuLoader {
     public GuildIconsShopLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "GuildIconsShop.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "GuildIconsShop.yml");
     }
 
     private String icon_display;

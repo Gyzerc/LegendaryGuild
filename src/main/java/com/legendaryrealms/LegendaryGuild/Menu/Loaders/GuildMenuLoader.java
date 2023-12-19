@@ -5,7 +5,7 @@ import com.legendaryrealms.LegendaryGuild.Menu.MenuLoader;
 
 public class GuildMenuLoader extends MenuLoader {
     public GuildMenuLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "GuildMenu.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "GuildMenu.yml");
     }
 
     @Override

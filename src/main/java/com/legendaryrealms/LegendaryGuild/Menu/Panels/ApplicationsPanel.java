@@ -27,6 +27,7 @@ public class ApplicationsPanel extends MenuDraw {
         this.page = page;
         this.inv = Bukkit.createInventory(this,loader.getSize(),loader.getTitle());
         DrawEssentail(inv);
+        loadPage();
     }
 
     private HashMap<Integer,String> slotToApp;

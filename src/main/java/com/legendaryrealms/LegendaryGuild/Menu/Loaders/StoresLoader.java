@@ -20,7 +20,7 @@ public class StoresLoader extends MenuLoader {
     private List<String> store_lore_locked;
 
     public StoresLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "Stores.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "Stores.yml");
     }
 
 

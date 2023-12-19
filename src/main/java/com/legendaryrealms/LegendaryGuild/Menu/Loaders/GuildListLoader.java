@@ -17,7 +17,7 @@ public class GuildListLoader extends MenuLoader {
 
 
     public GuildListLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "GuildList.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "GuildList.yml");
     }
 
 

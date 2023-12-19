@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TributesLoader extends MenuLoader {
     public TributesLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "Tributes.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "Tributes.yml");
     }
 
     private ItemStack confirmItem;

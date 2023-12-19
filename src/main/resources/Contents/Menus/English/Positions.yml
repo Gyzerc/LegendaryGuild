@@ -1,0 +1,81 @@
+title: '&6&lGuild Positions'
+size: 27
+sound: ENTITY_PLAYER_LEVELUP
+customItem:
+  owner:
+    display: '&9Position &f- %display%'
+    material: DIAMOND_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&eMembers: &a%amount%'
+      - ''
+      - '&2Buff:'
+      - '&f - Damage +20'
+      - '&3Owner:'
+      - '&f · &b%members%'
+    slot: [ 4 ]
+    fuction:
+      type: position
+      value: 会长
+  zl:
+    display: '&9Position &f- %display%'
+    material: GOLDEN_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&eMembers: &a%amount%'
+      - ''
+      - '&2Buff:'
+      - '&f - Damage +15'
+      - '&3Names:'
+      - '&f · &b%members%'
+      - ''
+      - '&8[ &aLeft click to appoint &8]'
+      - '&8[ &cRight click to cancel &8]'
+    slot: [ 12 ]
+    fuction:
+      type: position
+      value: 长老
+  jycy:
+    display: '&9Position &f- %display%'
+    material: GOLDEN_HELMET
+    data: 0
+    model: 0
+    lore:
+      - ''
+      - '&eMembers: &a%amount%'
+      - ''
+      - '&2Buff:'
+      - '&f - Damage +10'
+      - '&3Names:'
+      - '&f · &b%members%'
+      - ''
+      - '&8[ &aLeft click to appoint &8]'
+      - '&8[ &cRight click to cancel &8]'
+    slot: [ 14 ]
+    fuction:
+      type: position
+      value: 精英成员
+  back:
+    display: '&cBack'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: back
+    slot: [22]
+  deco1:
+    display: '&f'
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26]

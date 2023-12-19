@@ -65,7 +65,7 @@ public class Commands implements CommandExecutor, TabCompleter {
         else {
             String subCommandName = strings[0];
             HashMap<String,LegendaryCommand> map=commands;
-            if (subCommandName.equals("admin")){
+            if (subCommandName.equals("admin") && length >1){
                 map = admin_commands;
                 subCommandName = strings[1];
             }

@@ -1,0 +1,90 @@
+title: '&a&lActivity Rewards'
+size: 27
+placeholder:
+  wait: '&aUnclaimed'
+  already: '&eAlready claimed'
+  cant: '&cCant claim'
+customItem:
+  reward1:
+    display: '&7Activity Reward.1'
+    material: COAL
+    data: 0
+    model: 0
+    lore:
+      - '&3Activity requirements: &f500'
+      - '&3Current guild activity: &f%activity%'
+      - ''
+      - '&a&lRewards:'
+      - '&f - Guild Points ×50'
+      - '&f - Coin ×100'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [12]
+    fuction:
+      type: activity
+      #对应者 Contents/config/ActivityRewards.yml 的Rewardsid
+      value: rewards1
+  reward2:
+    display: '&eActivity Reward.2'
+    material: IRON_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&3Activity requirements: &f2000'
+      - '&3Current guild activity: &f%activity%'
+      - ''
+      - '&a&lRewards:'
+      - '&f - Guild Points ×150'
+      - '&f - Coin ×500'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [13]
+    fuction:
+      type: activity
+      value: rewards2
+  reward3:
+    display: '&CActivity Reward.3'
+    material: GOLD_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&3Activity requirements: &f6000'
+      - '&3Current guild activity: &f%activity%'
+      - ''
+      - '&a&lRewards:'
+      - '&f - Guild Points ×300'
+      - '&f - Coin ×1000'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [14]
+    fuction:
+      type: activity
+      value: rewards3
+  reward4:
+    display: '&6Activity Reward.4'
+    material: DIAMOND
+    data: 0
+    model: 0
+    lore:
+      - '&3Activity requirements: &f10000'
+      - '&3Current guild activity: &f%activity%'
+      - ''
+      - '&a&lRewards:'
+      - '&f - Guild Points ×500'
+      - '&f - Coin ×2000'
+      - ''
+      - '&8[ %placeholder% &8]'
+    slot: [15]
+    fuction:
+      type: activity
+      value: rewards4
+  item5:
+    display: '&f&l< &cBack &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [10]

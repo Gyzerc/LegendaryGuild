@@ -1,0 +1,75 @@
+title: '&3Guild Members - &0%sort%'
+size: 54
+sound: ENTITY_PLAYER_LEVELUP
+#申请玩家的位置
+layout: [11,12,13,14,15,20,21,22,23,24]
+#文本变量
+placeholder:
+  sort_position: 'Position sort'
+  sort_points: 'Total points sort'
+  sort_date: 'Join date sort'
+playeritem:
+  display: '%player%'
+  material: WRITABLE_BOOK
+  data: 0
+  model: 0
+  #你可以使用 PlaceholderAPI 的变量
+  lore:
+    - ''
+    - '&fPosition: &a%position%'
+    - '&fJoin date: &a%date%'
+    - '&fTotal Points: &a%total_points%'
+    - ''
+    #这里使用的是 PAPI变量
+    - '&fLevel: &a%player_level%'
+    - '&fExp: &a%player_exp%'
+    - ''
+    - '&7- &cSHIFT+Right click &7to kick form guild'
+customItem:
+  item0:
+    display: '&f&l< &ePrevious page &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    #none:点击后没有任何效果 &  No effect after clicking
+    #cmd:点击后执行指令 &  Execute command after clicking
+    # - format：
+    # - - [player]/spawn 玩家发送指令 & Players send commands
+    # - - [op]spawn 玩家以OP权限发送指令 & Players send commands with OP permission
+    # - - [console]spawn %player% 从后台执行指令 & Execute commands from the console
+    # - - 例子 & For Example：
+    # - - - fuction:
+    # - - -  type: cmd
+    # - - -  value: [player]/spawn
+    #close:点击后关闭菜单 & Click to close the menu
+    #back:点击后返回公会主界面 & Click to return to the main interface of the guild
+    #next: 下一页 & next page
+    #pre: 上一页 & previous page
+    #sort: 排序 & sort
+    fuction:
+      type: pre
+    slot: [39]
+  item1:
+    display: '&f&l< &eNext page &f&l>'
+    material: ARROW
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: next
+    slot: [41]
+  item5:
+    display: '&f&l< &dSwitching sorting methods &f&l>'
+    material: ENDER_PEARL
+    data: 0
+    model: 0
+    lore:
+      - ' '
+      - '&f&l# &eCurrent by &a%placeholder_sort%'
+      - '&f'
+    fuction:
+      type: sort
+    slot: [40]

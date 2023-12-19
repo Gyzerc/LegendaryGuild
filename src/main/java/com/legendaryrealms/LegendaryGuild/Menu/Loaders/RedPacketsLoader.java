@@ -19,7 +19,7 @@ public class RedPacketsLoader extends MenuLoader {
     private int packet_model_after;
     private List<String> packet_lore_after;
     public RedPacketsLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild,"./plugins/LegendaryGuild/Contents/Menus","Contents/Menus/","RedPackets.yml");
+        super(legendaryGuild,"./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/","RedPackets.yml");
     }
 
     @Override

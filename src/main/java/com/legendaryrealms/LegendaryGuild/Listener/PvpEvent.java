@@ -20,8 +20,19 @@ public class PvpEvent implements Listener {
     public void onDamage(EntityDamageByEntityEvent e){
         if (e.isCancelled()){return;}
         if (e.getDamager() instanceof Player || e.getDamager() instanceof Arrow){
-            String type = e.getDamager().getType().name();
-            Player damager = type.equals("PLAYER") ? (Player) e.getDamager() : (Player) ( (Arrow)e.getDamager() ).getShooter();
+            Player damager = null;
+            if(e.getDamager() instanceof Player) {
+                damager = (Player) e.getDamager();
+            }
+            else {
+                Arrow arrow = (Arrow) e.getDamager();
+                if (arrow.getShooter() instanceof Player){
+                    damager = (Player) arrow.getShooter();
+                }
+            }
+            if (damager == null ) {
+                return;
+            }
             User user = UserAPI.getUser(damager.getName());
             if (user.hasGuild() && e.getEntity() instanceof Player){
                 Player p = (Player) e.getEntity();

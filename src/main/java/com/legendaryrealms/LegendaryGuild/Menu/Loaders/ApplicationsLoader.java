@@ -15,7 +15,7 @@ public class ApplicationsLoader extends MenuLoader {
     private List<String> app_lore;
 
     public ApplicationsLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "Applications.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "Applications.yml");
     }
 
     @Override

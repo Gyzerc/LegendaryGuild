@@ -14,7 +14,7 @@ public class MembersLoader extends MenuLoader {
     private int mm_model;
     private List<String> mm_lore;
     public MembersLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "Members.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "Members.yml");
     }
 
     @Override

@@ -1,0 +1,268 @@
+title: '&6&lGuild Menu'
+#公会界面尺寸
+size: 54
+customItem:
+  infomation:
+    display: '&3Infomation'
+    material: OAK_SIGN
+    data: 0
+    model: 0
+    lore:
+      - '&2&oCreated in %date%'
+      - ''
+      - '&fOwner: &a%owner%'
+      - '&fLevel: &a%level% &8(&e%exp%/%next%&8)'
+      - '&fTree Level: &a%treelevel% &8(&e%treeexp%/%treenext%&8)'
+      - '&fMoney: &a%money%'
+      - '&fMembers: &a%members%/%maxmembers%'
+      - '&fActivity: &a%activity%'
+      - '&fIntroduction:'
+      - '%intro%'
+      - ''
+      - '&f[ &bLeft click to add a guild introduction &f]'
+      - '&f[ &cRight click to delete the last introduction &f]'
+    fuction:
+      type: information
+    slot: [11]
+  notice:
+    display: '&3Guild Notice'
+    material: BOOK
+    data: 0
+    model: 0
+    lore:
+      - '&f - &e%notice%'
+      - ''
+      - '&f[ &bLeft click to add a guild notice &f]'
+      - '&f[ &cRight click to delete the last notice &f]'
+    fuction:
+      type: notice
+    slot: [12]
+  home:
+    display: '&bGuild Home'
+    material: ENDER_EYE
+    data: 0
+    model: 0
+    lore:
+      - '&fReturn or set &6guild home'
+      - ''
+      - '&f[ &bLeft click to return to guild home &f]'
+      - '&f[ &cRight click to set guild home &f]'
+    fuction:
+      type: home
+    slot: [13]
+  tree:
+    display: '&bGuild Tree'
+    material: OAK_SAPLING
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Guild Tree &fmenu'
+      - '&fWatering and making wishes for the tree &ehere'
+      - ''
+      - '&c&lTree information:'
+      - ' &f· Level: &b%level%'
+      - ' &f· Exp: &b%exp%/%next% &8(%bar%&8)'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: tree
+    slot: [14]
+  shop:
+    display: '&bGuild Shop'
+    material: BEACON
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Guild Shop &fmenu'
+      - '&fPurchase products here using &eguild points'
+      - ''
+      - '&c&lInformation:'
+      - ' &f· Current available points: &b%points%'
+      - ' &f· Historical points: &b%total_points%'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: shop
+    slot: [15]
+  activity:
+    display: '&aActivity Rewards'
+    material: EXPERIENCE_BOTTLE
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Activity Rewards &fmenu'
+      - '&fClaim the &eActivity Rewards'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: activity
+    slot: [29]
+  tribute:
+    display: '&cContribute Treasures'
+    material: EMERALD
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Contribute Treasures &fmenu'
+      - '&fUse &eContribute Treasure &fto obtain &eguild points and guild experience.'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: tributes
+    slot: [30]
+  redpackets:
+    display: '&cGuild red packets'
+    material: JUKEBOX
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Guild red packets &fmenu'
+      - '&fGrab the &ered packets distributed by guild members'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: redpackets
+    slot: [31]
+  stores:
+    display: '&cGuild Stores'
+    material: CHEST
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Guild Stores &fmenu'
+      - '&fUse the guilds shared stores here'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: stores
+    slot: [32]
+  buff:
+    display: '&cGuild Buff'
+    material: REDSTONE
+    data: 0
+    model: 0
+    lore:
+      - '&fEnter the &6Guild Buff &fmenu'
+      - '&fView and upgrade guild buff here'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: buff
+    slot: [33]
+  giveMoney:
+    display: '&dDonate money'
+    material: GOLD_INGOT
+    data: 0
+    model: 0
+    lore:
+      - '&fDonate &6money &fto the guild to gain contribution points'
+      - ''
+      - '&f[ &euse &a/guild money [Amount] &f]'
+    fuction:
+      type: none
+    slot: [38]
+  POSITION:
+    display: '&6Guild Positions'
+    material: NETHER_STAR
+    data: 0
+    model: 0
+    lore:
+      - '&fView all &6positions &fand current members in the guild'
+      - ''
+      - '&c&lInfomation:'
+      - ' &f· Your Position: %position%'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: positions
+    slot: [39]
+  members:
+    display: '&2Guild Members'
+    material: PLAYER_HEAD
+    data: 0
+    model: 0
+    lore:
+      - '&fLook &6all &fguild members'
+      - ''
+      - '&c&lInfomation:'
+      - ' &f· Current members: %members%/%maxmembers%'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: members
+    slot: [40]
+  appplications:
+    display: '&eApplications'
+    material: WRITABLE_BOOK
+    data: 0
+    model: 0
+    lore:
+      - '&fView all pending &6membership applications in the guild'
+      - ''
+      - '&c&lInformation:'
+      - ' &f· Amount: %amount%'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: applications
+    slot: [41]
+  icons:
+    display: '&7Guild Icons'
+    material: PAPER
+    data: 0
+    model: 0
+    lore:
+      - '&fChange guilds &6display icon'
+      - ''
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: icon
+    slot: [42]
+  pvp:
+    display: '&cGuild PVP'
+    material: SHIELD
+    data: 0
+    model: 0
+    lore:
+      - '&fSwitch Guild&6 PVP Protection'
+      - '&fWhen enabled,you will not receive damage from &eguild players'
+      - '&fAnd it will not cause damage to &eand guild players'
+      - ''
+      - '&f[ &aClick to switch &f]'
+    fuction:
+      type: pvp
+    slot: [47]
+  chat:
+    display: '&bGuild Chat'
+    material: STRING
+    data: 0
+    model: 0
+    lore:
+      - '&fSwitch Guild &6chat'
+      - '&fWhen enabled, your chat will not be&e non guild'
+      - '&fplayers see.'
+      - ''
+      - '&f[ &aClick to switch &f]'
+    fuction:
+      type: chat
+    slot: [48]
+  deco1:
+    display: '&f '
+    material: RED_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [0,8,9,17,18,26,27,35,36,44,45,53]
+  deco2:
+    display: '&f '
+    material: BLACK_STAINED_GLASS_PANE
+    data: 0
+    model: 0
+    lore:
+      - ''
+    fuction:
+      type: none
+    slot: [1-7,10,16,19-25,28,34,37,43,46,52]

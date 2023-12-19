@@ -5,7 +5,7 @@ import com.legendaryrealms.LegendaryGuild.Menu.MenuLoader;
 
 public class PositionsLoader extends MenuLoader {
     public PositionsLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "Positions.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "Positions.yml");
     }
 
     @Override

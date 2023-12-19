@@ -15,7 +15,7 @@ public class GuildTreeLoader extends MenuLoader {
 
     private GuildTreeIcon treeIcon;
     public GuildTreeLoader(LegendaryGuild legendaryGuild) {
-        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus", "Contents/Menus/", "GuildTree.yml");
+        super(legendaryGuild, "./plugins/LegendaryGuild/Contents/Menus/"+legendaryGuild.lang.name(), "Contents/Menus/"+legendaryGuild.lang.name()+"/", "GuildTree.yml");
     }
 
     @Override
