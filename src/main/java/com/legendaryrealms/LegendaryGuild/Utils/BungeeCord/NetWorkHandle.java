@@ -48,7 +48,7 @@ public class NetWorkHandle extends NetWork{
                 break;
             }
             case UPDATE_GUILD: {
-                legendaryGuild.getGuildsManager().reloadGuildIfCached(value);
+                legendaryGuild.getGuildsManager().removeGuildCache(value);
                 break;
             }
             case REMOVE_GUILD: {

@@ -34,7 +34,7 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "5.0.2";
+        return "5.0.3";
     }
 
     private final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();

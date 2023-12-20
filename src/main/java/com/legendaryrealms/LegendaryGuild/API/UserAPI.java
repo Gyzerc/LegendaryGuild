@@ -58,6 +58,7 @@ public class UserAPI {
             return;
         }
         Guild guild = legendaryGuild.getGuildsManager().getGuild(guildName);
+
         LinkedList<Guild.Application> applications=guild.getApplications();
         List<Guild.Application> list = applications.stream().filter(application -> {
             if (application.getPlayer().equals(user.getPlayer())){
@@ -74,6 +75,8 @@ public class UserAPI {
         guild.addApplication(user.getPlayer());
         //更新数据库
         guild.updata();
+
+
         //发送消息
         msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_send.replace("%value%",guildName));
         msg.sendMessage(guild.getOwner(),lang.plugin+lang.application_recive.replace("%player%",user.getPlayer()));

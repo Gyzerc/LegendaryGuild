@@ -92,6 +92,8 @@ public class Lang extends FileProvider{
     public String application_wait;
     public String application_pass;
     public String application_join;
+    public String application_deny;
+    public String application_deny_target;
     public String application_join_broad;
     public String members_kick;
     public String members_kick_broad;
@@ -273,6 +275,8 @@ public class Lang extends FileProvider{
         this.application_pass = legendaryGuild.color(getValue("application.pass","&f你通过了玩家 &e%value% &f的入会申请."));
         this.application_join = legendaryGuild.color(getValue("application.join","&f你加入了公会 %value%"));
         this.application_join_broad = legendaryGuild.color(getValue("application.join_broad","&f新的成员 &e%value% &f加入了我们的公会！"));
+        this.application_deny = legendaryGuild.color(getValue("application.deny","&c你拒绝了 &d%value% &c的入会申请"));
+        this.application_deny_target = legendaryGuild.color(getValue("application.deny_target","&c你向公会 %value% &c发送的入会申请被拒绝..."));
 
         this.members_kick = legendaryGuild.color(getValue("members.kick","&f你将 &e%value% &f踢出了公会."));
         this.members_kick_broad = legendaryGuild.color(getValue("members.kick_broad","&f公会成员 &e%value% &f被踢出了公会."));

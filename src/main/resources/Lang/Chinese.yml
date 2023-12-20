@@ -115,6 +115,8 @@ application:
   pass: '&f你通过了玩家 &e%value% &f的入会申请.'
   join: '&f你加入了公会 %value%'
   join_broad: '&f新的成员 &e%value% &f加入了公会！'
+  deny: '&c你拒绝了 &d%value% &c的入会申请'
+  deny_target: '&c你向公会 %value% &c发送的入会申请被拒绝...'
 members:
   kick: '&f你将 &e%value% &f踢出了公会.'
   kick_broad: '&f公会成员 &e%value% &f被踢出了公会'

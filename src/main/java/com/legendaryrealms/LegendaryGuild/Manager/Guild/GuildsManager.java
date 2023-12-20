@@ -32,11 +32,6 @@ public class GuildsManager {
         return getGuilds().contains(guildName);
     }
 
-    public void reloadGuildIfCached(String guild){
-        if (cache.containsKey(guild)) {
-            cache.put(guild, legendaryGuild.getDataBase().getGuild(guild).get());
-        }
-    }
     public void removeGuildCache(String guild){
         cache.remove(guild);
     }

@@ -88,9 +88,9 @@ admin:
   activity_take: '&fYou have decreased the activity value of guild for guild &e%target% &fby &e%value%'
   activity_set: '&fYou have set the activity value of guild for guild &e%target% &fby &e%value%'
 default:
-  'null': 'null'
-  guild: 'null'
-  position: 'null'
+  'null': 'unknown'
+  guild: 'no guild'
+  position: 'no position'
   intro: 'The chairman of this guild is very lazy and has not yet left for introduction'
   notice: 'The chairman of this guild is very lazy and has not left a notice yet'
 create:
@@ -115,6 +115,8 @@ application:
   pass: '&fYou have pass player &e%value% &f"s application.'
   join: '&fYou joined the guild %value%'
   join_broad: '&fNew members &e%value% &fhave joined our guild！'
+  deny: '&cYou have rejected the membership application for &d%value%'
+  deny_target: '&cYour membership application sent to guild %value% &chas been rejected...'
 members:
   kick: '&fYou kicked &e%value% &fout of the guild'
   kick_broad: '&fGuild member &e%value% &fhas been kicked out of the guild'

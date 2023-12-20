@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class Guild {
     private String guild;
@@ -194,16 +195,13 @@ public class Guild {
         applications.add(new Application(target,date));
     }
     public void removeApplication(String target){
-        Application app = null;
-        for (Application application:applications){
-            if (application.getPlayer().equals(target)){
-                app = application;
-                break;
+        List<Application> get = applications.stream().filter(a -> {
+            if (a.getPlayer().equals(target)){
+                return false;
             }
-        }
-        if (app != null){
-            applications.remove(app);
-        }
+            return true;
+        }).collect(Collectors.toList());;
+       this.applications = new LinkedList<>(get);
     }
 
     public void updata(){

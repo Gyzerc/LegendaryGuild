@@ -118,9 +118,27 @@ public class ApplicationsPanel extends MenuDraw {
                     Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(clickUser.getGuild());
 
                     if (clickUser.getPosition().equals(LegendaryGuild.getInstance().getPositionsManager().getOwnerPosition().getId())){
+
+                        if (e.isRightClick()){
+
+                            guild.removeApplication(target);
+                            guild.updata();
+
+                            p.sendMessage(lang.plugin+lang.application_deny.replace("%value%",target));
+                            LegendaryGuild.getInstance().getMsgUtils().sendMessage(target,lang.plugin+lang.application_deny_target.replace("%value%",guild.getGuild()));
+
+                            ApplicationsPanel applicationsPanel = new ApplicationsPanel(p,page);
+                            applicationsPanel.loadPage();
+                            applicationsPanel.open();
+                            return;
+
+                        }
+
                         User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(target);
                         if (targetUser.hasGuild()){
                             guild.removeApplication(target);
+                            guild.updata();
+
                             ApplicationsPanel applicationsPanel = new ApplicationsPanel(p,page);
                             applicationsPanel.loadPage();
                             applicationsPanel.open();
@@ -131,7 +149,10 @@ public class ApplicationsPanel extends MenuDraw {
                             return;
                         }
                         guild.removeApplication(target);
+                        guild.updata();
+
                         UserAPI.JoinGuild(targetUser,guild);
+
                         ApplicationsPanel applicationsPanel = new ApplicationsPanel(p,page);
                         applicationsPanel.loadPage();
                         applicationsPanel.open();

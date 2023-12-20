@@ -28,6 +28,7 @@ import com.legendaryrealms.LegendaryGuild.Manager.*;
 import com.legendaryrealms.LegendaryGuild.Manager.User.PositionsManager;
 import com.legendaryrealms.LegendaryGuild.Manager.User.UsersManager;
 import com.legendaryrealms.LegendaryGuild.Utils.MsgUtils;
+import com.legendaryrealms.LegendaryGuild.Utils.UpdateCheck;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -93,6 +94,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         });
 
         //获取全服在线玩家
+        //减少玩家公会创建/加入冷却
         sync(new Runnable() {
             @Override
             public void run() {
@@ -102,6 +104,13 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
                         netWork.PlayerList(p);
                     }
                 }
+
+                Bukkit.getOnlinePlayers().forEach(p -> {
+                    User user = UserAPI.getUser(p.getName());
+                    if (user.getCooldown() > 0){
+                        user.setCooldown( user.getCooldown() - 1);
+                    }
+                });
             }
         },20,20);
 
@@ -119,6 +128,9 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
 
         //注册变量
         new LegendaryGuildPlaceholderAPI();
+
+        //更新检测
+        updateCheck();
     }
 
     @Override
@@ -132,7 +144,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
     public static void setPlayers(List<String> player){
         players = player;
      }
-    private void initEssentails(){
+    public void initEssentails(){
 
         msgUtils = new MsgUtils(this);
         positionsManager = new PositionsManager(this);
@@ -198,6 +210,27 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
                 }
             }
         });
+    }
+
+    private void updateCheck(){
+        Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
+            @Override
+            public void run() {
+                new UpdateCheck(legendaryGuild,114036).getVersion(v ->{
+                    if (legendaryGuild.getDescription().getVersion().equals(v)) {
+                        getLogger().info("There is not a new update available.");
+                        getLogger().info(color("&a当前使用版本为最新版本"));
+
+                    } else {
+                        getLogger().info("There is a new update available.");
+                        Bukkit.getConsoleSender().sendMessage(color("当前使用版本: &c"+legendaryGuild.getDescription().getVersion()));
+                        Bukkit.getConsoleSender().sendMessage(color("最新版本: &c"+v));
+                        Bukkit.getConsoleSender().sendMessage(color("请前往 &a&nhttps://www.spigotmc.org/resources/legendaryguild-%E2%9C%A8-a-rich-and-powerful-guild-system.114036/ &f获取最新版本."));
+                    }
+                });
+            }
+        },200);
+
     }
 
     //注册BC通讯通道
