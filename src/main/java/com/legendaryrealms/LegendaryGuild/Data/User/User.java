@@ -1,10 +1,12 @@
 package com.legendaryrealms.LegendaryGuild.Data.User;
 
+import com.google.common.collect.Iterables;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class User {
     private final Lang lang = LegendaryGuild.getInstance().getFileManager().getLang();
@@ -158,13 +160,16 @@ public class User {
 
 
     public void update() {
-        LegendaryGuild.getInstance().getUsersManager().updateUser(this, false);
+        LegendaryGuild.getInstance().getUsersManager().updateUser(this, true);
         if (LegendaryGuild.getInstance().getNetWork().isEnable()) {
-            new NetWorkMessageBuilder()
-                    .setReciver("ALL")
-                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_USER, this.player))
-                    .setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-                    .sendPluginMessage(Bukkit.getPlayerExact(this.player));
+            Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
+            if (p != null) {
+                new NetWorkMessageBuilder()
+                        .setReciver("ALL")
+                        .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_USER, this.player))
+                        .setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+                        .sendPluginMessage(p);
+            }
         }
     }
 

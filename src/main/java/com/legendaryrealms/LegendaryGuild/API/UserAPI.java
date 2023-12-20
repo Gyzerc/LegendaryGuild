@@ -137,12 +137,13 @@ public class UserAPI {
 
         //添加成员
         guild.getMembers().add(user.getPlayer());
+        //更新数据库发送同步更新信息
+        guild.updata();
+
         //发送通知
         msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_join.replace("%value%",guild.getGuild()));
         msg.sendGuildMessage(guild.getMembers(),lang.plugin+lang.application_join_broad.replace("%value%",user.getPlayer()));
 
-        //更新数据库发送同步更新信息
-        guild.updata();
         Bukkit.getPluginManager().callEvent(new PlayerJoinGuildEvent(user,guild));
     }
 

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.legendaryrealms.LegendaryGuild</groupId>
   <artifactId>LegendaryGuild</artifactId>
-  <version>5.0.3-SNAPSHOT</version>
+  <version>5.0.4-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>

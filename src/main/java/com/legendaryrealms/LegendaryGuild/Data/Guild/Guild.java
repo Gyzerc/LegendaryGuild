@@ -205,7 +205,7 @@ public class Guild {
     }
 
     public void updata(){
-        LegendaryGuild.getInstance().getGuildsManager().updateGuild(this,false);
+        LegendaryGuild.getInstance().getGuildsManager().updateGuild(this,true);
         Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
         if (p != null) {
             new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
