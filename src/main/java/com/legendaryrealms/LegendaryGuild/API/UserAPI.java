@@ -102,6 +102,8 @@ public class UserAPI {
                         user.addPoints(addPoints, true);
                         user.update();
                     }
+                    legendaryGuild.getHookManager().getVaultHook().getEconomy().withdrawPlayer(p,amount);
+
                     guild.addMoney(amount);
                     guild.updata();
 

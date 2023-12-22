@@ -17,19 +17,17 @@ public class ChatCommand extends LegendaryCommand {
     public void handle(CommandSender sender, String[] args) {
         if (sender instanceof Player){
             User user = UserAPI.getUser(sender.getName());
+            System.out.println(user.isChat());
             if (!user.hasGuild()) {
                 sender.sendMessage(lang.plugin+lang.nothasguild);
                 return;
             }
             if (user.isChat()) {
                 user.setChat( false );
-                user.update();
-
                 sender.sendMessage(lang.plugin+lang.chat_disable);
                 return;
             }
             user.setChat(true);
-            user.update();
 
             sender.sendMessage(lang.plugin+lang.chat_enable);
         }
