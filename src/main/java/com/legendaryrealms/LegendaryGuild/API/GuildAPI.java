@@ -525,7 +525,7 @@ public class GuildAPI {
                 }
                 return false;
             }).map(m -> Bukkit.getPlayerExact(m)).collect(Collectors.toList()).forEach(p -> {
-                legendaryguild.getBuffsManager().getProvider().updataBuff(p);
+                legendaryguild.getBuffsManager().getProvider().updateBuff(p);
             });
         }
     }

@@ -19,7 +19,7 @@ public class AttributePlus3 extends AttributePluginProvider{
 
 
     @Override
-    public void updataBuff(Player p) {
+    public void updateBuff(Player p) {
         User user = UserAPI.getUser(p.getName());
         AttributeData data = AttributePlus.attributeManager.getAttributeData(p);
         data.takeApiAttribute("LegendaryGuild_GuildBuff");

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Sx_Attribute2 extends AttributePluginProvider{
     @Override
-    public void updataBuff(Player p) {
+    public void updateBuff(Player p) {
 
         User user = UserAPI.getUser(p.getName());
 

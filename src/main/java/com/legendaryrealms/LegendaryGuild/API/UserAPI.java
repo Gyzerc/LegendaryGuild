@@ -419,7 +419,7 @@ public class UserAPI {
 
     public static void updataPlayerBuffAttribute(Player p){
         if (legendaryGuild.getBuffsManager().getProvider() != null){
-            legendaryGuild.getBuffsManager().getProvider().updataBuff(p);
+            legendaryGuild.getBuffsManager().getProvider().updateBuff(p);
         }
     }
 

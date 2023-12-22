@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AttributePlus2 extends AttributePluginProvider{
     @Override
-    public void updataBuff(Player p) {
+    public void updateBuff(Player p) {
         User user = UserAPI.getUser(p.getName());
 
         AttributeAPI.deleteAttribute(p,"LegendaryGuild_GuildBuff");
