@@ -30,7 +30,6 @@ public class GuildStoresManager {
         return new GuildStore(guild,new HashMap<>());
     }
     public void update(GuildStore store){
-        cache.remove(store.getGuild());
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {
