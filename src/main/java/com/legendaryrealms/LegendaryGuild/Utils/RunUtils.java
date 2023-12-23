@@ -105,7 +105,7 @@ public class RunUtils {
                             Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
                             double amount = Double.parseDouble(dealStr);
                             guild.addMoney(amount);
-                            guild.updata();
+                            guild.update();
                         }
                     }
                     break;

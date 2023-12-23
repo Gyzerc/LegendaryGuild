@@ -134,6 +134,26 @@ public class SqliteStore extends DataProvider{
         }
     }
 
+
+    @Override
+    public List<String> getUsers() {
+        PreparedStatement statement = null;
+        List<String> guilds = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT `player` FROM "+DatabaseTable.USER_DATA.getName()+";");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String guild = resultSet.getString("player");
+                guilds.add(guild);
+            }
+        }
+        catch (SQLException e) {
+            legendaryGuild.info("获取所有用户失败！",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
+        }
+        return guilds;
+    }
     @Override
     public Optional<User> getUser(String player) {
         PreparedStatement ps = null;
@@ -417,6 +437,25 @@ public class SqliteStore extends DataProvider{
     }
 
     @Override
+    public List<String> getGuildActivityDatas() {
+        PreparedStatement statement = null;
+        List<String> guilds = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String guild = resultSet.getString("guild");
+                guilds.add(guild);
+            }
+        }
+        catch (SQLException e) {
+            legendaryGuild.info("获取所有公会活跃度失败！",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
+        }
+        return guilds;
+    }
+    @Override
     public Optional<GuildActivityData> getGuildActivityData(String guild) {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -450,15 +489,10 @@ public class SqliteStore extends DataProvider{
         }
     }
 
+
     @Override
-    public void deleteGuildActivityData(){
-        PreparedStatement preparedStatement=null;
-        try {
-            preparedStatement = connection.prepareStatement("TRUNCATE TABLE `"+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+"`");
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            legendaryGuild.info("删除会活跃度数据时出错！ ",Level.SEVERE,e);
-        }
+    public void closeCon(Connection connection) {
+
     }
 
 

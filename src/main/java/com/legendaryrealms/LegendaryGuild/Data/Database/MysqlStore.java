@@ -47,7 +47,8 @@ public class MysqlStore extends DataProvider{
         setConnectPool();
     }
 
-    private void closeCon(Connection connection){
+    @Override
+    public void closeCon(Connection connection){
         try {
             if (connection != null && !connection.isClosed()){
                 connection.close();
@@ -67,7 +68,13 @@ public class MysqlStore extends DataProvider{
 
     @Override
     public void createTable(DatabaseTable table) {
+        Connection connection = null;
         if (isExist(table)){
+            try {
+                connection = connectPool.getConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         if (executeUpdate(table.getBuilder().toString())){
@@ -129,6 +136,29 @@ public class MysqlStore extends DataProvider{
             closeCon(connection);
         }
     }
+
+    @Override
+    public List<String> getUsers() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        List<String> guilds = new ArrayList<>();
+        try {
+            connection = connectPool.getConnection();
+            statement = connection.prepareStatement("SELECT `player` FROM "+DatabaseTable.USER_DATA.getName()+";");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String guild = resultSet.getString("player");
+                guilds.add(guild);
+            }
+        }
+        catch (SQLException e) {
+            legendaryGuild.info("获取所有用户失败！",Level.SEVERE,e);
+        } finally {
+            closeCon(connection);
+        }
+        return guilds;
+    }
+
     @Override
     public Optional<User> getUser(String player) {
         Connection connection = null;
@@ -153,7 +183,6 @@ public class MysqlStore extends DataProvider{
                 double points = rs.getDouble("points");
                 double total_points = rs.getDouble("total_points");
                 int cooldown = rs.getInt("cooldown");
-
 
                 //解析 浇水水壶数据
                 String water_day = rs.getString("water_today");
@@ -538,19 +567,28 @@ public class MysqlStore extends DataProvider{
         }
     }
 
+
+
     @Override
-    public void deleteGuildActivityData(){
-        Connection connection=null;
-        PreparedStatement preparedStatement=null;
+    public List<String> getGuildActivityDatas() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        List<String> guilds = new ArrayList<>();
         try {
             connection = connectPool.getConnection();
-            preparedStatement = connection.prepareStatement("TRUNCATE TABLE `"+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+"`");
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            legendaryGuild.info("删除会活跃度数据时出错！ ",Level.SEVERE,e);
+            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String guild = resultSet.getString("guild");
+                guilds.add(guild);
+            }
+        }
+        catch (SQLException e) {
+            legendaryGuild.info("获取所有公会活跃度失败！",Level.SEVERE,e);
         } finally {
             closeCon(connection);
         }
+        return guilds;
     }
 
     private void setConnectPool() {

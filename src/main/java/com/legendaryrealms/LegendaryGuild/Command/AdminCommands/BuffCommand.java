@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Command.AdminCommands;
 
 import com.legendaryrealms.LegendaryGuild.API.Events.GuildBuffLevelupEvent;
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.Command.CommandTabBuilder;
 import com.legendaryrealms.LegendaryGuild.Command.LegendaryCommand;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
@@ -13,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.legendaryrealms.LegendaryGuild.API.GuildAPI.updataGuildMembersBuff;
 
 public class BuffCommand extends LegendaryCommand {
     public BuffCommand() {
@@ -54,9 +54,9 @@ public class BuffCommand extends LegendaryCommand {
                 if (add > 0) {
                     data.setValue(buffId, (current + add), 0);
                     guild.setBuffs(data);
-                    guild.updata();
+                    guild.update();
                     //更新buff属性
-                    updataGuildMembersBuff(guild);
+                    GuildAPI.updateGuildMembersBuff(guild);
                     legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(), lang.plugin + lang.buff_levelup.replace("%target", buff.getDisplay()).replace("%value%", (current + add) + ""));
                 }
                 sender.sendMessage(lang.plugin+lang.admin_bufflevel_add.replace("%target%",guildName).replace("%buff%",buff.getDisplay()).replace("%value%",add+""));
@@ -69,9 +69,9 @@ public class BuffCommand extends LegendaryCommand {
                 if (take > 0){
                     data.setValue(buffId,(current-take),0);
                     guild.setBuffs(data);
-                    guild.updata();
+                    guild.update();
                     //更新buff属性
-                    updataGuildMembersBuff(guild);
+                    // GuildAPI.updateGuildMembersBuff(guild);
                 }
                 sender.sendMessage(lang.plugin+lang.admin_bufflevel_take.replace("%target%",guildName).replace("%buff%",buff.getDisplay()).replace("%value%",take+""));
                 break;
@@ -80,9 +80,9 @@ public class BuffCommand extends LegendaryCommand {
                 int set = Math.min(amount, buff.getMax());
                 data.setValue(buffId,set,0);
                 guild.setBuffs(data);
-                guild.updata();
+                guild.update();
                 //更新buff属性
-                updataGuildMembersBuff(guild);
+                GuildAPI.updateGuildMembersBuff(guild);
                 sender.sendMessage(lang.plugin+lang.admin_bufflevel_set.replace("%target%",guildName).replace("%buff%",buff.getDisplay()).replace("%value%",set+""));
                 break;
             }

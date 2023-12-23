@@ -2,6 +2,7 @@ package com.legendaryrealms.LegendaryGuild.Manager.Guild;
 
 import com.google.common.collect.Iterables;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
+import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
@@ -60,7 +61,7 @@ public class GuildActivityDataManager {
         if (value >= (targetInt-1)){
             set = 0;
             legendaryGuild.info("刷新所有公会活跃度", Level.INFO);
-            legendaryGuild.getDataBase().deleteGuildActivityData();
+            resetAllGuild();
             Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
             if (p != null) {
                 new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
@@ -70,6 +71,20 @@ public class GuildActivityDataManager {
             }
         }
         legendaryGuild.getDataBase().saveSystemData("activity_day",set+"");
+    }
+
+    private void resetAllGuild(){
+        legendaryGuild.sync(new Runnable() {
+            @Override
+            public void run() {
+                for (String guild : legendaryGuild.getDataBase().getGuildActivityDatas()){
+                    GuildActivityData data = getData(guild);
+                    data.setPoints(0);
+                    data.setClaimed(new StringStore());
+                    data.update();
+                }
+            }
+        });
 
     }
 }

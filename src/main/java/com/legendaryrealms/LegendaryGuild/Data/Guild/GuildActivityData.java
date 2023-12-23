@@ -48,7 +48,7 @@ public class GuildActivityData {
         return claimed;
     }
 
-    public void updata(){
+    public void update(){
         LegendaryGuild.getInstance().getGuildActivityDataManager().updataGuildActivityData(this,false);
         Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
         if (p != null) {

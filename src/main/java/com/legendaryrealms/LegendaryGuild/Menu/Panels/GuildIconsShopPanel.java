@@ -116,7 +116,7 @@ public class GuildIconsShopPanel extends MenuDraw {
                         if (!guild.getIcon().equals(icon.getId())){
                             if (guild.getUnlock_icons().contains(icon.getId())){
                                 guild.setIcon(icon.getId());
-                                guild.updata();
+                                guild.update();
 
                                 p.sendMessage(lang.plugin+lang.icon_put.replace("%value%",icon.getDisplay()));
 
@@ -140,7 +140,7 @@ public class GuildIconsShopPanel extends MenuDraw {
                             List<String> icons = new ArrayList<>(guild.getUnlock_icons());
                             icons.add(icon.getId());
                             guild.setUnlock_icons(icons);
-                            guild.updata();
+                            guild.update();
 
                             p.sendMessage(lang.plugin+lang.icon_unlock.replace("%value%",icon.getDisplay()));
 

@@ -74,7 +74,7 @@ public class UserAPI {
         //添加到申请列表中
         guild.addApplication(user.getPlayer());
         //更新数据库
-        guild.updata();
+        guild.update();
 
 
         //发送消息
@@ -105,7 +105,7 @@ public class UserAPI {
                     legendaryGuild.getHookManager().getVaultHook().getEconomy().withdrawPlayer(p,amount);
 
                     guild.addMoney(amount);
-                    guild.updata();
+                    guild.update();
 
                     p.sendMessage(lang.plugin+lang.money_message.replace("%value%",""+amount));
                     legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.money_message_broad.replace("%target%",p.getName()).replace("%value%",""+amount));
@@ -140,7 +140,7 @@ public class UserAPI {
         //添加成员
         guild.getMembers().add(user.getPlayer());
         //更新数据库发送同步更新信息
-        guild.updata();
+        guild.update();
 
         //发送通知
         msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_join.replace("%value%",guild.getGuild()));
@@ -176,7 +176,7 @@ public class UserAPI {
         Guild guild = legendaryGuild.getGuildsManager().getGuild(guildName);
         guild.getMembers().remove(user.getPlayer());
         //更新数据库通知其他子服务器
-        guild.updata();
+        guild.update();
 
         //发送消息
         if (sender != null){
@@ -375,7 +375,7 @@ public class UserAPI {
         LinkedList<String> members = guild.getMembers();
         members.remove(members.indexOf(p.getName()));
         guild.setMembers(members);
-        guild.updata();
+        guild.update();
 
         Bukkit.getPluginManager().callEvent(new PlayerQuitGuildEvent(p,guild));
 
@@ -402,7 +402,7 @@ public class UserAPI {
         }
 
         guild.setOwner(target);
-        guild.updata();
+        guild.update();
         user.setPosition(legendaryGuild.getPositionsManager().getDefaultPosition().getId());
         user.update();
         tagetUser.setPosition(legendaryGuild.getPositionsManager().getOwnerPosition().getId());
@@ -417,9 +417,9 @@ public class UserAPI {
 
 
 
-    public static void updataPlayerBuffAttribute(Player p){
+    public static void updatePlayerBuffAttribute(Player p){
         if (legendaryGuild.getBuffsManager().getProvider() != null){
-            legendaryGuild.getBuffsManager().getProvider().updataBuff(p);
+            legendaryGuild.getBuffsManager().getProvider().updateBuff(p);
         }
     }
 
@@ -480,7 +480,7 @@ public class UserAPI {
             }
             Guild.GuildHomeLocation homeLocation = new Guild.GuildHomeLocation(world, legendaryGuild.SERVER, x,y,z);
             guild.setHome(homeLocation);
-            guild.updata();
+            guild.update();
 
             setter.sendMessage(lang.plugin+lang.home_set);
             legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.home_set_broad);

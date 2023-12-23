@@ -270,11 +270,8 @@ public class StoresPanel extends MenuDraw {
                         store.setUse(id,p.getName());
                         //更新数据库
                         legendaryGuild.getStoresManager().update(store);
-                        //通知去其他服务器
-                        new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-                                .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, guild.getGuild()))
-                                .setReciver("ALL")
-                                .sendPluginMessage(p);
+
+
                         StoreContainer container = new StoreContainer(guild .getGuild(),p,id,data.getContents());
                     }
                     else {

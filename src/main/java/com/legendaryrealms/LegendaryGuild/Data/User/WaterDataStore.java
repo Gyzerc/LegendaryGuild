@@ -12,7 +12,13 @@ public class WaterDataStore {
     public Optional<WaterData> getWaterData(String id){
         return data.containsKey(id) ? Optional.of(data.get(id)) : Optional.empty();
     }
-
+    public void clearWaterDay(){
+        for (String id : data.keySet()){
+            WaterData waterData = data.get(id);
+            waterData.setAmount(WaterDataType.TODAY,0);
+            data.put(id,waterData);
+        }
+    }
     public String toString_Day(){
         StringBuilder builder = new StringBuilder();
         for (String id : data.keySet()){

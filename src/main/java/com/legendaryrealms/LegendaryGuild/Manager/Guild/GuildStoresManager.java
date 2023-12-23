@@ -1,7 +1,12 @@
 package com.legendaryrealms.LegendaryGuild.Manager.Guild;
 
+import com.google.common.collect.Iterables;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
+import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
@@ -30,7 +35,13 @@ public class GuildStoresManager {
             @Override
             public void run() {
                 legendaryGuild.getDataBase().saveStore(store);
-                cache.put(store.getGuild(),store);
+                Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
+                if ( p != null) {
+                    new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+                            .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, store.getGuild()))
+                            .setReciver("ALL")
+                            .sendPluginMessage(p);
+                }
             }
         });
 

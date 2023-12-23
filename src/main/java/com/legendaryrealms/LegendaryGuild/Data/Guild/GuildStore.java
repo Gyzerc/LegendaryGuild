@@ -99,7 +99,7 @@ public class GuildStore {
 
     }
 
-    public void updata(){
+    public void update(){
         LegendaryGuild.getInstance().getStoresManager().update(this);
         Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
         if (p != null) {

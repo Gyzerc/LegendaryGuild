@@ -7,6 +7,8 @@ import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.*;
 import com.legendaryrealms.LegendaryGuild.Command.PlayerCommands.DeleteCommand;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import com.legendaryrealms.LegendaryGuild.Listener.Custom.NewCycleEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

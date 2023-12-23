@@ -204,7 +204,7 @@ public class Guild {
        this.applications = new LinkedList<>(get);
     }
 
-    public void updata(){
+    public void update(){
         LegendaryGuild.getInstance().getGuildsManager().updateGuild(this,true);
         Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
         if (p != null) {

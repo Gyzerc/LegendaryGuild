@@ -24,7 +24,7 @@ public class UsersManager {
                 cache.put(player,user);
                 return user;
             }
-            user = new User(player, legendaryGuild.getFileManager().getLang().default_guild, legendaryGuild.getFileManager().getLang().default_position, "", new WaterDataStore(new HashMap<>()), 0, false, false, 0, 0, User.PvpType.ALL);
+            user = new User(player, legendaryGuild.getFileManager().getLang().default_guild, legendaryGuild.getFileManager().getLang().default_position, "", new WaterDataStore(new HashMap<>()), 0,false, false, 0, 0, User.PvpType.ALL);
             cache.put(player,user);
         }
         return user;

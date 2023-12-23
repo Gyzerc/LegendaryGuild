@@ -5,12 +5,15 @@ import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildStore;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild_Redpacket;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
-import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
+import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
+import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 public abstract class DataProvider {
 
@@ -21,6 +24,7 @@ public abstract class DataProvider {
     public abstract boolean isExist(DatabaseTable table);
     public abstract Optional<String> getSystemData(String key);
     public abstract void saveSystemData(String key,String value);
+    public abstract List<String> getUsers();
     public abstract Optional<User> getUser(String player);
     public abstract void saveUser(User user);
     public abstract List<String> getGuilds();
@@ -37,7 +41,8 @@ public abstract class DataProvider {
 
     public abstract Optional<GuildActivityData> getGuildActivityData(String guild);
     public abstract void saveGuildActivityData(GuildActivityData data);
-    public abstract void deleteGuildActivityData();
+    public abstract List<String> getGuildActivityDatas();
+    public abstract void closeCon(Connection connection);
 
     public enum DatabaseType {
         MYSQL,SQLite
@@ -129,10 +134,12 @@ public abstract class DataProvider {
         private String tableName;
         private String mainKey;
         private StringBuilder stringBuilder;
+        private StringStore columns;
 
 
         public Builder(String tableName) {
             this.tableName = tableName;
+            this.columns = new StringStore();
             stringBuilder = new StringBuilder("CREATE TABLE IF NOT EXISTS "+tableName+" (");
         }
 
@@ -141,6 +148,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" TEXT DEFAULT NULL");
+            columns.setValue(keyName,"TEXT DEFAULT NULL","TEXT DEFAULT NULL");
             return this;
         }
 
@@ -149,6 +157,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" UUID DEFAULT NULL");
+            columns.setValue(keyName,"UUID DEFAULT NULL","UUID DEFAULT NULL");
             return this;
         }
 
@@ -157,6 +166,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" BLOB DEFAULT NULL");
+            columns.setValue(keyName,"BLOB DEFAULT NULL","BLOB DEFAULT NULL");
             return this;
         }
 
@@ -165,6 +175,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` INTEGER NOT NULL");
+            columns.setValue(keyName,"INTEGER DEFAULT NULL","INTEGER DEFAULT NULL");
             return this;
         }
 
@@ -173,6 +184,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` DOUBLE NOT NULL");
+            columns.setValue(keyName,"DOUBLE DEFAULT NULL","DOUBLE DEFAULT NULL");
             return this;
         }
         public Builder addLongKey(String keyName){
@@ -180,6 +192,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` LONG NOT NULL");
+            columns.setValue(keyName,"LONG DEFAULT NULL","LONG DEFAULT NULL");
             return this;
         }
         public Builder addVarcharKey(String keyName,int length){
@@ -187,6 +200,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` varchar("+length+") NOT NULL");
+            columns.setValue(keyName,"varchar("+length+") NOT NULL","varchar("+length+") NOT NULL");
             return this;
         }
         public Builder addBooleanKey(String keyName){
@@ -194,6 +208,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` BOOLEAN NOT NULL");
+            columns.setValue(keyName,"BOOLEAN DEFAULT NULL","BOOLEAN DEFAULT NULL");
             return this;
         }
         public Builder build(String mainKey){
@@ -217,5 +232,10 @@ public abstract class DataProvider {
         public String toString(){
             return stringBuilder.toString();
         }
+
+        public StringStore getColumns() {
+            return columns;
+        }
+
     }
 }

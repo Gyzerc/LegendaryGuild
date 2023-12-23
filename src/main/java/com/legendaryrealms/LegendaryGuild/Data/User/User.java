@@ -38,6 +38,7 @@ public class User {
         this.chat = false;
     }
 
+
     public boolean isChat() {
         return chat;
     }

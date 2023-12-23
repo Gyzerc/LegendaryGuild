@@ -25,6 +25,7 @@ help_player:
   - '&aCommand: &e/legendaryguild'
   - '&aSub Command:'
   - '&8 - list &f- &7"Guild list"'
+  - '&8 - open &f- &7"Open guild menu"'
   - '&8 - create [Name] &f- &7"Create a guild"'
   - '&8 - join [Guild] &f- &7"Join a guild"'
   - '&8 - quit &f- &7"Quit guild"'

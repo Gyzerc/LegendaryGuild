@@ -93,7 +93,7 @@ public class GuildAPI {
         }
         legendaryguild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.stores_unlock_broad.replace("%value%",""+id));
         //更新数据库通知其他子服务器更新数据
-        store.updata();
+        store.update();
     }
 
     public static void createRedPacket(Player p,double total,int amount){
@@ -146,7 +146,7 @@ public class GuildAPI {
         }
         int add = level+amount <= config.MAXLEVEL ? amount : config.MAXLEVEL-level;
         guild.setLevel(level+add);
-        guild.updata();
+        guild.update();
 
         legendaryguild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.level_levelup.replace("%value%",""+(level+add)));
         lang.level_levelup_broad.forEach(msg -> {
@@ -164,7 +164,7 @@ public class GuildAPI {
         }
         int take = level -amount >= 0 ? amount : level;
         guild.setLevel(level-take);
-        guild.updata();
+        guild.update();
 
     }
 
@@ -172,7 +172,7 @@ public class GuildAPI {
         if (amount >= 0) {
             int set = Math.min(amount, config.MAXLEVEL);
             guild.setLevel(set);
-            guild.updata();
+            guild.update();
         }
     }
 
@@ -194,7 +194,7 @@ public class GuildAPI {
             level+=1;
 
             guild.setExp(less);
-            guild.updata();
+            guild.update();
 
             //升级
             addGuildLevel(guild,1);
@@ -206,7 +206,7 @@ public class GuildAPI {
         }
         else {
             guild.setExp(total);
-            guild.updata();
+            guild.update();
         }
 
         Bukkit.getPluginManager().callEvent(new GuildExpChangeEvent(guild,amount));
@@ -218,16 +218,16 @@ public class GuildAPI {
         if (level <= 0){
             double take = exp -amount >= 0 ? amount : exp;
             guild.setExp(exp - take);
-            guild.updata();
+            guild.update();
             return;
         }
         if (exp - amount >= 0){
             guild.setExp(exp - amount);
-            guild.updata();
+            guild.update();
             return;
         }
         guild.setExp(config.EXP.get(level-1));
-        guild.updata();
+        guild.update();
         double less = amount - exp;
         takeGuildLevel(guild,1);
         takeGuildExp(guild,less);
@@ -242,7 +242,7 @@ public class GuildAPI {
             }
             double set = Math.min(amount,config.EXP.get(guild.getLevel()));
             guild.setExp(set);
-            guild.updata();
+            guild.update();
 
             Bukkit.getPluginManager().callEvent(new GuildExpChangeEvent(guild,amount));
         }
@@ -267,7 +267,7 @@ public class GuildAPI {
 
         guild.setTreelevel(finalLevel);
         //更新数据库并通知其他子服务器
-        guild.updata();
+        guild.update();
 
         Bukkit.getPluginManager().callEvent(new GuildTreeLevelupEvent(guild,treelevel,finalLevel));
     }
@@ -299,7 +299,7 @@ public class GuildAPI {
             legendaryguild.getRequirementsManager().deal(p,requirements);
 
             guild.setTreeexp(0);
-            guild.updata();
+            guild.update();
 
             addGuildTreeLevel(p.getName(),guild,1);
             return true;
@@ -314,7 +314,7 @@ public class GuildAPI {
         int take = level-amount >= 0 ? amount : level;
         guild.setTreelevel(level-take);
         //更新数据库并通知其他子服务器
-        guild.updata();
+        guild.update();
     }
 
     public static void setGuildTreeLevel(String player,Guild guild,int amount) {
@@ -322,7 +322,7 @@ public class GuildAPI {
             int set = Math.min(amount, config.MAX_TREE_LEVEL);
             guild.setTreelevel(set);
             //更新数据库并通知其他子服务器
-            guild.updata();
+            guild.update();
         }
     }
 
@@ -334,7 +334,7 @@ public class GuildAPI {
         double next =  config.TREEEXP.get(guild.getTreelevel());
         double set = Math.min(exp + amount, next);
         guild.setTreeexp(set);
-        guild.updata();
+        guild.update();
 
         legendaryguild.getMsgUtils().sendMessage(player,lang.plugin+lang.tree_expadd_byplayer.replace("%target%",guild.getGuild()).replace("%value%",(set-exp)+""));
         Bukkit.getPluginManager().callEvent(new GuildTreeExpChangeEvent(guild,set));
@@ -344,7 +344,7 @@ public class GuildAPI {
         double exp = guild.getTreeexp();
         double take = exp - amount >= 0 ? amount : exp;
         guild.setTreeexp(exp - take);
-        guild.updata();
+        guild.update();
 
         Bukkit.getPluginManager().callEvent(new GuildTreeExpChangeEvent(guild,(exp - take)));
     }
@@ -357,7 +357,7 @@ public class GuildAPI {
             double next = config.TREEEXP.get(guild.getTreelevel());
             double set = Math.min(amount,next);
             guild.setTreeexp(set);
-            guild.updata();
+            guild.update();
 
             Bukkit.getPluginManager().callEvent(new GuildTreeExpChangeEvent(guild,set));
         }
@@ -413,10 +413,10 @@ public class GuildAPI {
         //处理等级并同步数据
         data.setValue(buff.getId(), (current+1) ,1);
         guild.setBuffs(data);
-        guild.updata();
+        guild.update();
 
         //更新buff属性
-        updataGuildMembersBuff(guild);
+        updateGuildMembersBuff(guild);
 
         legendaryguild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.buff_levelup.replace("%target%",buff.getDisplay()).replace("%value%",""+(current+1)));
         Bukkit.getPluginManager().callEvent(new GuildBuffLevelupEvent(guild,buff,1));
@@ -466,7 +466,7 @@ public class GuildAPI {
 
         GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(addGuild.getGuild());
         data.setPoints( data.getPoints() + amount);
-        data.updata();
+        data.update();
 
         Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(addGuild, GuildActivityChangeEvent.ChangeType.Add,amount));
     }
@@ -487,7 +487,7 @@ public class GuildAPI {
         GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(takeGuild.getGuild());
         double take = Math.min(data.getPoints(), amount);
         data.setPoints( data.getPoints() - take);
-        data.updata();
+        data.update();
 
         Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(takeGuild, GuildActivityChangeEvent.ChangeType.Take,take));
 
@@ -510,14 +510,14 @@ public class GuildAPI {
         GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(setGuild.getGuild());
         double set = Math.min(0,amount);
         data.setPoints(set);
-        data.updata();
+        data.update();
 
         Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(setGuild, GuildActivityChangeEvent.ChangeType.Set,set));
 
         return set;
     }
 
-    public static void updataGuildMembersBuff(Guild guild) {
+    public static void updateGuildMembersBuff(Guild guild) {
         if (legendaryguild.getBuffsManager().getProvider() != null) {
             guild.getMembers().stream().filter(member -> {
                 if (Bukkit.getPlayerExact(member) != null) {
@@ -525,7 +525,7 @@ public class GuildAPI {
                 }
                 return false;
             }).map(m -> Bukkit.getPlayerExact(m)).collect(Collectors.toList()).forEach(p -> {
-                legendaryguild.getBuffsManager().getProvider().updataBuff(p);
+                legendaryguild.getBuffsManager().getProvider().updateBuff(p);
             });
         }
     }

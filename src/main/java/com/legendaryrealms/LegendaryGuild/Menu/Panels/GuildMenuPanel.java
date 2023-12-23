@@ -239,7 +239,7 @@ public class GuildMenuPanel extends MenuDraw {
                                                 intro.add(target);
 
                                                 guild.setIntro(intro);
-                                                guild.updata();
+                                                guild.update();
 
                                                 p.sendMessage(lang.plugin+lang.intro_add.replace("%value%",target));
                                                 return Arrays.asList(AnvilGUI.ResponseAction.close(),
@@ -256,7 +256,7 @@ public class GuildMenuPanel extends MenuDraw {
                                     if (intro.size() > 0){
                                         String remove = intro.remove(intro.size()-1);
                                         guild.setIntro(intro);
-                                        guild.updata();
+                                        guild.update();
 
                                         p.sendMessage(lang.plugin+lang.intro_remove.replace("%value%",LegendaryGuild.getInstance().color(remove)));
                                         GuildMenuPanel menuPanel = new GuildMenuPanel(p);
@@ -286,7 +286,7 @@ public class GuildMenuPanel extends MenuDraw {
                                                 notice.add(target);
 
                                                 guild.setIntro(notice);
-                                                guild.updata();
+                                                guild.update();
 
                                                 p.sendMessage(lang.plugin+lang.notice_add.replace("%value%",target));
                                                 return Arrays.asList(AnvilGUI.ResponseAction.close(),
@@ -303,7 +303,7 @@ public class GuildMenuPanel extends MenuDraw {
                                     if (notice.size() > 0){
                                         String remove = notice.remove(notice.size()-1);
                                         guild.setIntro(notice);
-                                        guild.updata();
+                                        guild.update();
 
                                         p.sendMessage(lang.plugin+lang.notice_remove.replace("%value%",LegendaryGuild.getInstance().color(remove)));
                                         GuildMenuPanel menuPanel = new GuildMenuPanel(p);

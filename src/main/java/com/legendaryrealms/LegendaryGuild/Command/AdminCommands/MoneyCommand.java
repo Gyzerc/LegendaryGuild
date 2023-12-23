@@ -59,7 +59,7 @@ public class MoneyCommand extends LegendaryCommand {
 
         if (change) {
             //更新数据库
-            guild.updata();
+            guild.update();
         }
 
     }

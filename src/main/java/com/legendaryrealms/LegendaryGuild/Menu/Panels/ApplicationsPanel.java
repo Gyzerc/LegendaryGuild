@@ -122,7 +122,7 @@ public class ApplicationsPanel extends MenuDraw {
                         if (e.isRightClick()){
 
                             guild.removeApplication(target);
-                            guild.updata();
+                            guild.update();
 
                             p.sendMessage(lang.plugin+lang.application_deny.replace("%value%",target));
                             LegendaryGuild.getInstance().getMsgUtils().sendMessage(target,lang.plugin+lang.application_deny_target.replace("%value%",guild.getGuild()));
@@ -137,7 +137,7 @@ public class ApplicationsPanel extends MenuDraw {
                         User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(target);
                         if (targetUser.hasGuild()){
                             guild.removeApplication(target);
-                            guild.updata();
+                            guild.update();
 
                             ApplicationsPanel applicationsPanel = new ApplicationsPanel(p,page);
                             applicationsPanel.loadPage();
@@ -149,7 +149,7 @@ public class ApplicationsPanel extends MenuDraw {
                             return;
                         }
                         guild.removeApplication(target);
-                        guild.updata();
+                        guild.update();
 
                         UserAPI.JoinGuild(targetUser,guild);
 

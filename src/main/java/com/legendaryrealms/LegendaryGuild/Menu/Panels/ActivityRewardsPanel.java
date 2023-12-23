@@ -91,7 +91,7 @@ public class ActivityRewardsPanel extends MenuDraw {
                                 claims.add(p.getName());
                                 store.setValue(id,claims,new ArrayList<>());
                                 data.setClaimed(store);
-                                data.updata();
+                                data.update();
                                 Bukkit.getPluginManager().callEvent(new ActivityRewardClaimEvent(p,reward));
 
                                 p.sendMessage(lang.plugin+lang.activity_claim.replace("%value%", reward.getDisplay()));

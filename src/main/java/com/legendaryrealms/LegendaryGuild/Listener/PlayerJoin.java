@@ -55,7 +55,7 @@ public class PlayerJoin implements Listener {
         }
 
         //刷新公会buff属性
-        UserAPI.updataPlayerBuffAttribute(p);
+        UserAPI.updatePlayerBuffAttribute(p);
 
         //检测是否是要传送至驻地
         Bukkit.getScheduler().runTaskLater(legendaryGuild,()->{

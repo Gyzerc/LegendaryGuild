@@ -43,6 +43,6 @@ public class GuildMoneyRequirement extends Requirement {
         guild.takeMoney(Double.parseDouble(args[1]));
 
         //更新数据库
-        guild.updata();
+        guild.update();
     }
 }
