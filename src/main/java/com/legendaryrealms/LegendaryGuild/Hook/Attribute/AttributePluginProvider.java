@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 public abstract class AttributePluginProvider {
 
-    public abstract void updataBuff(Player p);
+    public abstract void updateBuff(Player p);
     public static boolean HookPlugin(AttributePlugin plugin, BuffsManager manager){
         switch (plugin){
             case AP2: {

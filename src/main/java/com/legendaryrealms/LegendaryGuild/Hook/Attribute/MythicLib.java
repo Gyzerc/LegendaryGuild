@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MythicLib extends AttributePluginProvider{
     @Override
-    public void updataBuff(Player p) {
+    public void updateBuff(Player p) {
         User user = UserAPI.getUser(p.getName());
 
         removePlayerStats(p,"LegendaryGuild_GuildBuff");
