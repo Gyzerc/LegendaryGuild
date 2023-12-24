@@ -268,11 +268,9 @@ public class StoresPanel extends MenuDraw {
                             }
                         }
                         store.setUse(id,p.getName());
+                        StoreContainer container = new StoreContainer(guild .getGuild(),p,id,data.getContents());
                         //更新数据库
                         legendaryGuild.getStoresManager().update(store);
-
-
-                        StoreContainer container = new StoreContainer(guild .getGuild(),p,id,data.getContents());
                     }
                     else {
                         int MAX = legendaryGuild.getFileManager().getStores().getLEVEL_TO_MAX_STORES().getOrDefault(guild.getLevel(),5);

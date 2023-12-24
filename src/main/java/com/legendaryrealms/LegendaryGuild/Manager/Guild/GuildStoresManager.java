@@ -33,6 +33,7 @@ public class GuildStoresManager {
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {
+                cache.put(store.getGuild(),store);
                 legendaryGuild.getDataBase().saveStore(store);
                 Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
                 if ( p != null) {

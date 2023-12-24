@@ -5,7 +5,9 @@ import com.legendaryrealms.LegendaryGuild.Data.Others.IntStore;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Panels.GuildMenuPanel;
+import com.legendaryrealms.LegendaryGuild.Utils.RunUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -91,7 +94,7 @@ public abstract class MenuDraw implements InventoryHolder{
                     return true;
                 }
                 case "cmd": {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), fuction.getValue().replace("%player%", p.getName()));
+                    new RunUtils(Arrays.asList(fuction.getValue()),p).start();
                     return true;
                 }
                 case "back": {
