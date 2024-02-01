@@ -83,7 +83,7 @@ public class Config extends FileProvider{
         //公会每级经验
         MAXLEVEL = getValue("settings.guild.level.max",5);
         List<Double> doubles = getValue("settings.guild.level.require", Arrays.asList(1000.0,5000.0,10000.0,50000.0,100000.0));
-        for (int a = 0 ; a<MAXLEVEL ; a++){
+        for (int a = 0 ; a<=MAXLEVEL ; a++){
             if (doubles.size() > a) {
                 EXP.put(a, doubles.get(a));
             }
@@ -93,7 +93,7 @@ public class Config extends FileProvider{
         }
         //公会每级最大人数
         List<Integer> integers = getValue("settings.guild.level.maxmembers", Arrays.asList(5,10,15,20,25));
-        for (int a = 0 ; a<MAXLEVEL ; a++){
+        for (int a = 0 ; a<=MAXLEVEL ; a++){
             if (integers.size() > a) {
                 MEMBERS.put(a, integers.get(a));
             }
@@ -105,7 +105,7 @@ public class Config extends FileProvider{
         //公会神树每级经验
         MAX_TREE_LEVEL = getValue("settings.guild.tree.level.max",5);
         doubles = getValue("settings.guild.tree.level.requireExp", Arrays.asList(1000.0,5000.0,10000.0,50000.0,100000.0));
-        for (int a = 0 ; a<MAX_TREE_LEVEL ; a++){
+        for (int a = 0 ; a<=MAX_TREE_LEVEL ; a++){
             if (doubles.size() > a) {
                 TREEEXP.put(a, doubles.get(a));
             }

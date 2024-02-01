@@ -6,7 +6,7 @@
 
     <groupId>com.legendaryrealms.LegendaryGuild</groupId>
     <artifactId>LegendaryGuild</artifactId>
-    <version>5.0.8-SNAPSHOT</version>
+    <version>5.0.9-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -36,6 +36,11 @@
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
             <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
         </repository>
 
         <repository>
@@ -100,11 +105,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.wesjd</groupId>
-            <artifactId>anvilgui</artifactId>
-            <version>1.9.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
             <version>2.12.0</version>
@@ -140,7 +140,11 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>net.wesjd</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>1.9.2-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
