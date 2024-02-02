@@ -39,7 +39,7 @@ public class GuildShopItemsManager {
                 a++;
             }
         }
-        legendaryGuild.info("加载 "+a +" 个公会商店商品.", Level.INFO);
+        legendaryGuild.info("加载 "+a +" 个公会商店商品.  & Load "+a +" Guild Shop items.", Level.INFO);
 
     }
 
@@ -48,6 +48,7 @@ public class GuildShopItemsManager {
             return ShopType.valueOf(type);
         } catch (Exception e) {
             legendaryGuild.info("商品限购类型配置出错，已默认为无限购商品 -> "+type,Level.SEVERE);
+            legendaryGuild.info("Product purchase restriction type configuration error, defaulted to unlimited purchase product",Level.SEVERE);
             return ShopType.Unlimited;
         }
     }

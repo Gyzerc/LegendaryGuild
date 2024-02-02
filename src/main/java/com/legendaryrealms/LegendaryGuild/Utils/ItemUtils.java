@@ -137,19 +137,6 @@ public class ItemUtils {
         }
     }
 
-    public static void removeItem(Player p, Material itemid) {
-        int id = 0;
-        ItemStack[] var6;
-        int var5 = (var6 = p.getInventory().getContents()).length;
-        for (int var4 = 0; var4 < var5; var4++) {
-            ItemStack i = var6[var4];
-            if (i != null && i.getType() == itemid) {
-                p.getInventory().setItem(id, null);
-                return;
-            }
-            id++;
-        }
-    }
 
     public static boolean TakePlayerItem(Player p, String itemname, int takesl) {
         boolean cg = false;

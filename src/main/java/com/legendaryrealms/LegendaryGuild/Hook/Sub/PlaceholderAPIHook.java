@@ -27,7 +27,7 @@ public class PlaceholderAPIHook extends Hook {
     @Override
     public boolean getHook() {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-            legendaryGuild.info("已关联插件 PlaceholderAPI", Level.INFO);
+            legendaryGuild.info("已关联插件 PlaceholderAPI & Hooked PlaceholderAPI plugin.", Level.INFO);
             return true;
         }
         return false;

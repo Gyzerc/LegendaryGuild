@@ -48,7 +48,7 @@ public class TributesItemsManager {
                 a++;
             }
         }
-        legendaryGuild.info("加载 "+a+" 个贡品.", Level.INFO);
+        legendaryGuild.info("加载 "+a+" 个贡品. & Load "+a+" Guild Tribute Items.", Level.INFO);
     }
 
     public Optional<TributeItem> getTributeItem(ItemStack i){

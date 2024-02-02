@@ -142,7 +142,7 @@ public class GuildsManager {
                         cache.put(g,guild);
                     }
                 });
-                legendaryGuild.info("载入 "+cache.size()+" 个公会.", Level.INFO);
+                legendaryGuild.info("载入 "+cache.size()+" 个公会. & Load "+cache.size()+" guild data.", Level.INFO);
             }
         });
 

@@ -78,7 +78,7 @@ public class UserAPI {
 
 
         //发送消息
-        msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_send.replace("%value%",guildName));
+        msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_send.replace("%value%",guild.getDisplay()));
         msg.sendMessage(guild.getOwner(),lang.plugin+lang.application_recive.replace("%player%",user.getPlayer()));
 
         //触发事件
@@ -143,7 +143,7 @@ public class UserAPI {
         guild.update();
 
         //发送通知
-        msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_join.replace("%value%",guild.getGuild()));
+        msg.sendMessage(user.getPlayer(),lang.plugin+lang.application_join.replace("%value%",guild.getDisplay()));
         msg.sendGuildMessage(guild.getMembers(),lang.plugin+lang.application_join_broad.replace("%value%",user.getPlayer()));
 
         Bukkit.getPluginManager().callEvent(new PlayerJoinGuildEvent(user,guild));
@@ -182,7 +182,7 @@ public class UserAPI {
         if (sender != null){
             sender.sendMessage(lang.plugin+lang.members_kick.replace("%value%",user.getPlayer()));
         }
-        msg.sendMessage(user.getPlayer(),lang.plugin+lang.members_bekick.replace("%value%",guild.getGuild()));
+        msg.sendMessage(user.getPlayer(),lang.plugin+lang.members_bekick.replace("%value%",guild.getDisplay()));
         msg.sendGuildMessage(guild.getMembers(),lang.plugin+lang.members_kick_broad.replace("%value%",user.getPlayer()));
 
         Bukkit.getPluginManager().callEvent(new PlayerBeKickFromGuildEvent(user,guild));
@@ -380,7 +380,7 @@ public class UserAPI {
         Bukkit.getPluginManager().callEvent(new PlayerQuitGuildEvent(p,guild));
 
         legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.quit_broad.replace("%value%",p.getName()).replace("%position%",position));
-        p.sendMessage(lang.plugin+lang.quit_message.replace("%value%",guildName));
+        p.sendMessage(lang.plugin+lang.quit_message.replace("%value%",guild.getDisplay()));
     }
 
 
@@ -408,8 +408,8 @@ public class UserAPI {
         tagetUser.setPosition(legendaryGuild.getPositionsManager().getOwnerPosition().getId());
         tagetUser.update();
 
-        owner.sendMessage(lang.plugin+lang.give_message.replace("%value%",guild.getGuild()).replace("%target%",target));
-        legendaryGuild.getMsgUtils().sendMessage(target,lang.plugin+lang.give_message_target.replace("%value%",guild.getGuild()));
+        owner.sendMessage(lang.plugin+lang.give_message.replace("%value%",guild.getDisplay()).replace("%target%",target));
+        legendaryGuild.getMsgUtils().sendMessage(target,lang.plugin+lang.give_message_target.replace("%value%",guild.getDisplay()));
         legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.give_broad.replace("%value%",target));
 
         Bukkit.getPluginManager().callEvent(new GuildGiveEvent(owner,target,guild));

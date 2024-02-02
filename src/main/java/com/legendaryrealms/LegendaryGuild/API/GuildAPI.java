@@ -65,9 +65,9 @@ public class GuildAPI {
         Guild data = legendaryguild.getGuildsManager().createGuild(guild,user);
 
         //发送消息
-        legendaryguild.getMsgUtils().sendMessage(p.getName(),lang.plugin+lang.create_message.replace("%value%",guild));
+        legendaryguild.getMsgUtils().sendMessage(p.getName(),lang.plugin+lang.create_message.replace("%value%",data.getDisplay()));
         lang.create_broad.forEach(msg -> {
-            legendaryguild.getMsgUtils().sendBroad(msg.replace("%value%",guild).replace("%target%",user.getPlayer()));
+            legendaryguild.getMsgUtils().sendBroad(msg.replace("%value%",data.getDisplay()).replace("%target%",user.getPlayer()));
         });
 
 
@@ -150,7 +150,7 @@ public class GuildAPI {
 
         legendaryguild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.level_levelup.replace("%value%",""+(level+add)));
         lang.level_levelup_broad.forEach(msg -> {
-            legendaryguild.getMsgUtils().sendBroad(msg.replace("%target%",guild.getGuild()).replace("%value%",""+(level+add)));
+            legendaryguild.getMsgUtils().sendBroad(msg.replace("%target%",guild.getDisplay()).replace("%value%",""+(level+add)));
         });
 
         Bukkit.getPluginManager().callEvent(new GuildLevelupEvent(guild,level,(level+add)));
@@ -336,7 +336,7 @@ public class GuildAPI {
         guild.setTreeexp(set);
         guild.update();
 
-        legendaryguild.getMsgUtils().sendMessage(player,lang.plugin+lang.tree_expadd_byplayer.replace("%target%",guild.getGuild()).replace("%value%",(set-exp)+""));
+        legendaryguild.getMsgUtils().sendMessage(player,lang.plugin+lang.tree_expadd_byplayer.replace("%target%",guild.getDisplay()).replace("%value%",(set-exp)+""));
         Bukkit.getPluginManager().callEvent(new GuildTreeExpChangeEvent(guild,set));
     }
 
@@ -424,8 +424,6 @@ public class GuildAPI {
     }
 
     public static void deleteGuild(Guild guild){
-
-        String name = guild.getGuild();
         guild.getMembers().forEach(m -> {
 
             User user = UserAPI.getUser(m);
@@ -438,14 +436,14 @@ public class GuildAPI {
             //发送消息
             legendaryguild.getMsgUtils().sendMessage(m,lang.plugin+lang.delete_broad_members);
         });
-        //移除公会数据并同步至其他子服务器
-        guild.delete();
 
         //发送通报
         lang.delete_broad.forEach(msg -> {
-            legendaryguild.getMsgUtils().sendBroad(msg.replace("%value%",name));
+            legendaryguild.getMsgUtils().sendBroad(msg.replace("%value%",guild.getDisplay()));
         });
 
+        //移除公会数据并同步至其他子服务器
+        guild.delete();
         Bukkit.getPluginManager().callEvent(new GuildDeleteEvent(guild));
     }
 

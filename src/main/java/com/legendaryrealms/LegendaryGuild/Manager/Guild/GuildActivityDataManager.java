@@ -61,6 +61,7 @@ public class GuildActivityDataManager {
         if (value >= (targetInt-1)){
             set = 0;
             legendaryGuild.info("刷新所有公会活跃度", Level.INFO);
+            legendaryGuild.info("Refresh all guild activity levels",Level.INFO);
             resetAllGuild();
             Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
             if (p != null) {

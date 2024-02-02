@@ -89,7 +89,7 @@ public class CreateGroupsManager {
                 a++;
             }
         }
-        legendaryGuild.info("加载 "+a+ " 个公会创建组.", Level.INFO);
+        legendaryGuild.info("加载 "+a+ " 个公会创建组. & Load "+a+" guild creation groups.", Level.INFO);
     }
 
 

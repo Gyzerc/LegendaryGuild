@@ -64,13 +64,6 @@ public class serializeUtils {
         return map;
     }
 
-    public static String MapToStr_string_int(HashMap<String,Integer> map){
-        StringBuilder builder=new StringBuilder();
-        for (Map.Entry<String,Integer> entry:map.entrySet()){
-            builder.append(entry.getKey()).append(",").append(entry.getValue()).append(";");
-        }
-        return builder.toString();
-    }
 
     public static List<String> StrToList(String str){
         if (str == null || str.isEmpty()){
@@ -151,16 +144,7 @@ public class serializeUtils {
     }
 
 
-    public static String ItemsToString(GuildStore.StoreData contents) {
-        Gson gson = new Gson();
-        String str=gson.toJson(contents);
-        return str;
-    }
 
-    public static GuildStore.StoreData StringToItems(String data) {
-        Gson gson = new Gson();
-        return gson.fromJson(data, GuildStore.StoreData.class);
-    }
 
     public static String sts(String data) {
         try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

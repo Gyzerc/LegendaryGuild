@@ -32,10 +32,10 @@ public class Stores extends FileProvider{
                     LEVEL_TO_MAX_STORES.put(level,sec.getInt(levelStr));
                 }
             });
-            legendaryGuild.info("启用公会仓库模块",Level.INFO);
+            legendaryGuild.info("启用公会仓库模块 & Enabled Guild Stores.",Level.INFO);
             return;
         }
-        legendaryGuild.info("已关闭公会仓库模块.", Level.INFO);
+        legendaryGuild.info("已关闭公会仓库模块. & Disabled Guild Stores.", Level.INFO);
     }
 
     public boolean isEnable() {

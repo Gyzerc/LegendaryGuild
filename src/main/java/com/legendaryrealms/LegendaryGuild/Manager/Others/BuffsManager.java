@@ -58,7 +58,7 @@ public class BuffsManager {
                 a++;
             }
         }
-        legendaryGuild.info("加载 "+a+" 个Buff.",Level.INFO);
+        legendaryGuild.info("加载 "+a+" 个Buff. & Load "+a+" Guild Buffs.",Level.INFO);
     }
     public AttributePluginProvider.AttributePlugin getPlugin() {
         return plugin;

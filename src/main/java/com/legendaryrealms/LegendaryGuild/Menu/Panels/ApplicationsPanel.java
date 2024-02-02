@@ -125,7 +125,7 @@ public class ApplicationsPanel extends MenuDraw {
                             guild.update();
 
                             p.sendMessage(lang.plugin+lang.application_deny.replace("%value%",target));
-                            LegendaryGuild.getInstance().getMsgUtils().sendMessage(target,lang.plugin+lang.application_deny_target.replace("%value%",guild.getGuild()));
+                            LegendaryGuild.getInstance().getMsgUtils().sendMessage(target,lang.plugin+lang.application_deny_target.replace("%value%",guild.getDisplay()));
 
                             ApplicationsPanel applicationsPanel = new ApplicationsPanel(p,page);
                             applicationsPanel.loadPage();

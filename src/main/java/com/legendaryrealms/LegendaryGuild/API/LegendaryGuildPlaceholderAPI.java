@@ -34,7 +34,7 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "5.0.9";
+        return "5.1.0";
     }
 
     private final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();
@@ -43,8 +43,9 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String params) {
         User user = UserAPI.getUser(player.getName());
         Guild guild = UserAPI.getGuild(player.getName()).orElse(null);
-        if (params.equals("guild"))
-            return guild != null ? guild.getGuild() :  lang.default_guild;
+        if (params.equals("guild")) {
+            return guild != null ? guild.getDisplay() : lang.default_guild;
+        }
         if (params.equals("position")) {
             Position position = legendaryGuild.getPositionsManager().getPosition(user.getPosition()).orElse(legendaryGuild.getPositionsManager().getDefaultPosition());
             return position.getDisplay();

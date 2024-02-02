@@ -25,7 +25,6 @@ public class StringStore<T>{
                 String add = value.toString();
                 if (value instanceof List){
                     add = serializeUtils.ListToStr((List<String>) value);
-                    System.out.println("检测到list");
                 }
                 builder.append(entry.getKey()).append(":").append(add).append("⁝");
             }

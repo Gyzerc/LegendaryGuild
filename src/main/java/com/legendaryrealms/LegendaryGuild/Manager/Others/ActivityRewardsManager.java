@@ -32,7 +32,7 @@ public class ActivityRewardsManager {
                         cache.put(id,new ActivityReward(id,display,points,run));
                         a++;
                     }
-                    legendaryGuild.info("加载 "+a+" 个活跃度奖励.", Level.INFO);
+                    legendaryGuild.info("加载 "+a+" 个活跃度奖励. & Load "+a+" Activity rewards.", Level.INFO);
                 });
             }
         });

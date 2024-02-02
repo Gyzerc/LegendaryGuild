@@ -34,7 +34,7 @@ public class DeleteCommand extends LegendaryCommand {
                 }
                 Guild guild = legendaryGuild.getGuildsManager().getGuild(user.getGuild());
                 GuildAPI.deleteGuild(guild);
-                p.sendMessage(lang.plugin+lang.delete_message);
+                p.sendMessage(lang.plugin+lang.delete_message.replace("%value%",guild.getDisplay()));
                 return;
             }
             sender.sendMessage(lang.plugin+lang.delete_confirm);

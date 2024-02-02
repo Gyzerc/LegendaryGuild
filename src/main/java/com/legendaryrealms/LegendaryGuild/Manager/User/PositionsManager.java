@@ -3,6 +3,7 @@ package com.legendaryrealms.LegendaryGuild.Manager.User;
 import com.legendaryrealms.LegendaryGuild.Data.User.Position;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +44,11 @@ public class PositionsManager {
 
     public void CanEnable(){
         if (defaultPosition == null || ownerPosition == null){
-            legendaryGuild.info("请检查公会职位配置.", Level.SEVERE);
+            legendaryGuild.info("请检查公会职位配置. & Please check the configuration!", Level.SEVERE);
             Bukkit.getPluginManager().disablePlugin(legendaryGuild);
+
         }
-        legendaryGuild.info("加载 "+cache.size() +" 个公会职位",Level.INFO);
+        legendaryGuild.info("加载 "+cache.size() +" 个公会职位 & Load "+cache.size()+" Guild Positions.",Level.INFO);
     }
 
     public List<String> getPositionIds(){

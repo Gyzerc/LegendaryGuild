@@ -27,7 +27,7 @@ public class NetWorkHandle extends NetWork{
     public void initNetwork() {
         if (legendaryGuild.getFileManager().getConfig().CROSS_SERVER){
             legendaryGuild.registerBungeecordChannel();
-            legendaryGuild.info("成功启用跨服同步功能", Level.INFO);
+            legendaryGuild.info("成功启用跨服同步功能 & Enabled cross server synchronization function", Level.INFO);
             setEnable(true);
         }
     }
@@ -36,7 +36,7 @@ public class NetWorkHandle extends NetWork{
     public void disable() {
         if (legendaryGuild.getFileManager().getConfig().CROSS_SERVER){
             legendaryGuild.unregisterBungeecordChannel();
-            legendaryGuild.info("关闭跨服同步功能", Level.INFO);
+            legendaryGuild.info("关闭跨服同步功能 & Closed cross server synchronization function", Level.INFO);
         }
     }
 

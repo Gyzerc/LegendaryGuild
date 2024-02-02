@@ -89,7 +89,7 @@ public class GuildListPanel extends MenuDraw {
                     }
                     ItemMeta id = i.getItemMeta();
 
-                    id.setDisplayName(loader.getGuild_display().replace("%guild%", guildName));
+                    id.setDisplayName(loader.getGuild_display().replace("%guild%", guild.getDisplay()));
                     List<String> lore = new ArrayList<>(loader.getGuild_lore());
                     lore.replaceAll(l -> l
                             .replace("%date%", guild.getDate())

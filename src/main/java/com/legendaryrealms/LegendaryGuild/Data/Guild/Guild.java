@@ -5,6 +5,7 @@ import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
+import com.legendaryrealms.LegendaryGuild.Utils.MsgUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -223,6 +224,10 @@ public class Guild {
                     .setReciver("ALL")
                     .sendPluginMessage(p);
         }
+    }
+
+    public String getDisplay(){
+        return LegendaryGuild.getInstance().color(guild);
     }
 
     public static class GuildHomeLocation {

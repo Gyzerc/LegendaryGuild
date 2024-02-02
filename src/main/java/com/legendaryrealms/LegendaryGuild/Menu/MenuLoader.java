@@ -111,14 +111,14 @@ public abstract class MenuLoader extends FileProvider {
         try {
             return Optional.of(Sound.valueOf(sound.toUpperCase()));
         } catch (Exception e){
-            legendaryGuild.info("音效ID出错！+file.getName()++file.getName()+ -> "+sound, Level.SEVERE,e);
+            legendaryGuild.info("音效ID出错！"+file.getName()+ "-> "+sound, Level.SEVERE,e);
             return Optional.empty();
         }
     }
 
     public Material getMaterial(String arg){
         String str=arg.toUpperCase();
-        Material material = Material.getMaterial(arg);
+        Material material = Material.getMaterial(str);
         if (material == null){
             material = Material.STONE;
             legendaryGuild.info("ID配置出错！"+file.getName()+" 该版本不存在该物品ID: "+arg,Level.SEVERE);

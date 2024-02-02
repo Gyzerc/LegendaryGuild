@@ -40,7 +40,7 @@ public class WaterPotsManager {
                a++;
            }
         }
-        legendaryGuild.info("加载 "+a+ " 个神树水壶.", Level.INFO);
+        legendaryGuild.info("加载 "+a+ " 个神树水壶. & Load "+a+" Guild Tree Pots.", Level.INFO);
     }
 
 }

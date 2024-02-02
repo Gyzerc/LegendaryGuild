@@ -43,7 +43,7 @@ public class GuildIconsManager {
                 a ++ ;
             }
         }
-       legendaryGuild.info("加载 "+a+" 个公会图标.", Level.INFO);
+       legendaryGuild.info("加载 "+a+" 个公会图标. & Load "+a+" guild icons.", Level.INFO);
     }
 
     public Optional<GuildIcon> getIcon(String iconId){
