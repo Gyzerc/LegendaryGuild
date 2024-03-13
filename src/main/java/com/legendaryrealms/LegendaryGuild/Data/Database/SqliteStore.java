@@ -74,7 +74,7 @@ public class SqliteStore extends DataProvider{
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                legendaryGuild.info("成功断开SQLite数据库连接",Level.INFO);
+                legendaryGuild.info("成功断开SQLite数据库连接 & Successfully disconnected SQLite database connection",Level.INFO);
             }
         } catch (SQLException e) {
             legendaryGuild.info("Failed to close the connection & 关闭SQLite数据库出现错误",Level.SEVERE, e);
@@ -149,8 +149,6 @@ public class SqliteStore extends DataProvider{
         }
         catch (SQLException e) {
             legendaryGuild.info("获取所有用户失败！",Level.SEVERE,e);
-        } finally {
-            closeCon(connection);
         }
         return guilds;
     }
@@ -450,8 +448,6 @@ public class SqliteStore extends DataProvider{
         }
         catch (SQLException e) {
             legendaryGuild.info("获取所有公会活跃度失败！",Level.SEVERE,e);
-        } finally {
-            closeCon(connection);
         }
         return guilds;
     }

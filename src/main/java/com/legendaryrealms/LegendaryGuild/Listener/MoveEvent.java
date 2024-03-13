@@ -33,7 +33,9 @@ public class MoveEvent implements Listener {
         if (newLoc.getBlockX() != form.getBlockX() || newLoc.getBlockY() != form.getBlockY() || newLoc.getBlockZ() != form.getBlockZ()){
             //移除是待传送名单并发送消息
             if (deletePlayerWaitTeleport(p.getName())) {
-                p.playSound(p.getLocation(), config.HOME_SOUND_CANCEL, 1,1);
+                if (config.HOME_SOUND_CANCEL != null) {
+                    p.playSound(p.getLocation(), config.HOME_SOUND_CANCEL, 1, 1);
+                }
                 p.sendMessage(lang.plugin+lang.home_cancel);
             }
         }

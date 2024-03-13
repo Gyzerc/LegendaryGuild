@@ -125,6 +125,14 @@ public class RunUtils {
                             GuildAPI.addGuildActivity(p,null,Double.parseDouble(dealStr), ActivityCommand.AddType.PLAYER);
                         }
                     }
+                    break;
+                case "guild_exp" :
+                    User user = UserAPI.getUser(p.getName());
+                    if (user.hasGuild()) {
+                        if (UserAPI.getGuild(p.getName()).isPresent()) {
+                            GuildAPI.addGuildExp(p.getName(), UserAPI.getGuild(p.getName()).get(), Double.parseDouble(dealStr));
+                        }
+                    }
             }
             return;
         }

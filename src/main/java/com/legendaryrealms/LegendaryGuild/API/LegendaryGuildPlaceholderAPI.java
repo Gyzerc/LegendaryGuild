@@ -34,7 +34,7 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "5.1.0";
+        return "5.1.1";
     }
 
     private final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();
@@ -43,6 +43,50 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
     public String onRequest(OfflinePlayer player, String params) {
         User user = UserAPI.getUser(player.getName());
         Guild guild = UserAPI.getGuild(player.getName()).orElse(null);
+        if (params.startsWith("other_")) {
+            String deal = params.replace("other_","");
+            String name = getName(deal);
+            String met = deal.replace("{"+name+"}_","");
+            if (name != null) {
+                user = UserAPI.getUser(name);
+                guild = UserAPI.getGuild(name).orElse(null);
+                switch (met) {
+                    case "guild":
+                        return guild != null ? guild.getDisplay() : lang.default_guild;
+                    case "position":
+                        Position position = legendaryGuild.getPositionsManager().getPosition(user.getPosition()).orElse(legendaryGuild.getPositionsManager().getDefaultPosition());
+                        return position.getDisplay();
+                    case "points":
+                        return String.valueOf(user.getPoints());
+                    case "points_total":
+                        return String.valueOf(user.getTotal_points());
+                    case "guild_members":
+                        return guild != null ? String.valueOf(guild.getMembers().size()) : "0";
+                    case "guild_maxmembers":
+                        int max = legendaryGuild.getFileManager().getConfig().MEMBERS.getOrDefault(guild.getLevel(), guild.getMembers().size());
+                        return String.valueOf(max);
+                    case "guild_level":
+                        return guild != null ? String.valueOf(guild.getLevel()) : "0";
+                    case "guild_exp":
+                        return guild != null ? String.valueOf(guild.getExp()) : "0.0";
+                    case "guild_level_next":
+                        double next = legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel());
+                        return String.valueOf(next);
+                    case "guild_tree_level":
+                        return guild != null ? String.valueOf(guild.getTreelevel()) : "0";
+                    case "guild_tree_exp":
+                        return guild != null ? String.valueOf(guild.getTreeexp()) : "0.0";
+                    case "guild_tree_next":
+                        next = legendaryGuild.getFileManager().getConfig().TREEEXP.getOrDefault(guild.getTreelevel(), -1.0);
+                        return next + "";
+                    case "guild_money":
+                        return guild != null ? String.valueOf(guild.getMoney()) : "0.0";
+                    case "guild_tree_next_bar":
+                        return guild != null ? GuildAPI.getGuildTreeExpProgressBar(guild) : "";
+                }
+            }
+            return "";
+        }
         if (params.equals("guild")) {
             return guild != null ? guild.getDisplay() : lang.default_guild;
         }
@@ -50,15 +94,22 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
             Position position = legendaryGuild.getPositionsManager().getPosition(user.getPosition()).orElse(legendaryGuild.getPositionsManager().getDefaultPosition());
             return position.getDisplay();
         }
-        if (params.equals("points"))
+        if (params.equals("points")) {
             return user.getPoints() + "";
-        if (params.equals("points_total"))
+        }
+        if (params.equals("points_total")) {
             return user.getTotal_points() + "";
-        if (params.equals("guild_members"))
+        }
+        if (params.equals("guild_members")) {
             return (guild != null) ? (guild.getMembers().size() + "") : "0";
+        }
         if (params.equals("guild_maxmembers")) {
             int max = legendaryGuild.getFileManager().getConfig().MEMBERS.getOrDefault(guild.getLevel(),guild.getMembers().size());
             return ""+max;
+        }
+        if (params.equals("guild_level_next")) {
+            double next = legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel());
+            return String.valueOf(next);
         }
         if (params.equals("guild_level"))
             return (guild != null) ? (guild.getLevel() + "") : "0";
@@ -127,5 +178,27 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
             return guilds.get(top).getGuild();
         }
         return "null";
+    }
+
+    private String getName(String arg) {
+        if (arg != null && !arg.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            boolean b = false;
+            char[] chars = arg.toCharArray();
+            for (char c : chars) {
+                if (b) {
+                    if (c == '}') {
+                        break;
+                    }
+                    builder.append(c);
+                } else {
+                    if (c == '{') {
+                        b = true;
+                    }
+                }
+            }
+            return builder.toString();
+        }
+        return null;
     }
 }

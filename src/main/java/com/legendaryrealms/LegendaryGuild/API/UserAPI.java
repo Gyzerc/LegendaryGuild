@@ -441,7 +441,9 @@ public class UserAPI {
             new RunTaskUtils(20,config.HOME_WAIT,p)
                     .setTaskEveryPeriod(m -> {
                         if (MoveEvent.hasPlayerWaitTeleport(p.getName())) {
-                            p.playSound(p.getLocation(), config.HOME_SOUND_SECOND, 1, 1);
+                            if (config.HOME_SOUND_SECOND != null) {
+                                p.playSound(p.getLocation(), config.HOME_SOUND_SECOND, 1, 1);
+                            }
                             int less = config.HOME_WAIT - m.getSec();
                             p.sendMessage(lang.plugin + lang.home_wait.replace("%value%", "" + less));
                         }
@@ -497,7 +499,9 @@ public class UserAPI {
                 {
                     p.teleport(location.getLocation().get());
                     p.sendMessage(lang.plugin+lang.home_teleport);
-                    p.playSound(p.getLocation(),config.HOME_SOUND_TELEPORT,1,1);
+                    if (config.HOME_SOUND_TELEPORT != null) {
+                        p.playSound(p.getLocation(), config.HOME_SOUND_TELEPORT, 1, 1);
+                    }
                 });
             }
         }

@@ -153,6 +153,7 @@ public class Config extends FileProvider{
         HOME_SOUND_SECOND = getSound(getValue("settings.guild.home.sound.second","block_note_block_banjo")).orElse(null);
         HOME_SOUND_TELEPORT = getSound(getValue("settings.guild.home.sound.teleport","ENTITY_ENDERMAN_TELEPORT")).orElse(null);
         HOME_SOUND_CANCEL = getSound(getValue("settings.guild.home.sound.cancel","entity_villager_trade")).orElse(null);
+
         HOME_BLACK_WORLD = getValue("settings.guild.home.black_world",new ArrayList<>());
         HOME_BLACK_SERVER = getValue("settings.guild.home.black_server",new ArrayList<>());
 
@@ -167,7 +168,7 @@ public class Config extends FileProvider{
         try {
             return Optional.of(Sound.valueOf(sound.toUpperCase()));
         } catch (Exception e){
-            legendaryGuild.info("音效ID出错！+file.getName()++file.getName()+ -> "+sound, Level.SEVERE,e);
+            legendaryGuild.info("音效ID出错！"+file.getName()+" ->" +sound, Level.SEVERE,e);
             return Optional.empty();
         }
     }

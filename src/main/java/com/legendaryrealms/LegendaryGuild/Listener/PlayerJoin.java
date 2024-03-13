@@ -69,7 +69,9 @@ public class PlayerJoin implements Listener {
                         Location location = guild.getHome().getLocation().orElse(null);
                         if (location != null) {
                             p.teleport(location);
-                            p.playSound(p.getLocation(), config.HOME_SOUND_TELEPORT, 1, 1);
+                            if (config.HOME_SOUND_TELEPORT != null) {
+                                p.playSound(p.getLocation(), config.HOME_SOUND_TELEPORT, 1, 1);
+                            }
                             p.sendMessage(lang.plugin + lang.home_teleport);
                         }
                     }

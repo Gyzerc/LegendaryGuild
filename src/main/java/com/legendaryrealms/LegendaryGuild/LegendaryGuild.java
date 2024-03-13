@@ -127,19 +127,23 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         Metrics metrics = new Metrics(this, 19359);
 
         //注册变量
-        new LegendaryGuildPlaceholderAPI();
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+          legendaryGuildPlaceholderAPI =  new LegendaryGuildPlaceholderAPI();
+        }
 
         //更新检测
         updateCheck();
     }
-
+    private LegendaryGuildPlaceholderAPI legendaryGuildPlaceholderAPI;
     @Override
     public void onDisable() {
 
         //断开数据库连接
         dataProvider.closeDataBase();
         netWork.disable();
-
+        if (legendaryGuildPlaceholderAPI != null) {
+            legendaryGuildPlaceholderAPI.unregister();
+        }
      }
     public static void setPlayers(List<String> player){
         players = player;
