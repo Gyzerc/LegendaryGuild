@@ -195,12 +195,13 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
             @Override
             public void onPacketReceiving(PacketEvent event) {
                 User user = UserAPI.getUser(event.getPlayer().getName());
-
                 PacketContainer container = event.getPacket();
                 String str = container.getStrings().read(0);
-
                 if (user.hasGuild()) {
                     if (user.isChat()) {
+                        if (str.startsWith("/")) {
+                            return;
+                        }
                         Guild guild = UserAPI.getGuild(user.getPlayer()).orElse(null);
                         Position position = positionsManager.getPosition(user.getPosition()).orElse(positionsManager.getDefaultPosition());
                         if (guild != null) {

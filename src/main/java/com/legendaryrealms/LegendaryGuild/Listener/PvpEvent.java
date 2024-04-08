@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Listener;
 
 import com.legendaryrealms.LegendaryGuild.API.Events.PlayerDamagedBySameGuildMemberEvent;
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
@@ -33,13 +34,16 @@ public class PvpEvent implements Listener {
             if (damager == null ) {
                 return;
             }
-            User user = UserAPI.getUser(damager.getName());
-            if (user.hasGuild() && e.getEntity() instanceof Player){
+            User DamageUser = UserAPI.getUser(damager.getName());
+            if (DamageUser.hasGuild() && e.getEntity() instanceof Player){
                 Player p = (Player) e.getEntity();
-                if (UserAPI.hasGuild(p.getName()) && user.getPvp().equals(User.PvpType.NO_SAME_GUILD) && UserAPI.getUser(p.getName()).getGuild().equals(user.getGuild())){
-                    e.setCancelled(true);
-                    damager.sendMessage(lang.plugin+lang.pvp_cant);
-                    Bukkit.getPluginManager().callEvent(new PlayerDamagedBySameGuildMemberEvent(p,damager,true));
+                if (UserAPI.hasGuild(p.getName()) ) {
+                    User entityUser = UserAPI.getUser(p.getName());
+                    if (entityUser.getPvp().equals(User.PvpType.NO_SAME_GUILD) && entityUser.getGuild().equals(DamageUser.getGuild())) {
+                        e.setCancelled(true);
+                        damager.sendMessage(lang.plugin + lang.pvp_cant);
+                        Bukkit.getPluginManager().callEvent(new PlayerDamagedBySameGuildMemberEvent(p, damager, true));
+                    }
                 }
             }
             return;

@@ -33,14 +33,10 @@ public class MenuEvent implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e){
         if (e.getInventory().getHolder() instanceof StoresPanel.StoreContainer){
-            System.out.println("close");
-
             StoresPanel.StoreContainer container = (StoresPanel.StoreContainer) e.getInventory().getHolder();
             GuildStore store = LegendaryGuild.getInstance().getDataBase().getStore(container.getGuild());
             store.setUse(container.getId(),"null");
-            System.out.println(e.getInventory().getContents());
             store.setContents(container.getId(),e.getInventory().getContents());
-
             //更新数据库
             LegendaryGuild.getInstance().getStoresManager().update(store);
         }
