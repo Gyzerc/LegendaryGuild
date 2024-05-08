@@ -97,7 +97,7 @@ public class GuildAPI {
     }
 
     public static void createRedPacket(Player p,double total,int amount){
-        if (legendaryguild.getHookManager().getVaultHook().getHook()) {
+        if (legendaryguild.getHookManager().getVaultHook().isEnable()) {
             User user = legendaryguild.getUsersManager().getUser(p.getName());
             Guild guildData = legendaryguild.getGuildsManager().getGuild(user.getGuild());
             if (!user.hasGuild()) {

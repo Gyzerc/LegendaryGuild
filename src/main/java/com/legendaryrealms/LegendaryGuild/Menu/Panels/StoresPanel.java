@@ -11,7 +11,6 @@ import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import com.legendaryrealms.LegendaryGuild.Utils.serializeUtils;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -174,80 +173,88 @@ public class StoresPanel extends MenuDraw {
                             }
                             //添加信任成员
                             if (e.isLeftClick()){
-                                new AnvilGUI.Builder().title(lang.stores_add_white_title)
-                                        .text("...")
-                                        .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
-                                            if(slot != AnvilGUI.Slot.OUTPUT) {
-                                                return Collections.emptyList();
-                                            }
-                                            String target = stateSnapshot.getText();
-                                            if(data.getWhite().contains(target)) {
-                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.stores_add_white_already));
-                                            }
-                                            else if (target.equals(p.getName())){
-                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("..."));
-                                            }
-                                            else {
-                                                if (!guild.getMembers().contains(target)){
-                                                    return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.notmember));
-                                                }
-                                                return Arrays.asList(
-                                                        AnvilGUI.ResponseAction.close(),
-                                                        AnvilGUI.ResponseAction.run(() -> {
-                                                            stateSnapshot.getPlayer().sendMessage(lang.plugin+lang.stores_add_white.replace("%target%",target).replace("%value%",""+id));
-                                                            List<String> white = data.getWhite();
-                                                            white.add(target);
-                                                            store.setWhite(id,white);
-                                                            //更新数据库
-                                                            legendaryGuild.getStoresManager().update(store);
-                                                            //通知其他子服务器
-                                                            new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-                                                                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, guild.getGuild()))
-                                                                    .setReciver("ALL")
-                                                                    .sendPluginMessage(p);
-                                                        })
-                                                );
-                                            }
-                                        })
-                                        .plugin(legendaryGuild)
-                                        .open(p);
+                                p.closeInventory();
+                                p.sendMessage(lang.plugin + lang.stores_add_white_title);
+                                legendaryGuild.getChatControl().setModify(p.getUniqueId(),4,id+"");
+//
+//                                new AnvilGUI.Builder().title(lang.stores_add_white_title)
+//                                        .text("...")
+//                                        .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
+//                                            if(slot != AnvilGUI.Slot.OUTPUT) {
+//                                                return Collections.emptyList();
+//                                            }
+//                                            String target = stateSnapshot.getText();
+//                                            if(data.getWhite().contains(target)) {
+//                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.stores_add_white_already));
+//                                            }
+//                                            else if (target.equals(p.getName())){
+//                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("..."));
+//                                            }
+//                                            else {
+//                                                if (!guild.getMembers().contains(target)){
+//                                                    return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.notmember));
+//                                                }
+//                                                return Arrays.asList(
+//                                                        AnvilGUI.ResponseAction.close(),
+//                                                        AnvilGUI.ResponseAction.run(() -> {
+//                                                            stateSnapshot.getPlayer().sendMessage(lang.plugin+lang.stores_add_white.replace("%target%",target).replace("%value%",""+id));
+//                                                            List<String> white = data.getWhite();
+//                                                            white.add(target);
+//                                                            store.setWhite(id,white);
+//                                                            //更新数据库
+//                                                            legendaryGuild.getStoresManager().update(store);
+//                                                            //通知其他子服务器
+//                                                            new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+//                                                                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, guild.getGuild()))
+//                                                                    .setReciver("ALL")
+//                                                                    .sendPluginMessage(p);
+//                                                        })
+//                                                );
+//                                            }
+//                                        })
+//                                        .plugin(legendaryGuild)
+//                                        .open(p);
                                 return;
                             }
                             //删去信任成员
                             else if (e.isRightClick()){
-                                new AnvilGUI.Builder().title(lang.stores_remove_white_title)
-                                        .text("...")
-                                        .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
-                                            if(slot != AnvilGUI.Slot.OUTPUT) {
-                                                return Collections.emptyList();
-                                            }
-                                            String target = stateSnapshot.getText();
-                                            if(!data.getWhite().contains(target)) {
-                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.stores_remove_white_null));
-                                            } else {
-                                                if (!guild.getMembers().contains(target)){
-                                                    return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.notmember));
-                                                }
-                                                return Arrays.asList(
-                                                        AnvilGUI.ResponseAction.close(),
-                                                        AnvilGUI.ResponseAction.run(() -> {
-                                                            stateSnapshot.getPlayer().sendMessage(lang.plugin+lang.stores_remove_white.replace("%target%",target).replace("%value%",""+id));
-                                                            List<String> white= new ArrayList<>(data.getWhite());
-                                                            white.remove(target);
-                                                            store.setWhite(id,white);
-                                                            //更新数据库
-                                                            legendaryGuild.getStoresManager().update(store);
-                                                            //通知其他子服务器
-                                                            new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-                                                                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, guild.getGuild()))
-                                                                    .setReciver("ALL")
-                                                                    .sendPluginMessage(p);
-                                                        })
-                                                );
-                                            }
-                                        })
-                                        .plugin(legendaryGuild)
-                                        .open(p);
+                                p.closeInventory();
+                                p.sendMessage(lang.plugin+ lang.stores_remove_white_title);
+                                legendaryGuild.getChatControl().setModify(p.getUniqueId(),5,id+"");
+
+//                                new AnvilGUI.Builder().title(lang.stores_remove_white_title)
+//                                        .text("...")
+//                                        .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
+//                                            if(slot != AnvilGUI.Slot.OUTPUT) {
+//                                                return Collections.emptyList();
+//                                            }
+//                                            String target = stateSnapshot.getText();
+//                                            if(!data.getWhite().contains(target)) {
+//                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.stores_remove_white_null));
+//                                            } else {
+//                                                if (!guild.getMembers().contains(target)){
+//                                                    return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(lang.notmember));
+//                                                }
+//                                                return Arrays.asList(
+//                                                        AnvilGUI.ResponseAction.close(),
+//                                                        AnvilGUI.ResponseAction.run(() -> {
+//                                                            stateSnapshot.getPlayer().sendMessage(lang.plugin+lang.stores_remove_white.replace("%target%",target).replace("%value%",""+id));
+//                                                            List<String> white= new ArrayList<>(data.getWhite());
+//                                                            white.remove(target);
+//                                                            store.setWhite(id,white);
+//                                                            //更新数据库
+//                                                            legendaryGuild.getStoresManager().update(store);
+//                                                            //通知其他子服务器
+//                                                            new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+//                                                                    .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.UPDATE_STORE, guild.getGuild()))
+//                                                                    .setReciver("ALL")
+//                                                                    .sendPluginMessage(p);
+//                                                        })
+//                                                );
+//                                            }
+//                                        })
+//                                        .plugin(legendaryGuild)
+//                                        .open(p);
                             }
                             return;
                         }

@@ -82,6 +82,8 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         //注册跨服同步
         netWork = new NetWorkHandle(this);
 
+        chatControl = new ChatEvent(this);
+
         //加载所有公会到缓存中
         sync(new Runnable() {
             @Override
@@ -164,7 +166,6 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
             buffsManager = new BuffsManager(this);
         }
         activityRewardsManager = new ActivityRewardsManager(this);
-
         menuLoadersManager = new MenuLoadersManager(this);
     }
 
@@ -189,32 +190,6 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         Bukkit.getPluginManager().registerEvents(new NewCycle(),this);
         Bukkit.getPluginManager().registerEvents(new MoveEvent(),this);
 
-
-        //公会聊天
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this,PacketType.Play.Client.CHAT) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                User user = UserAPI.getUser(event.getPlayer().getName());
-                PacketContainer container = event.getPacket();
-                String str = container.getStrings().read(0);
-                if (user.hasGuild()) {
-                    if (user.isChat()) {
-                        if (str.startsWith("/")) {
-                            return;
-                        }
-                        Guild guild = UserAPI.getGuild(user.getPlayer()).orElse(null);
-                        Position position = positionsManager.getPosition(user.getPosition()).orElse(positionsManager.getDefaultPosition());
-                        if (guild != null) {
-                            event.setCancelled(true);
-                            String deal = PlaceholderAPI.setPlaceholders(Bukkit.getOfflinePlayer(user.getPlayer()),fileManager.getConfig().GUILD_CHAT.replace("%player%",user.getPlayer())
-                                    .replace("%message%",str)
-                                    .replace("%position%",position.getDisplay()));
-                            msgUtils.sendGuildMessage(guild.getMembers(),deal);
-                        }
-                    }
-                }
-            }
-        });
     }
 
     private void updateCheck(){
@@ -268,6 +243,10 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
 
     public GuildsManager getGuildsManager() {
         return guildsManager;
+    }
+
+    public ChatEvent getChatControl() {
+        return chatControl;
     }
 
     public FileManager getFileManager() {
@@ -361,7 +340,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
     private GuildShopItemsManager guildShopItemsManager;
     private BuffsManager buffsManager;
     private GuildActivityDataManager guildActivityDataManager;
-
+    private ChatEvent chatControl;
     private void loadDatabase(){
         DataProvider.DatabaseType type = fileManager.getConfig().store;
         switch (type){

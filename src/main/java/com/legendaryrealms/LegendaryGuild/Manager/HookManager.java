@@ -13,7 +13,6 @@ public class HookManager {
     private PlaceholderAPIHook placeholderAPIHook;
     public HookManager(LegendaryGuild legendaryGuild){
         this.legendaryGuild = legendaryGuild;
-
         this.vaultHook = new VaultHook(legendaryGuild);
         this.playerPointsHook = new PlayerPointsHook(legendaryGuild);
         this.placeholderAPIHook = new PlaceholderAPIHook(legendaryGuild);

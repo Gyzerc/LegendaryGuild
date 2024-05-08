@@ -59,7 +59,7 @@ public class GuildIconsShopPanel extends MenuDraw {
                         ItemStack i = guildIcon.getIcon();
                         ItemMeta id = i.getItemMeta();
                         id.setDisplayName(loader.getIcon_display().replace("%icon%",guildIcon.getDisplay()));
-                        List<String> lore = loader.getIcon_lore();
+                        List<String> lore = new ArrayList<>(loader.getIcon_lore());
                         id.setLore(lore);
                         i.setItemMeta(id);
 

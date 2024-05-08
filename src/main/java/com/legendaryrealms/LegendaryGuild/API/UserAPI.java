@@ -93,7 +93,7 @@ public class UserAPI {
         }
         Guild guild = getGuild(p.getName()).orElse(null);
         if (guild != null){
-            if (legendaryGuild.getHookManager().getVaultHook().getHook()) {
+            if (legendaryGuild.getHookManager().getVaultHook().isEnable()) {
                 if (legendaryGuild.getHookManager().getVaultHook().getEconomy().getBalance(p.getName()) >=amount) {
                     double toPoints = legendaryGuild.getFileManager().getConfig().MONEY_TO_POINTS;
                     double addPoints = 0;

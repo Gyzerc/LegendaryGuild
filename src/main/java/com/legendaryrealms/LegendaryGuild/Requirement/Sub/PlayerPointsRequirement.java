@@ -9,7 +9,7 @@ import java.util.logging.Level;
 public class PlayerPointsRequirement extends Requirement {
     private String SYMBOL = "playerpoints";
     public boolean canPass(Player p, String str){
-        if (legendaryGuild.getHookManager().getPlayerPointsHook() == null){
+        if (!legendaryGuild.getHookManager().getPlayerPointsHook().isEnable()){
             return false;
         }
         try {
@@ -31,7 +31,7 @@ public class PlayerPointsRequirement extends Requirement {
 
     @Override
     public void deal(Player p, String str) {
-        if (legendaryGuild.getHookManager().getPlayerPointsHook() == null){
+        if (!legendaryGuild.getHookManager().getPlayerPointsHook().isEnable()){
             return;
         }
         try {

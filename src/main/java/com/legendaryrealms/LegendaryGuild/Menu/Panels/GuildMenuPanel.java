@@ -11,7 +11,6 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -226,32 +225,35 @@ public class GuildMenuPanel extends MenuDraw {
                             if (guild.getOwner().equals(p.getName())) {
                                 if (e.isLeftClick()) {
                                     p.closeInventory();
-                                    new AnvilGUI.Builder().title(lang.input)
-                                            .text("...")
-                                            .plugin(LegendaryGuild.getInstance())
-                                            .onClick((slot, stateSnapshot) -> {
-                                                String target = LegendaryGuild.getInstance().color(stateSnapshot.getText());
-                                                if(slot != AnvilGUI.Slot.OUTPUT || target.equals("...")) {
-                                                    return Collections.emptyList();
-                                                }
-
-                                                List<String> intro = guild.getIntro();
-                                                intro.add(target);
-
-                                                guild.setIntro(intro);
-                                                guild.update();
-
-                                                p.sendMessage(lang.plugin+lang.intro_add.replace("%value%",target));
-                                                return Arrays.asList(AnvilGUI.ResponseAction.close(),
-                                                        AnvilGUI.ResponseAction.run(() -> {
-                                                            GuildMenuPanel menuPanel = new GuildMenuPanel(p);
-                                                            menuPanel.open();
-                                                        }));
-                                            })
-                                            .open(p);
+                                    LegendaryGuild.getInstance().getChatControl().setModify(p.getUniqueId(),0);
+                                    p.sendMessage(lang.plugin+lang.input);
+//                                    new AnvilGUI.Builder().title(lang.input)
+//                                            .text("...")
+//                                            .plugin(LegendaryGuild.getInstance())
+//                                            .onClick((slot, stateSnapshot) -> {
+//                                                String target = LegendaryGuild.getInstance().color(stateSnapshot.getText());
+//                                                if(slot != AnvilGUI.Slot.OUTPUT || target.equals("...")) {
+//                                                    return Collections.emptyList();
+//                                                }
+//
+//                                                List<String> intro = guild.getIntro();
+//                                                intro.add(target);
+//
+//                                                guild.setIntro(intro);
+//                                                guild.update();
+//
+//                                                p.sendMessage(lang.plugin+lang.intro_add.replace("%value%",target));
+//                                                return Arrays.asList(AnvilGUI.ResponseAction.close(),
+//                                                        AnvilGUI.ResponseAction.run(() -> {
+//                                                            GuildMenuPanel menuPanel = new GuildMenuPanel(p);
+//                                                            menuPanel.open();
+//                                                        }));
+//                                            })
+//                                            .open(p);
                                     return;
                                 }
                                 if (e.isRightClick()){
+                                    p.closeInventory();
                                     List<String> intro = new ArrayList<>(guild.getIntro());
                                     if (intro.size() > 0){
                                         String remove = intro.remove(intro.size()-1);
@@ -273,36 +275,38 @@ public class GuildMenuPanel extends MenuDraw {
                             if (guild.getOwner().equals(p.getName())) {
                                 if (e.isLeftClick()) {
                                     p.closeInventory();
-                                    new AnvilGUI.Builder().title(lang.input)
-                                            .text("...")
-                                            .plugin(LegendaryGuild.getInstance())
-                                            .onClick((slot, stateSnapshot) -> {
-                                                String target = LegendaryGuild.getInstance().color(stateSnapshot.getText());
-                                                if(slot != AnvilGUI.Slot.OUTPUT || target.equals("...")) {
-                                                    return Collections.emptyList();
-                                                }
-
-                                                List<String> notice = guild.getNotice();
-                                                notice.add(target);
-
-                                                guild.setIntro(notice);
-                                                guild.update();
-
-                                                p.sendMessage(lang.plugin+lang.notice_add.replace("%value%",target));
-                                                return Arrays.asList(AnvilGUI.ResponseAction.close(),
-                                                        AnvilGUI.ResponseAction.run(() -> {
-                                                            GuildMenuPanel menuPanel = new GuildMenuPanel(p);
-                                                            menuPanel.open();
-                                                        }));
-                                            })
-                                            .open(p);
+                                    LegendaryGuild.getInstance().getChatControl().setModify(p.getUniqueId(),1);
+                                    p.sendMessage(lang.plugin+lang.input);
+//                                    new AnvilGUI.Builder().title(lang.input)
+//                                            .text("...")
+//                                            .plugin(LegendaryGuild.getInstance())
+//                                            .onClick((slot, stateSnapshot) -> {
+//                                                String target = LegendaryGuild.getInstance().color(stateSnapshot.getText());
+//                                                if(slot != AnvilGUI.Slot.OUTPUT || target.equals("...")) {
+//                                                    return Collections.emptyList();
+//                                                }
+//
+//                                                List<String> notice = guild.getNotice();
+//                                                notice.add(target);
+//
+//                                                guild.setIntro(notice);
+//                                                guild.update();
+//
+//                                                p.sendMessage(lang.plugin+lang.notice_add.replace("%value%",target));
+//                                                return Arrays.asList(AnvilGUI.ResponseAction.close(),
+//                                                        AnvilGUI.ResponseAction.run(() -> {
+//                                                            GuildMenuPanel menuPanel = new GuildMenuPanel(p);
+//                                                            menuPanel.open();
+//                                                        }));
+//                                            })
+//                                            .open(p);
                                     return;
                                 }
                                 if (e.isRightClick()){
                                     List<String> notice = new ArrayList<>(guild.getNotice());
                                     if (notice.size() > 0){
                                         String remove = notice.remove(notice.size()-1);
-                                        guild.setIntro(notice);
+                                        guild.setNotice(notice);
                                         guild.update();
 
                                         p.sendMessage(lang.plugin+lang.notice_remove.replace("%value%",LegendaryGuild.getInstance().color(remove)));

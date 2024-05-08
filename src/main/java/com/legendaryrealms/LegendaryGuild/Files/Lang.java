@@ -202,7 +202,7 @@ public class Lang extends FileProvider{
         this.nopass_position = legendaryGuild.color(getValue("nopass_position","&c你的公会职位不允许进行该操作."));
         this.nopass_chance = legendaryGuild.color(getValue("nopass_chance","&c你的运气似乎不太好..."));
         this.no_panel = legendaryGuild.color(getValue("no_panel","&f没有该界面."));
-        this.input = legendaryGuild.color(getValue("input","&0请在下方输入内容"));
+        this.input = legendaryGuild.color(getValue("input","&f请在聊天框中发送内容，输入 &c'cancel' &f即可取消."));
         this.vault_noenough = legendaryGuild.color(getValue("vault_noenough","&f你的游戏币不足 &e%value%"));
         this.member_max = legendaryGuild.color(getValue("member_max","&f公会人数已满，无法再招募更多成员！"));
         this.isowner = legendaryGuild.color(getValue("isowner","&f该玩家是会长！"));
@@ -289,8 +289,8 @@ public class Lang extends FileProvider{
         this.stores_add_white_already = legendaryGuild.color(getValue("stores.add_white_already","&f该成员已经在该号仓库的白名单内"));
         this.stores_remove_white = legendaryGuild.color(getValue("stores.remove_white","&f你已关闭 &e%target% &f的 &3%value%号仓库 &f使用权"));
         this.stores_remove_white_null = legendaryGuild.color(getValue("stores.remove_white_null","&f该仓库的白名单内没有该成员"));
-        this.stores_add_white_title = legendaryGuild.color(getValue("stores.add_white_title","&f请输入添加到该仓库白名单的成员名字"));
-        this.stores_remove_white_title = legendaryGuild.color(getValue("stores.remove_white_title","&f请输入移除该仓库白名单内的成员名字"));
+        this.stores_add_white_title = legendaryGuild.color(getValue("stores.add_white_title","&f请发送玩家名称到聊天栏, 输入 'cancel' 即可取消"));
+        this.stores_remove_white_title = legendaryGuild.color(getValue("stores.remove_white_title","&f请发送移除该仓库白名单内的成员名字, 输入 'cancel' 即可取消"));
         this.stores_cant_use = legendaryGuild.color(getValue("stores.cant_use","&f该仓库被设置了权限，你不在该仓库的信任名单内"));
 
         this.redpacket_min_amount = legendaryGuild.color(getValue("redpacket.min_amount","&f最少红包份数为&e 2个"));
@@ -356,8 +356,8 @@ public class Lang extends FileProvider{
         this.activity_cant_claim = legendaryGuild.color(getValue("activity.cant_claim","&c当前公会活跃度不足 &e%value%"));
         this.activity_already_claimed = legendaryGuild.color(getValue("activity.already_claimed","&c你已经领取过该活跃度奖励了."));
 
-        this.positions_add_write = legendaryGuild.color(getValue("positions.add_write","&0请输入成员名称以任命 %position%"));
-        this.positions_remove_write = legendaryGuild.color(getValue("positions.remove_write","&0请输入成员名称以取消任命 %position%"));
+        this.positions_add_write = legendaryGuild.color(getValue("positions.add_write","&f请输入成员名称以任命 %position% &f输入 &c'cancel' &f取消"));
+        this.positions_remove_write = legendaryGuild.color(getValue("positions.remove_write","&f请输入成员名称以取消任命 %position% &f输入 &c'cancel' &f取消"));
         this.positions_max = legendaryGuild.color(getValue("positions.max","&f该职位当前在位人数已经达到上限.."));
         this.positions_message = legendaryGuild.color(getValue("positions.message","&e你任命成员 &a%target% &e为 %value%"));
         this.positions_message_target = legendaryGuild.color(getValue("positions.message_target","&a你被公会会长任命为 %value%"));

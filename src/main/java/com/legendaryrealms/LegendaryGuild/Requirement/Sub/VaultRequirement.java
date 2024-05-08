@@ -10,7 +10,7 @@ public class VaultRequirement extends Requirement {
     private String SYMBOL = "vault";
 
     public boolean canPass(Player p,String str){
-        if (legendaryGuild.getHookManager().getVaultHook() == null){
+        if (!legendaryGuild.getHookManager().getVaultHook().isEnable()){
             return false;
         }
         try {
@@ -32,7 +32,7 @@ public class VaultRequirement extends Requirement {
 
     @Override
     public void deal(Player p, String str) {
-        if (legendaryGuild.getHookManager().getVaultHook() == null){
+        if (!legendaryGuild.getHookManager().getVaultHook().isEnable()){
             return;
         }
         try {

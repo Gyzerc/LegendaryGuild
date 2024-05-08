@@ -9,7 +9,6 @@ import com.legendaryrealms.LegendaryGuild.Menu.Loaders.PositionsLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
 import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -76,35 +75,41 @@ public class PositionsPanel extends MenuDraw {
                             Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(positionId).orElse(null);
                             if (position != null) {
                                 if (e.isLeftClick()) {
-                                    new AnvilGUI.Builder().title(lang.positions_add_write.replace("%position%",position.getDisplay()))
-                                            .text(
-                                                    "...."
-                                            )
-                                            .plugin(LegendaryGuild.getInstance())
-                                            .onClick((slot, stateSnapshot) -> {
-                                                        if (slot != AnvilGUI.Slot.OUTPUT) {
-                                                            return Collections.emptyList();
-                                                        }
-                                                        String target = stateSnapshot.getText();
-                                                        UserAPI.setPlayerPositionByPlayer(p,target,positionId);
-                                                        return  Arrays.asList(AnvilGUI.ResponseAction.close());
-                                                    }).open(p);
+                                    p.closeInventory();
+                                    p.sendMessage(lang.plugin + lang.positions_add_write.replace("%position%",position.getDisplay()));
+                                    LegendaryGuild.getInstance().getChatControl().setModify(p.getUniqueId(),2,positionId);
+                                    //                                    new AnvilGUI.Builder().title(lang.positions_add_write)
+//                                            .text(
+//                                                    "...."
+//                                            )
+//                                            .plugin(LegendaryGuild.getInstance())
+//                                            .onClick((slot, stateSnapshot) -> {
+//                                                        if (slot != AnvilGUI.Slot.OUTPUT) {
+//                                                            return Collections.emptyList();
+//                                                        }
+//                                                        String target = stateSnapshot.getText();
+//                                                        UserAPI.setPlayerPositionByPlayer(p,target,positionId);
+//                                                        return  Arrays.asList(AnvilGUI.ResponseAction.close());
+//                                                    }).open(p);
                                     return;
                                 }
                                 if (e.isRightClick()){
-                                    new AnvilGUI.Builder().title(lang.positions_remove_write.replace("%position%",position.getDisplay()))
-                                            .text(
-                                                    "...."
-                                            )
-                                            .plugin(LegendaryGuild.getInstance())
-                                            .onClick((slot, stateSnapshot) -> {
-                                                if (slot != AnvilGUI.Slot.OUTPUT) {
-                                                    return Collections.emptyList();
-                                                }
-                                                String target = stateSnapshot.getText();
-                                                UserAPI.removePlayerPosition(p,target);
-                                                return  Arrays.asList(AnvilGUI.ResponseAction.close());
-                                            }).open(p);
+                                    p.closeInventory();
+                                    p.sendMessage(lang.positions_remove_write.replace("%position%",position.getDisplay()));
+                                    LegendaryGuild.getInstance().getChatControl().setModify(p.getUniqueId(),3);
+//                                    new AnvilGUI.Builder().title())
+//                                            .text(
+//                                                    "...."
+//                                            )
+//                                            .plugin(LegendaryGuild.getInstance())
+//                                            .onClick((slot, stateSnapshot) -> {
+//                                                if (slot != AnvilGUI.Slot.OUTPUT) {
+//                                                    return Collections.emptyList();
+//                                                }
+//                                                String target = stateSnapshot.getText();
+//                                                UserAPI.removePlayerPosition(p,target);
+//                                                return  Arrays.asList(AnvilGUI.ResponseAction.close());
+//                                            }).open(p);
                                     return;
                                 }
                             }
