@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class UserAPI {
@@ -39,7 +40,10 @@ public class UserAPI {
     }
     public static Optional<Guild> getGuild(String player){
         User user = getUser(player);
-        return user.hasGuild() ? Optional.of(LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild())) : Optional.empty();
+        if (user.hasGuild()) {
+            return Optional.of(LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild()));
+        }
+        return Optional.empty();
     }
     public static void sendApplication(User user,String guildName){
         //玩家是否在公会内
@@ -341,7 +345,7 @@ public class UserAPI {
                     Guild guild = legendaryGuild.getGuildsManager().getGuild(user.getGuild());
                     legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.tree_water_broad.replace("%target%",p.getName()).replace("%value%",pot.getDisplay()));
 
-                    pot.use(user,guild);
+                    pot.use(p,user,guild);
                     Bukkit.getPluginManager().callEvent(new GuildTreeWaterEvent(p,pot,guild));
                     return true;
                 }

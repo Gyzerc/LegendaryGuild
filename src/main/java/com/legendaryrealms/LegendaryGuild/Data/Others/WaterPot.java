@@ -4,6 +4,8 @@ import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
+import com.legendaryrealms.LegendaryGuild.Utils.RunUtils;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -55,9 +57,10 @@ public class WaterPot {
         return requirements;
     }
 
-    public void use(User user, Guild guild){
+    public void use(Player p,User user, Guild guild){
         user.addPoints(addPoints,true);
         user.update();
         GuildAPI.addGuildTreeExp(user.getPlayer(),guild,addExp);
+        new RunUtils(runs,p).start();
     }
 }

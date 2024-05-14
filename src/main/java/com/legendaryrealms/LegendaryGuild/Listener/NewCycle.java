@@ -68,6 +68,11 @@ public class NewCycle implements Listener {
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {
+
+
+
+
+                //刷新本服在线玩家的每日数据
                 Bukkit.getOnlinePlayers().forEach( p -> {
                     String name = p.getName();
                     User user = UserAPI.getUser(name);
@@ -75,12 +80,14 @@ public class NewCycle implements Listener {
                     WaterDataStore waterDataStore = user.getWaterDataStore();
                     waterDataStore.clearWaterDay();
                     user.setWaterDataStore(waterDataStore);
-                    legendaryGuild.getUsersManager().updateUser(user,true);
+                    user.update();
                 });
 
+
+                //刷新未在线的玩家每日数据
                 List<String> online = Bukkit.getOnlinePlayers().stream().map(p -> p.getName()).collect(Collectors.toList());
                 for (String userName : legendaryGuild.getDataBase().getUsers().stream().filter( n -> {
-                    if (online.contains( n)){
+                    if (online.contains(n)){
                         return false;
                     }
                     return true;
@@ -90,7 +97,7 @@ public class NewCycle implements Listener {
                     WaterDataStore waterDataStore = user.getWaterDataStore();
                     waterDataStore.clearWaterDay();
                     user.setWaterDataStore(waterDataStore);
-                    legendaryGuild.getUsersManager().updateUser(user,true);
+                    user.update();
                 }
             }
         });

@@ -140,7 +140,7 @@ public class SqliteStore extends DataProvider{
         PreparedStatement statement = null;
         List<String> guilds = new ArrayList<>();
         try {
-            statement = connection.prepareStatement("SELECT `player` FROM "+DatabaseTable.USER_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.USER_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String guild = resultSet.getString("player");
@@ -235,7 +235,7 @@ public class SqliteStore extends DataProvider{
         PreparedStatement statement = null;
         List<String> guilds = new ArrayList<>();
         try {
-            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.GUILD_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String guild = resultSet.getString("guild");
@@ -439,7 +439,7 @@ public class SqliteStore extends DataProvider{
         PreparedStatement statement = null;
         List<String> guilds = new ArrayList<>();
         try {
-            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String guild = resultSet.getString("guild");

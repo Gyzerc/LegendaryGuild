@@ -1,12 +1,17 @@
 package com.legendaryrealms.LegendaryGuild.Data.User;
 
 import com.google.common.collect.Iterables;
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
 import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
 import com.legendaryrealms.LegendaryGuild.Files.Lang;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
+import java.util.logging.Level;
 
 public class User {
     private final Lang lang = LegendaryGuild.getInstance().getFileManager().getLang();
@@ -48,10 +53,20 @@ public class User {
     }
 
     public boolean hasGuild(){
-        if (this.guild == null){
+        if (guild == null || (guild != null && guild.equals(lang.default_guild))){
             return false;
         }
-        if (this.guild.equals(lang.default_guild)){
+        Guild guild = GuildAPI.getGuild(this.guild).orElse(null);
+        if (guild == null) {
+            LegendaryGuild.getInstance().info("检测到玩家"+player+"目前所在的公会:"+this.guild+"并不存在, 已重置该玩家的公会数据...", Level.SEVERE);
+            LegendaryGuild.getInstance().info("Detected player "+player+"'s current guild: "+this.guild+" does not exist. The guild data for this player has been reset", Level.SEVERE);
+            setGuild(lang.default_guild);
+            setTeleport_guild_home(false);
+            setChat(false);
+            setPosition(lang.default_position);
+            setPoints(0,false);
+            setTotal_points(0);
+            update();
             return false;
         }
         return true;

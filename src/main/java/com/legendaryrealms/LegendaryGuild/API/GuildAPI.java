@@ -23,6 +23,10 @@ public class GuildAPI {
     private static final Lang lang = legendaryguild.getFileManager().getLang();
     private static final Config config = legendaryguild.getFileManager().getConfig();
 
+    public static Optional<Guild> getGuild(String name) {
+        Guild guild = legendaryguild.getGuildsManager().getGuild(name);
+        return guild != null ? Optional.of(guild) : Optional.empty();
+    }
     public static boolean createGuild(User user,String guild){
         if (Bukkit.getPlayer(user.getPlayer()) == null){
             return false;
@@ -34,7 +38,7 @@ public class GuildAPI {
             return false;
         }
         //是否在公会内
-        if (!user.getGuild().equals(lang.default_guild)){
+        if (user.hasGuild()){
             p.sendMessage(lang.plugin+lang.already_in_guild);
             return false;
         }

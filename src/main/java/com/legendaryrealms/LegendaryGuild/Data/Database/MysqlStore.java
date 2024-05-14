@@ -144,7 +144,7 @@ public class MysqlStore extends DataProvider{
         List<String> guilds = new ArrayList<>();
         try {
             connection = connectPool.getConnection();
-            statement = connection.prepareStatement("SELECT `player` FROM "+DatabaseTable.USER_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.USER_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String guild = resultSet.getString("player");
@@ -249,7 +249,7 @@ public class MysqlStore extends DataProvider{
         List<String> guilds = new ArrayList<>();
         try {
             connection = connectPool.getConnection();
-            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.GUILD_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     String guild = resultSet.getString("guild");
@@ -298,16 +298,15 @@ public class MysqlStore extends DataProvider{
                 int treelevel = rs.getInt("treelevel");
 
                 Guild data = new Guild(guild,owner,icon,date,money,exp,treeexp,level,treelevel,intro,notice,friends,buff,unlock_icons,members,applications,location);
-
                 return Optional.of(data);
             }
-        }catch (SQLException ex) {
+            return Optional.empty();
+        } catch (SQLException ex) {
             legendaryGuild.info("获取公会数据时出错！ ",Level.SEVERE,ex);
-        }finally {
+        } finally {
             closeCon(connection);
         }
         return Optional.empty();
-
     }
 
 
@@ -576,7 +575,7 @@ public class MysqlStore extends DataProvider{
         List<String> guilds = new ArrayList<>();
         try {
             connection = connectPool.getConnection();
-            statement = connection.prepareStatement("SELECT `guild` FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
+            statement = connection.prepareStatement("SELECT * FROM "+DatabaseTable.GUILD_ACTIVITY_DATA.getName()+";");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String guild = resultSet.getString("guild");
