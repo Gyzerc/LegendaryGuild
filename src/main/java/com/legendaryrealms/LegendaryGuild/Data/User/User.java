@@ -53,7 +53,7 @@ public class User {
     }
 
     public boolean hasGuild(){
-        if (guild == null || (guild != null && guild.equals(lang.default_guild))){
+        if (guild == null || guild.isEmpty() || (guild != null && guild.equals(lang.default_guild))){
             return false;
         }
         Guild guild = GuildAPI.getGuild(this.guild).orElse(null);

@@ -34,7 +34,7 @@ public class MenuLoadersManager {
         register(new GuildIconsShopLoader(legendaryGuild));
         register(new TributesLoader(legendaryGuild));
         register(new GuildShopLoader(legendaryGuild));
-        if (legendaryGuild.getBuffsManager().isEnable()){
+        if (legendaryGuild.getFileManager().getBuffFile().getEnable()){
             register(new BuffLoader(legendaryGuild));
         }
         register(new ActivityRewardsLoader(legendaryGuild));

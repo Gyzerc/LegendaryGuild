@@ -58,7 +58,6 @@ public class NewCycle implements Listener {
                 legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Month.name());
                 legendaryGuild.info("新的月份到来了,公会每月限购数据刷新.", Level.INFO);
                 legendaryGuild.info("A new month has arrived, and the guild's weekly purchase restriction data is refreshed.",Level.INFO);
-
                 break;
         }
     }
@@ -68,36 +67,14 @@ public class NewCycle implements Listener {
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {
-
-
-
-
-                //刷新本服在线玩家的每日数据
-                Bukkit.getOnlinePlayers().forEach( p -> {
-                    String name = p.getName();
-                    User user = UserAPI.getUser(name);
-                    user.setWish(false);
-                    WaterDataStore waterDataStore = user.getWaterDataStore();
-                    waterDataStore.clearWaterDay();
-                    user.setWaterDataStore(waterDataStore);
-                    user.update();
-                });
-
-
-                //刷新未在线的玩家每日数据
-                List<String> online = Bukkit.getOnlinePlayers().stream().map(p -> p.getName()).collect(Collectors.toList());
-                for (String userName : legendaryGuild.getDataBase().getUsers().stream().filter( n -> {
-                    if (online.contains(n)){
-                        return false;
-                    }
-                    return true;
-                }).collect(Collectors.toList())) {
+                for (String userName : legendaryGuild.getDataBase().getUsers().stream().collect(Collectors.toList())) {
                     User user = UserAPI.getUser(userName);
                     user.setWish(false);
                     WaterDataStore waterDataStore = user.getWaterDataStore();
                     waterDataStore.clearWaterDay();
                     user.setWaterDataStore(waterDataStore);
                     user.update();
+                    legendaryGuild.getUsersManager().updateUser(user,true);
                 }
             }
         });

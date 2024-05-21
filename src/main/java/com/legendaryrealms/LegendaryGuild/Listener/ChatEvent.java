@@ -70,14 +70,14 @@ public class ChatEvent {
                             String target = LegendaryGuild.getInstance().color(str);
                             switch (mode) {
                                 case 0 :
-                                    List<String> intro = guild.getIntro();
+                                    List<String> intro = new ArrayList<>(guild.getIntro());
                                     intro.add(target);
                                     guild.setIntro(intro);
                                     guild.update();
                                     p.sendMessage(lang.plugin+lang.intro_add.replace("%value%",target));
                                     break;
                                 case 1:
-                                    List<String> notice = guild.getNotice();
+                                    List<String> notice = new ArrayList<>(guild.getNotice());
                                     notice.add(target);
                                     guild.setNotice(notice);
                                     guild.update();
@@ -102,7 +102,7 @@ public class ChatEvent {
                                         return;
                                     }
                                     p.sendMessage(lang.plugin+lang.stores_add_white.replace("%target%",target).replace("%value%",""+id));
-                                    List<String> white = data.getWhite();
+                                    List<String> white = new ArrayList<>(data.getWhite());
                                     white.add(target);
                                     store.setWhite(id,white);
                                     //更新数据库
@@ -140,7 +140,7 @@ public class ChatEvent {
                             }
                         }
                         GuildMenuPanel menuPanel = new GuildMenuPanel(p);
-                        menuPanel.open();
+                        Bukkit.getScheduler().runTask(legendaryGuild,()->menuPanel.open());
                         return;
                     }
                     if (user.isChat()) {

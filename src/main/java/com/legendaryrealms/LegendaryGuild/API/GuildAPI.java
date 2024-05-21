@@ -103,11 +103,11 @@ public class GuildAPI {
     public static void createRedPacket(Player p,double total,int amount){
         if (legendaryguild.getHookManager().getVaultHook().isEnable()) {
             User user = legendaryguild.getUsersManager().getUser(p.getName());
-            Guild guildData = legendaryguild.getGuildsManager().getGuild(user.getGuild());
             if (!user.hasGuild()) {
                 p.sendMessage(lang.plugin + lang.nothasguild);
                 return;
             }
+            Guild guildData = legendaryguild.getGuildsManager().getGuild(user.getGuild());
             if (total < config.MIN_REDPACKET_TOTAL) {
                 p.sendMessage(lang.plugin + lang.redpacket_min_total);
                 return;
