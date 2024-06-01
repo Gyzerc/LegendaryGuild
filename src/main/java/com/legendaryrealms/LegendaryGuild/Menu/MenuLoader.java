@@ -7,10 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 
 public abstract class MenuLoader extends FileProvider {
@@ -22,6 +19,14 @@ public abstract class MenuLoader extends FileProvider {
     public HashMap<String,String> placeholder;
     public List<Integer> layout;
 
+    public String findPlaceholderIgnore(String id ){
+        for (Map.Entry<String,String> entry : placeholder.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(id)){
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
     public MenuLoader(LegendaryGuild legendaryGuild, String path, String internalPath, String fileName) {
         super(legendaryGuild, path, internalPath, fileName);
 

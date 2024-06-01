@@ -18,14 +18,10 @@ public class UsersManager {
     public User getUser(String player) {
         User user = cache.get(player);
         if (user == null) {
-            Optional<User> optionalUser = legendaryGuild.getDataBase().getUser(player);
-            if (optionalUser.isPresent()){
-                user = optionalUser.get();
-                cache.put(player,user);
-                return user;
-            }
-            user = new User(player, legendaryGuild.getFileManager().getLang().default_guild, legendaryGuild.getFileManager().getLang().default_position, "", new WaterDataStore(new HashMap<>()), 0,false, false, 0, 0, User.PvpType.ALL);
-            cache.put(player,user);
+            User optionalUser = legendaryGuild.getDataBase().getUser(player).orElse(
+                    new User(player, legendaryGuild.getFileManager().getLang().default_guild, legendaryGuild.getFileManager().getLang().default_position, "", new WaterDataStore(new HashMap<>()), 0,false, false, 0, 0, User.PvpType.ALL)
+            );
+            cache.put(player,optionalUser);
         }
         return user;
     }

@@ -59,7 +59,7 @@ public class WaterPot {
 
     public void use(Player p,User user, Guild guild){
         user.addPoints(addPoints,true);
-        user.update();
+        user.update(false);
         GuildAPI.addGuildTreeExp(user.getPlayer(),guild,addExp);
         new RunUtils(runs,p).start();
     }

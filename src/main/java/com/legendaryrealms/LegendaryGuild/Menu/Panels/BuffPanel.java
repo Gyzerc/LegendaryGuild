@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BuffPanel extends MenuDraw {
-    private final LinkedList<Buff> buffs = LegendaryGuild.getInstance().getBuffsManager().getBuffs();
     private int page;
     public BuffPanel(Player p, int page) {
         super(p, "Buff");
@@ -40,6 +39,7 @@ public class BuffPanel extends MenuDraw {
         LegendaryGuild.getInstance().sync(new Runnable() {
             @Override
             public void run() {
+                LinkedList<Buff> buffs = LegendaryGuild.getInstance().getBuffsManager().getBuffs();
                 if (hasPage(page,buffs)){
                     int a = 0;
                     User user = UserAPI.getUser(p.getName());
@@ -87,6 +87,7 @@ public class BuffPanel extends MenuDraw {
                         break;
                     }
                     case "next": {
+                        LinkedList<Buff> buffs = LegendaryGuild.getInstance().getBuffsManager().getBuffs();
                         if (!hasPage(page + 1,buffs)) {
                             return;
                         }

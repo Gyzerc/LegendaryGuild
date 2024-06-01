@@ -31,7 +31,8 @@ public class GuildShopDataManager {
         return data;
     }
 
-    public void updateData(){
+    public void updateData(GuildShopData data){
+        this.data = data;
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {

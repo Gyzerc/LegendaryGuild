@@ -10,9 +10,12 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.TributesLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
+import com.legendaryrealms.LegendaryGuild.Utils.ItemUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -103,6 +106,15 @@ public class TributesPanel extends MenuDraw {
 
     }
 
+    @Override
+    public void onClose(InventoryCloseEvent e){
+        for (int slot : getLayout()) {
+            ItemStack i = e.getInventory().getItem(slot);
+            if (i != null && !i.getType().equals(Material.AIR)) {
+                ItemUtils.giveItem(p,i,i.getAmount(),false);
+            }
+        }
+    }
     public void sell(Inventory inventory)
     {
         User user = UserAPI.getUser(p.getName());
@@ -135,7 +147,7 @@ public class TributesPanel extends MenuDraw {
 
         if (points != 0 || exp != 0) {
             user.addPoints(points, true);
-            user.update();
+            user.update(false);
             GuildAPI.addGuildExp(p.getName(), guild, exp);
 
             Bukkit.getPluginManager().callEvent(new GuildTributesEvent(p,tributeItems));

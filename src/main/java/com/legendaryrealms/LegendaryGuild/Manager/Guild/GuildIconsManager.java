@@ -33,13 +33,7 @@ public class GuildIconsManager {
                 List<String> description = legendaryGuild.color(section.getStringList(iconId+".description"));
                 List<String> requirements = legendaryGuild.color(section.getStringList(iconId+".requirements"));
 
-                ItemStack i = new ItemStack(material,1,(short) data);
-                ItemMeta id = i.getItemMeta();
-                if (legendaryGuild.version_high){
-                    id.setCustomModelData(model);
-                }
-                i.setItemMeta(id);
-                cache.put(iconId,new GuildIcon(iconId,display,i,description,requirements));
+                cache.put(iconId,new GuildIcon(iconId,display,material,data,model,description,requirements));
                 a ++ ;
             }
         }

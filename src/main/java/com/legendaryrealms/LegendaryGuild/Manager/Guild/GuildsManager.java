@@ -91,7 +91,7 @@ public class GuildsManager {
         user.setPosition(legendaryGuild.getPositionsManager().getOwnerPosition().getId());
         user.setPoints(0.0,false);
         //更新数据库数据以及通知其他子服务器更新数据
-        user.update();
+        user.update(false);
 
         //通知其他子服务器更新公会数据
         //....

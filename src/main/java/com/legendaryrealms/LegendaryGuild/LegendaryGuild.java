@@ -352,10 +352,22 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
                 break;
         }
     }
-    public boolean BukkitVersionHigh() {
-        String name = Bukkit.getServer().getClass().getPackage().getName();
-        name = name.substring(name.lastIndexOf(".") + 1);
-        int version = Integer.parseInt(name.substring(name.indexOf("_") + 1, name.indexOf("R") - 1));
+    private boolean BukkitVersionHigh() {
+        String name = Bukkit.getServer().getBukkitVersion();
+        String versionStr =  name.substring(0,name.indexOf("-"));
+
+        List<String> groups = new ArrayList<>();
+        StringBuilder builder = new StringBuilder();
+        for (char c : versionStr.toCharArray()) {
+            if (c == '.') {
+                groups.add(builder.toString());
+                builder = new StringBuilder();
+                continue;
+            }
+            builder.append(c);
+        }
+
+        int version = Integer.parseInt(groups.get(1));
         return (version >= 13);
     }
     public String color(String msg){return msgUtils.msg(msg);}

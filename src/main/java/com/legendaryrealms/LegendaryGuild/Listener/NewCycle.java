@@ -34,8 +34,8 @@ public class NewCycle implements Listener {
 
                 //公会商店每日限购缓存刷新
                 guildShopData.setLast_date(e.getValue());
+                guildShopData.removeData(ShopType.DAY);
                 guildShopData.updata();
-                legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Day.name());
                 legendaryGuild.info("新的一天到来了,公会日常限购数据刷新.",Level.INFO);
                 legendaryGuild.info("A new day has arrived, and the guild's daily purchase restriction data has been refreshed.",Level.INFO);
 
@@ -45,8 +45,8 @@ public class NewCycle implements Listener {
             case 1:
                 //公会商店每周限购缓存刷新
                 guildShopData.setLast_week(e.getValue());
+                guildShopData.removeData(ShopType.WEEK);
                 guildShopData.updata();
-                legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Week.name());
                 legendaryGuild.info("新的一周到来了,公会每周限购数据刷新.",Level.INFO);
                 legendaryGuild.info("A new week has arrived, and the guild's weekly purchase restriction data is refreshed.",Level.INFO);
 
@@ -54,8 +54,8 @@ public class NewCycle implements Listener {
             case 2:
                 //公会商店每月限购缓存刷新
                 guildShopData.setLast_month(e.getValue());
+                guildShopData.removeData(ShopType.MONTH);
                 guildShopData.updata();
-                legendaryGuild.getDataBase().deleteGuildShopData(ShopType.Month.name());
                 legendaryGuild.info("新的月份到来了,公会每月限购数据刷新.", Level.INFO);
                 legendaryGuild.info("A new month has arrived, and the guild's weekly purchase restriction data is refreshed.",Level.INFO);
                 break;
@@ -73,7 +73,7 @@ public class NewCycle implements Listener {
                     WaterDataStore waterDataStore = user.getWaterDataStore();
                     waterDataStore.clearWaterDay();
                     user.setWaterDataStore(waterDataStore);
-                    user.update();
+                    user.update(true);
                     legendaryGuild.getUsersManager().updateUser(user,true);
                 }
             }

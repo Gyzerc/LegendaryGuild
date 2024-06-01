@@ -461,7 +461,7 @@ public class MysqlStore extends DataProvider{
 
 
             String[] args = new String[4];
-            ShopType[] types = new ShopType[]{ShopType.Once,ShopType.Day,ShopType.Week,ShopType.Month};
+            ShopType[] types = new ShopType[]{ShopType.ONCE,ShopType.DAY,ShopType.WEEK,ShopType.MONTH};
             for (int in = 0; in < types.length ; in++) {
                 ShopType type = types[in];
                 ps = connection.prepareStatement("SELECT * FROM " + DatabaseTable.GUILD_SHOP.getName() + " WHERE type = '"+type.name()+"' LIMIT 1;");
@@ -491,7 +491,7 @@ public class MysqlStore extends DataProvider{
             connection = connectPool.getConnection();
             ps = connection.prepareStatement("REPLACE INTO "+DatabaseTable.GUILD_SHOP.getName()+" (type,data) VALUES(?,?)");
 
-            ShopType[] types = new ShopType[]{ShopType.Once,ShopType.Day,ShopType.Week,ShopType.Month};
+            ShopType[] types = new ShopType[]{ShopType.ONCE,ShopType.DAY,ShopType.WEEK,ShopType.MONTH};
             for (int in = 0; in < types.length ; in++) {
                 ShopType type = types[in];
                 ps.setString(1, type.name());

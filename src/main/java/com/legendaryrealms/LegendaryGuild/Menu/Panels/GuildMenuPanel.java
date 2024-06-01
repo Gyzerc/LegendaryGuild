@@ -46,16 +46,13 @@ public class GuildMenuPanel extends MenuDraw {
 
                         GuildIcon icon = LegendaryGuild.getInstance().getGuildIconsManager().getIcon(guild.getIcon()).orElse(null);
                         if (icon != null){
-
-                            ItemStack item = icon.getIcon();
+                            ItemStack item = new ItemStack(icon.getMaterial(),1,(short) icon.getData());
                             ItemMeta itemid = item.getItemMeta();
                             if (id.hasDisplayName()){
                                 itemid.setDisplayName(id.getDisplayName());
                             }
                             if (LegendaryGuild.getInstance().version_high){
-                                if (id.hasCustomModelData()) {
-                                    itemid.setCustomModelData(id.getCustomModelData());
-                                }
+                                itemid.setCustomModelData(icon.getModel());
                             }
                             if (id.hasLore()){
                                 itemid.setLore(id.getLore());

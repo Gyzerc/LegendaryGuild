@@ -11,6 +11,7 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.GuildShopLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuItem;
+import com.legendaryrealms.LegendaryGuild.Utils.ReplaceHolderUtils;
 import com.legendaryrealms.LegendaryGuild.Utils.RunUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -25,7 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GuildShopPanel extends MenuDraw {
-    private static LinkedList<ShopItem> items = LegendaryGuild.getInstance().getGuildShopItemsManager().getItems();
     private int page;
     public GuildShopPanel(Player p,int page) {
         super(p, "GuildShop");
@@ -41,6 +41,7 @@ public class GuildShopPanel extends MenuDraw {
         LegendaryGuild.getInstance().sync(new Runnable() {
             @Override
             public void run() {
+                LinkedList<ShopItem> items = LegendaryGuild.getInstance().getGuildShopItemsManager().getItems();
                 if (hasPage(page,items)){
                     User user = UserAPI.getUser(p.getName());
                     GuildShopData shopData = LegendaryGuild.getInstance().getGuildShopDataManager().getData();
@@ -50,8 +51,9 @@ public class GuildShopPanel extends MenuDraw {
 
                         ItemBuyData data = shopData.getData(shopItem.getId()).get();
                         String limit = "";
-                        if (!shopItem.getType().equals(ShopType.Unlimited)){
-                            limit = getLoader().getPlaceHolder(shopItem.getType().name())
+                        if (!shopItem.getType().equals(ShopType.UNLIMITED)){
+
+                            limit = getLoader().findPlaceholderIgnore(shopItem.getType().name())
                                     .replace("%left%",""+data.getBuyAmount(p.getName(),shopItem.getType()))
                                     .replace("%max%",""+shopItem.getLimitAmount());
                         }
@@ -59,13 +61,14 @@ public class GuildShopPanel extends MenuDraw {
                         ItemStack i = shopItem.getDisplay().clone();
                         ItemMeta id = i.getItemMeta();
                         List<String> lore = id.hasLore() ? id.getLore() : new ArrayList<>();
-
-                        String finalLimit = limit;
-                        lore.replaceAll(l -> l.replace("%points%",""+user.getPoints())
-                                .replace("%limit%", finalLimit));
                         id.setLore(lore);
                         i.setItemMeta(id);
-                        inv.setItem(getLayout().get(a), i);
+
+                        ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                                .addSinglePlaceHolder("points",String.valueOf(user.getPoints()))
+                                        .addSinglePlaceHolder("limit",limit);
+
+                        inv.setItem(getLayout().get(a), replaceHolderUtils.startReplace(i,true,p.getName()));
                         slot_item.put(getLayout().get(a), shopItem);
                         a++;
                     }
@@ -94,6 +97,7 @@ public class GuildShopPanel extends MenuDraw {
                         break;
                     }
                     case "next": {
+                        LinkedList<ShopItem> items = LegendaryGuild.getInstance().getGuildShopItemsManager().getItems();
                         if (hasPage(page + 1, items)) {
                             GuildShopPanel shopPanel = new GuildShopPanel(p, (page + 1));
                             shopPanel.open();
@@ -109,7 +113,7 @@ public class GuildShopPanel extends MenuDraw {
                     ItemBuyData buyData = guildShopData.getData(shopItem.getId()).get();
 
                     boolean reachMax = false;
-                    if (!shopItem.getType().equals(ShopType.Unlimited)) {
+                    if (!shopItem.getType().equals(ShopType.UNLIMITED)) {
                         ShopType type = shopItem.getType();
                         int max = shopItem.getLimitAmount();
 
@@ -129,7 +133,8 @@ public class GuildShopPanel extends MenuDraw {
 
                         //更新限购数据
                         buyData.addBuyAmount(p.getName(), shopItem.getType(), 1);
-                        LegendaryGuild.getInstance().getGuildShopDataManager().updateData();
+                        LegendaryGuild.getInstance().getGuildShopDataManager().updateData(guildShopData);
+
                         String name = e.getCurrentItem().getItemMeta().hasDisplayName() ? e.getCurrentItem().getItemMeta().getDisplayName() : e.getCurrentItem().getType().name();
                         p.sendMessage(lang.plugin + lang.shop_buy.replace("%value%", name));
 

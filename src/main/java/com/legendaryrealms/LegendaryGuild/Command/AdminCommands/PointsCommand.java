@@ -59,7 +59,7 @@ public class PointsCommand extends com.legendaryrealms.LegendaryGuild.Command.Le
         }
 
         if (change) {
-            user.update();
+            user.update(false);
         }
     }
 

@@ -12,6 +12,10 @@ public class BuyAmount {
         this.amounts = amounts;
     }
 
+    public BuyAmount clear(ShopType type) {
+        amounts.remove(type);
+        return this;
+    }
     public int getAmount(ShopType type) {
         return amounts.containsKey(type) ? amounts.get(type) : 0;
     }

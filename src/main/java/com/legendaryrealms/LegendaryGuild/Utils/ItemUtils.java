@@ -10,11 +10,39 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class ItemUtils {
 
+    public static void giveItem(Player p, ItemStack i, int amount, boolean Multiply) {
+        int targetAmount = amount;
+        if (Multiply) {
+            targetAmount = amount * i.getAmount();
+        }
+        if (targetAmount > 64) {
+            ItemStack clone = i.clone();
+            clone.setAmount(64);
+            HashMap<Integer, ItemStack> drops = p.getInventory().addItem(new ItemStack[] { clone });
+            if (!drops.isEmpty()) {
+                for (Map.Entry<Integer, ItemStack> drop : drops.entrySet()) {
+                    p.getWorld().dropItem(p.getLocation(), drop.getValue());
+                }
+            }
+            giveItem(p, i, targetAmount - 64, false);
+        } else {
+            ItemStack clone = i.clone();
+            clone.setAmount(targetAmount);
+            HashMap<Integer, ItemStack> drops = p.getInventory().addItem(new ItemStack[]{clone});
+            if (!drops.isEmpty()) {
+                for (Map.Entry<Integer, ItemStack> drop : drops.entrySet()) {
+                    p.getWorld().dropItem(p.getLocation(), drop.getValue());
+                }
+            }
+        }
+    }
     private static final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();
 
     public static ItemStack readItem(ConfigurationSection yml, String path){

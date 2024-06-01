@@ -66,7 +66,7 @@ public class User {
             setPosition(lang.default_position);
             setPoints(0,false);
             setTotal_points(0);
-            update();
+            update(false);
             return false;
         }
         return true;
@@ -175,8 +175,8 @@ public class User {
     }
 
 
-    public void update() {
-        LegendaryGuild.getInstance().getUsersManager().updateUser(this, true);
+    public void update(boolean r) {
+        LegendaryGuild.getInstance().getUsersManager().updateUser(this, r);
         if (LegendaryGuild.getInstance().getNetWork().isEnable()) {
             Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
             if (p != null) {

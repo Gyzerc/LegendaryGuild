@@ -58,6 +58,16 @@ public class GuildShopData {
         this.data.put(itemId,data);
     }
 
+    public void removeData(ShopType type) {
+        HashMap<String,ItemBuyData> map = new HashMap<>();
+        for (Map.Entry<String,ItemBuyData> entry:data.entrySet()) {
+            String id = entry.getKey();
+            ItemBuyData buyData = entry.getValue();
+            buyData.clear(type);
+            map.put(id,buyData);
+        }
+        this.data = map;
+    }
     public String toString(ShopType type){
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, ItemBuyData> entry:data.entrySet()){
@@ -69,7 +79,7 @@ public class GuildShopData {
     public static GuildShopData getData(int day,int week,int month,String... args){
         GuildShopData data = new GuildShopData(new HashMap<>(),day,week,month);
         if ( args != null ) {
-            ShopType[] types = new ShopType[]{ShopType.Once, ShopType.Day, ShopType.Week, ShopType.Month};
+            ShopType[] types = new ShopType[]{ShopType.ONCE, ShopType.DAY, ShopType.WEEK, ShopType.MONTH};
             for (int in = 0; in < types.length; in++) {
                 String arg = args[in];
                 if (arg != null) {
@@ -96,6 +106,6 @@ public class GuildShopData {
     }
 
     public void updata(){
-        LegendaryGuild.getInstance().getGuildShopDataManager().updateData();
+        LegendaryGuild.getInstance().getGuildShopDataManager().updateData(this);
     }
 }

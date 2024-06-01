@@ -34,7 +34,7 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "5.1.4.2";
+        return "5.1.5";
     }
 
     private final LegendaryGuild legendaryGuild = LegendaryGuild.getInstance();
@@ -97,7 +97,7 @@ public class LegendaryGuildPlaceholderAPI extends PlaceholderExpansion {
         if (params.equals("points")) {
             return user.getPoints() + "";
         }
-        if (params.equals("points_total")) {
+        if (params.equals("total_points")) {
             return user.getTotal_points() + "";
         }
         if (params.equals("guild_members")) {

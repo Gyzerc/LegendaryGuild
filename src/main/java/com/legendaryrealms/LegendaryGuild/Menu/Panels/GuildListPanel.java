@@ -85,39 +85,61 @@ public class GuildListPanel extends MenuDraw {
 
                     ItemStack i = new ItemStack(loader.getGuild_icon(),1,(short) loader.getGuild_data());
                     if (icon != null){
-                        i = icon.getIcon();
+                        i = new ItemStack(icon.getMaterial(),1,(short) icon.getData());
                     }
                     ItemMeta id = i.getItemMeta();
-
-                    id.setDisplayName(loader.getGuild_display().replace("%guild%", guild.getDisplay()));
                     List<String> lore = new ArrayList<>(loader.getGuild_lore());
-                    lore.replaceAll(l -> l
-                            .replace("%date%", guild.getDate())
-                            .replace("%owner%", guild.getOwner())
-                            .replace("%level%", "" + guild.getLevel())
-                            .replace("%exp%", "" + guild.getExp())
-                            .replace("%exp_next%", + legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel())+"")
-                            .replace("%money%", "" + guild.getMoney())
-                            .replace("%members%", "" + guild.getMembers().size())
-                            .replace("%maxmembers%", "" + legendaryGuild.getFileManager().getConfig().MEMBERS.get(guild.getLevel()))
-                            .replace("%treelevel%", "" + guild.getTreelevel())
-                            .replace("%treeexp%", "" + guild.getTreeexp())
-                            .replace("%treeexp_next%",""+legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel()))
-                            .replace("%activity%",""+activityData.getPoints()));
-                    int index = lore.indexOf("%intro%");
-                    if (index != -1) {
-                        int size = guild.getIntro().size();
-                        lore.addAll(index, guild.getIntro());
-                        lore.remove(index + size);
-                    }
-
                     id.setLore(lore);
                     if (legendaryGuild.version_high) {
-                        id.setCustomModelData(loader.getGuild_model());
+                        id.setCustomModelData(icon != null ? icon.getModel() : loader.getGuild_model());
                     }
                     i.setItemMeta(id);
+
+                    ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
+                            .addSinglePlaceHolder("guild",guild.getDisplay())
+                            .addSinglePlaceHolder("date",guild.getDate())
+                            .addSinglePlaceHolder("owner",guild.getOwner())
+                            .addSinglePlaceHolder("level",String.valueOf(guild.getLevel()))
+                            .addSinglePlaceHolder("exp",String.valueOf(guild.getExp()))
+                            .addSinglePlaceHolder("exp_next",String.valueOf(legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel())))
+                            .addSinglePlaceHolder("money",String.valueOf(guild.getMoney()))
+                            .addSinglePlaceHolder("members", String.valueOf(guild.getMembers().size()))
+                            .addSinglePlaceHolder("maxmembers",String.valueOf(legendaryGuild.getFileManager().getConfig().MEMBERS.get(guild.getLevel())))
+                            .addSinglePlaceHolder("treelevel",String.valueOf(guild.getTreelevel()))
+                            .addSinglePlaceHolder("treeexp",String.valueOf(guild.getTreeexp()))
+                            .addSinglePlaceHolder("treeexp_next",String.valueOf(legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel())))
+                            .addSinglePlaceHolder("activity", String.valueOf(activityData.getPoints()))
+                            .addListPlaceHolder("intro",guild.getIntro());
+
+//                    id.setDisplayName(loader.getGuild_display().replace("%guild%", guild.getDisplay()));
+//                    List<String> lore = new ArrayList<>(loader.getGuild_lore());
+//                    lore.replaceAll(l -> l
+//                            .replace("%date%", guild.getDate())
+//                            .replace("%owner%", guild.getOwner())
+//                            .replace("%level%", "" + guild.getLevel())
+//                            .replace("%exp%", "" + guild.getExp())
+//                            .replace("%exp_next%", + legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel())+"")
+//                            .replace("%money%", "" + guild.getMoney())
+//                            .replace("%members%", "" + guild.getMembers().size())
+//                            .replace("%maxmembers%", "" + legendaryGuild.getFileManager().getConfig().MEMBERS.get(guild.getLevel()))
+//                            .replace("%treelevel%", "" + guild.getTreelevel())
+//                            .replace("%treeexp%", "" + guild.getTreeexp())
+//                            .replace("%treeexp_next%",""+legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel()))
+//                            .replace("%activity%",""+activityData.getPoints()));
+//                    int index = lore.indexOf("%intro%");
+//                    if (index != -1) {
+//                        int size = guild.getIntro().size();
+//                        lore.addAll(index, guild.getIntro());
+//                        lore.remove(index + size);
+//                    }
+//
+//                    id.setLore(lore);
+//                    if (legendaryGuild.version_high) {
+//                        id.setCustomModelData(icon != null ? icon.getModel() : loader.getGuild_model());
+//                    }
+//                    i.setItemMeta(id);
                     int slot = layout.get(a);
-                    inv.setItem(slot, i);
+                    inv.setItem(slot, replaceHolderUtils.startReplace(i,false,null));
                     slotToGuild.put(slot,guild);
                     a++;
                 }

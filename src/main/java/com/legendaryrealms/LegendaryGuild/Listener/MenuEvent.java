@@ -32,6 +32,10 @@ public class MenuEvent implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e){
+        if (e.getInventory().getHolder() instanceof MenuDraw ) {
+            MenuDraw draw = (MenuDraw) e.getInventory().getHolder();
+            draw.onClose(e);
+        }
         if (e.getInventory().getHolder() instanceof StoresPanel.StoreContainer){
             StoresPanel.StoreContainer container = (StoresPanel.StoreContainer) e.getInventory().getHolder();
             GuildStore store = LegendaryGuild.getInstance().getDataBase().getStore(container.getGuild());

@@ -5,6 +5,7 @@ import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class ItemBuyData {
 
@@ -31,6 +32,14 @@ public class ItemBuyData {
         BuyAmount buyAmount = data.containsKey(player) ? data.get(player) : new BuyAmount(player, new HashMap<>());
         buyAmount.setAmount(type, amount);
         data.put(player, buyAmount);
+    }
+
+    public void clear(ShopType type) {
+        HashMap<String,BuyAmount> map = new HashMap<>();
+        for (Map.Entry<String,BuyAmount> entry:data.entrySet()) {
+            map.put(entry.getKey(), entry.getValue().clear(type));
+        }
+        this.data = map;
     }
 
     public String getId() {

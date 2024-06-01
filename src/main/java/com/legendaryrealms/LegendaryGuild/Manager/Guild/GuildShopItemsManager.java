@@ -45,11 +45,11 @@ public class GuildShopItemsManager {
 
     private ShopType getType(String type){
         try {
-            return ShopType.valueOf(type);
+            return ShopType.valueOf(type.toUpperCase());
         } catch (Exception e) {
             legendaryGuild.info("商品限购类型配置出错，已默认为无限购商品 -> "+type,Level.SEVERE);
             legendaryGuild.info("Product purchase restriction type configuration error, defaulted to unlimited purchase product",Level.SEVERE);
-            return ShopType.Unlimited;
+            return ShopType.UNLIMITED;
         }
     }
 

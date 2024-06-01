@@ -114,7 +114,7 @@ public class RunUtils {
                         User user = UserAPI.getUser(p.getName());
                         if (user.hasGuild()) {
                             user.addPoints(Double.parseDouble(dealStr),true);
-                            user.update();
+                            user.update(false);
                         }
                     }
                     break;

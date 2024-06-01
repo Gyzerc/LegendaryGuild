@@ -47,25 +47,31 @@ public class GuildIconsShopPanel extends MenuDraw {
                     String locked = loader.getPlaceHolder("locked");
                     String unlocked = loader.getPlaceHolder("unlocked");
                     String putting = loader.getPlaceHolder("putting");
-                    String current = locked;
 
                     for (GuildIcon guildIcon : getPage(page,list)){
+                        String current = locked;
                         if (guild.getIcon().equals(guildIcon.getId())){
                             current=putting;
                         }
                         else if (guild.getUnlock_icons().contains(guildIcon.getId())){
                             current=unlocked;
                         }
-                        ItemStack i = guildIcon.getIcon();
+
+                        ItemStack i = new ItemStack(guildIcon.getMaterial(),1,(short) guildIcon.getData());
                         ItemMeta id = i.getItemMeta();
-                        id.setDisplayName(loader.getIcon_display().replace("%icon%",guildIcon.getDisplay()));
+                        id.setDisplayName(loader.getIcon_display());
                         List<String> lore = new ArrayList<>(loader.getIcon_lore());
+
                         id.setLore(lore);
+                        if (LegendaryGuild.getInstance().version_high) {
+                            id.setCustomModelData(guildIcon.getModel());
+                        }
                         i.setItemMeta(id);
 
 
                         ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
                                 .addListPlaceHolder("description",guildIcon.getDescription())
+                                .addSinglePlaceHolder("icon",guildIcon.getDisplay())
                                 .addSinglePlaceHolder("placeholder",current);
 
 

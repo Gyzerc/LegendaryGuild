@@ -42,6 +42,6 @@ public class GuildPointsRequirement extends Requirement {
         user.takePoints(Double.parseDouble(args[1]),true);
 
         //更新数据库
-        user.update();
+        user.update(false);
     }
 }

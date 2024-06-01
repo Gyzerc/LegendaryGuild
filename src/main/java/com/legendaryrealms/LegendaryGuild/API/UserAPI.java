@@ -104,7 +104,7 @@ public class UserAPI {
                     if (toPoints > 0) {
                         addPoints = amount * toPoints;
                         user.addPoints(addPoints, true);
-                        user.update();
+                        user.update(false);
                     }
                     legendaryGuild.getHookManager().getVaultHook().getEconomy().withdrawPlayer(p,amount);
 
@@ -139,7 +139,7 @@ public class UserAPI {
         user.setTotal_points(0.0);
         user.setDate(legendaryGuild.getDate());
         //更新数据库并同步子服数据
-        user.update();
+        user.update(false);
 
         //添加成员
         guild.getMembers().add(user.getPlayer());
@@ -173,7 +173,7 @@ public class UserAPI {
         user.setCooldown(legendaryGuild.getFileManager().getConfig().COOLDOWN * 60);
         user.setDate("");
         //更新数据库并通知其他子服务器
-        user.update();
+        user.update(false);
 
 
         //设置公会数据
@@ -244,7 +244,7 @@ public class UserAPI {
         }
         String oldPosition = TargetUser.getPosition();
         TargetUser.setPosition(positionId);
-        TargetUser.update();
+        TargetUser.update(false);
 
         seter.sendMessage(lang.plugin+lang.positions_message.replace("%target%",target).replace("%value%",position.getDisplay()));
         legendaryGuild.getMsgUtils().sendMessage(target,lang.plugin+lang.positions_message_target.replace("%value%",position.getDisplay()));
@@ -281,7 +281,7 @@ public class UserAPI {
         }
         if (!targetUser.getPosition().equals(defaultId)) {
             targetUser.setPosition(defaultId);
-            targetUser.update();
+            targetUser.update(false);
             Bukkit.getPluginManager().callEvent(new PlayerPositionChangeEvent(targetUser,old,defaultId));
         }
 
@@ -301,7 +301,7 @@ public class UserAPI {
                 }
                 user.setWish(true);
                 //更新数据库并通知其他子服务器
-                user.update();
+                user.update(false);
 
                 legendaryGuild.getMsgUtils().sendMessage(user.getPlayer(), lang.plugin + lang.tree_wish);
                 Guild guild = legendaryGuild.getGuildsManager().getGuild(user.getGuild());
@@ -339,7 +339,7 @@ public class UserAPI {
                     waterDataStore.addAmount(potId, WaterDataStore.WaterDataType.TODAY, 1);
                     waterDataStore.addAmount(potId, WaterDataStore.WaterDataType.TOTAL, 1);
                     user.setWaterDataStore(waterDataStore);
-                    user.update();
+                    user.update(false);
 
                     p.sendMessage(lang.plugin + lang.tree_water.replace("%value%", pot.getDisplay()));
                     Guild guild = legendaryGuild.getGuildsManager().getGuild(user.getGuild());
@@ -373,7 +373,7 @@ public class UserAPI {
         user.setPoints(0,false);
         user.setTotal_points(0);
         user.setCooldown(legendaryGuild.getFileManager().getConfig().COOLDOWN);
-        user.update();
+        user.update(false);
 
         Guild guild = legendaryGuild.getGuildsManager().getGuild(guildName);
         LinkedList<String> members = guild.getMembers();
@@ -408,9 +408,9 @@ public class UserAPI {
         guild.setOwner(target);
         guild.update();
         user.setPosition(legendaryGuild.getPositionsManager().getDefaultPosition().getId());
-        user.update();
+        user.update(false);
         tagetUser.setPosition(legendaryGuild.getPositionsManager().getOwnerPosition().getId());
-        tagetUser.update();
+        tagetUser.update(false);
 
         owner.sendMessage(lang.plugin+lang.give_message.replace("%value%",guild.getDisplay()).replace("%target%",target));
         legendaryGuild.getMsgUtils().sendMessage(target,lang.plugin+lang.give_message_target.replace("%value%",guild.getDisplay()));
@@ -513,7 +513,7 @@ public class UserAPI {
 
             User user = getUser(p.getName());
             user.setTeleport_guild_home(true);
-            user.update();
+            user.update(false);
 
             legendaryGuild.getNetWork().teleportServer(p,location.getServer());
         }

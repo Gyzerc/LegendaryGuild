@@ -64,7 +64,7 @@ public class PlayerJoin implements Listener {
                 if (guild != null && guild.getHome()!=null){
                     if (guild.getHome().getServer().equals(legendaryGuild.SERVER)) {
                         user.setTeleport_guild_home(false);
-                        user.update();
+                        user.update(false);
 
                         Location location = guild.getHome().getLocation().orElse(null);
                         if (location != null) {

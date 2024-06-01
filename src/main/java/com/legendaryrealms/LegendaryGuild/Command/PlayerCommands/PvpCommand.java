@@ -23,13 +23,13 @@ public class PvpCommand extends LegendaryCommand {
                 switch (user.getPvp()){
                     case ALL:
                         user.setPvp(User.PvpType.NO_SAME_GUILD);
-                        user.update();
+                        user.update(false);
 
                         sender.sendMessage(lang.plugin+lang.pvp_enable);
                         break;
                     default:
                         user.setPvp(User.PvpType.ALL);
-                        user.update();
+                        user.update(false);
 
                         sender.sendMessage(lang.plugin+lang.pvp_disable);
                         break;

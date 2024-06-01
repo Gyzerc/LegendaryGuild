@@ -435,7 +435,7 @@ public class GuildAPI {
             user.setPosition(lang.default_position);
             user.setPoints(0,false);
             user.setTotal_points(0);
-            user.update();
+            user.update(false);
 
             //发送消息
             legendaryguild.getMsgUtils().sendMessage(m,lang.plugin+lang.delete_broad_members);
