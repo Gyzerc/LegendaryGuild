@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class WaterPotsManager {
     private LegendaryGuild legendaryGuild;
@@ -23,6 +24,9 @@ public class WaterPotsManager {
 
     public Optional<WaterPot> getWaterPot(String id) {
         return cache.containsKey(id) ? Optional.of(cache.get(id)) : Optional.empty();
+    }
+    public List<String> getPots() {
+        return cache.keySet().stream().collect(Collectors.toList());
     }
 
     private void initWaterPots() {

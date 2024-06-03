@@ -36,6 +36,11 @@ public abstract class FileProvider {
             }
         }
         yml.set(path,defaultValue);
+        try {
+            yml.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return defaultValue;
     }
 

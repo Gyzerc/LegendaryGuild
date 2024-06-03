@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class LegendaryCommand {
@@ -14,10 +15,16 @@ public abstract class LegendaryCommand {
     public final Lang lang = legendaryGuild.getFileManager().getLang();
     private String permission;
     private String command;
-    private int length;
+    private List<Integer> length;
     private boolean admin;
 
     public LegendaryCommand(String permission, String command, int length, boolean admin) {
+        this.permission = permission;
+        this.command = command;
+        this.length = Collections.singletonList(length);
+        this.admin = admin;
+    }
+    public LegendaryCommand(String permission, String command, List<Integer> length, boolean admin) {
         this.permission = permission;
         this.command = command;
         this.length = length;
@@ -34,7 +41,7 @@ public abstract class LegendaryCommand {
         return command;
     }
 
-    public int getLength() {
+    public List<Integer> getLength() {
         return length;
     }
 

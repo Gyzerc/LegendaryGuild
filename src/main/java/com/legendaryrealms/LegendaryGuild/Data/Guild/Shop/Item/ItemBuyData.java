@@ -17,6 +17,13 @@ public class ItemBuyData {
         this.data = data;
     }
 
+    public void clear(String player,ShopType type) {
+        if (data.containsKey(player)) {
+            BuyAmount amount = data.get(player);
+            amount.clear(type);
+            data.put(player,amount);
+        }
+    }
     public int getBuyAmount(String player, ShopType type) {
         BuyAmount amount = data.containsKey(player) ? data.get(player) : new BuyAmount(player, new HashMap<>());
         return amount.getAmount(type);

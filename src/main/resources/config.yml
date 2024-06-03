@@ -91,6 +91,8 @@ settings:
       #每级最大人数
       #Maximum number of people per level
       maxmembers: [ 5,10,15,20,25,50 ]
+      #公会等级默认图标
+
     #公会神树相关
     #Guild Tree related
     tree:

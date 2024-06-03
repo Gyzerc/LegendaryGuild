@@ -1,0 +1,104 @@
+package com.legendaryrealms.LegendaryGuild.Command.AdminCommands;
+
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
+import com.legendaryrealms.LegendaryGuild.API.UserAPI;
+import com.legendaryrealms.LegendaryGuild.Command.CommandTabBuilder;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
+import com.legendaryrealms.LegendaryGuild.Data.Others.StringStore;
+import com.legendaryrealms.LegendaryGuild.Data.User.User;
+import com.legendaryrealms.LegendaryGuild.Data.User.WaterDataStore;
+import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.LegendaryCommand {
+    public ResetCommand( ) {
+        super("", "reset", Arrays.asList(5,6), true);
+    }
+
+    @Override
+    public void handle(CommandSender sender, String[] args) {
+        String symbol = args[2];
+        String id = args[3];
+        if (args.length == 5 && symbol.equalsIgnoreCase("guild") && id.equalsIgnoreCase("activity")) {
+            String guildName = args[4];
+            GuildAPI.getGuild(guildName).ifPresent(guild -> {
+                GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guildName);
+                data.setClaimed(new StringStore());
+                data.setPoints(0);
+                data.update();
+                sender.sendMessage(lang.plugin + lang.reset_activity.replace("%guild%",guild.getDisplay()));
+                return;
+            });
+            sender.sendMessage(lang.plugin + lang.notguild);
+        }
+        if (args.length == 6 && symbol.equalsIgnoreCase("user")) {
+            String player = args[5];
+            String value = args[4];
+            if (getPlayer(player) == null) {
+                sender.sendMessage(lang.plugin + lang.notplayer);
+                return;
+            }
+            switch (id) {
+                case "shop": {
+                    ShopType type = ShopType.valueOf(value.toUpperCase());
+                    GuildShopData shopData = LegendaryGuild.getInstance().getGuildShopDataManager().getData();
+                    shopData.clearPlayerData(player,type);
+                    shopData.updata();
+                    sender.sendMessage(lang.plugin + lang.reset_shop.replace("%player%",player).replace("%type%",type.name()));
+                    return;
+                }
+                case "tree" : {
+                    if (value.equalsIgnoreCase("wish")) {
+                        User user = UserAPI.getUser(player);
+                        user.setWish(false);
+                        user.update(false);
+                        sender.sendMessage(lang.plugin + lang.reset_wish.replace("%player%",player));
+                        return;
+                    }
+                    return;
+                }
+                case "pot" : {
+                    if (LegendaryGuild.getInstance().getWaterPotsManager().getWaterPot(value).isPresent()) {
+                        User user = UserAPI.getUser(player);
+                        WaterDataStore waterDataStore = user.getWaterDataStore();
+                         waterDataStore.clearWater(value);
+                         user.setWaterDataStore(waterDataStore);
+                         user.update(false);
+                        sender.sendMessage(lang.plugin + lang.reset_pot.replace("%player%",player).replace("%pot%",value));
+                        return;
+                    }
+                    return;
+                }
+            }
+            return;
+        }
+    }
+
+    @Override
+    public List<String> complete(CommandSender sender, String[] args) {
+        return new CommandTabBuilder()
+                .addTab(Arrays.asList("guild","user") , 2 , Arrays.asList("reset") , 1)
+
+                .addTab(Arrays.asList("activity") , 3 , Arrays.asList("guild") , 2)
+                .addTab(legendaryGuild.getGuildsManager().getGuilds() , 4 , Arrays.asList("activity") , 3)
+
+
+                .addTab(Arrays.asList("shop","tree","pot") , 3 , Arrays.asList("user") , 2)
+
+                .addTab(Arrays.asList("day","week","month","once") , 4 , Arrays.asList("shop") , 3)
+                .addTab(Arrays.asList("wish") , 4 , Arrays.asList("tree") , 3)
+                .addTab(legendaryGuild.getWaterPotsManager().getPots() , 4 , Arrays.asList("pot") , 3)
+
+                .addTab(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), 5 , Arrays.asList("user") , 2)
+                .build(args)
+                ;
+    }
+}

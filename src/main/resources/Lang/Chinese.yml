@@ -50,6 +50,10 @@ help_admin:
   - '&8 - buff add/take/set 公会 buffID 数量 &f- &7"操作指定公会的Buff"'
   - '&8 - activity add/take/set 公会 数量 &f- &7"操作指定公会的公会活跃度"'
   - '&8 - activity add/take/set 玩家 数量 &f- &7"操作指定玩家公会的公会活跃度"'
+  - '&8 - reset guild activity 公会 &f- &7"重置公会的活跃度数据"'
+  - '&8 - reset user shop once/day/week/month 玩家 &f- &7"重置玩家公会商店限购数据"'
+  - '&8 - reset user tree wish 玩家 &f- &7"重置玩家神树许愿数据"'
+  - '&8 - reset user pot 水壶ID 玩家 &f- &7"重置玩家今日指定水壶的浇灌次数"'
   - '&8 - delete 公会 &f- &7"解散指定公会"'
 user:
   recive_points: '&f你的公会贡献点增加了 &a%value%'
@@ -230,3 +234,8 @@ notice:
 chat:
   enable: '&a你已开启公会聊天,接下来的消息仅会被公会成员所看见.'
   disable: '&c你关闭了公会聊天,接下的消息将被全体玩家所看见.'
+reset:
+  activity: '&6你已重置 &f%guild% &6的公会活跃度数据.'
+  shop: '&6你已重置 &f%player% &6的 %type% 商店数据'
+  wish: '&6你已重置 &f%player% &6的神树许愿数据'
+  pot: '&6你已重置 &f%player% &6的每日神树水壶 &e%pot% &6的浇灌数据'

@@ -18,6 +18,15 @@ public class GuildShopData {
         this.last_month = last_month;
     }
 
+    public void clearPlayerData(String player,ShopType type) {
+        HashMap<String,ItemBuyData> map = new HashMap<>(data);
+        for (Map.Entry<String,ItemBuyData> entry : map.entrySet()) {
+            String id = entry.getKey();
+            ItemBuyData buyData= entry.getValue();
+            buyData.clear(player,type);
+            map.put(id,buyData);
+        }
+    }
     public int getLast_date() {
         return last_date;
     }

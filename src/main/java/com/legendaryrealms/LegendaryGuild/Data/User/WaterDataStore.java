@@ -19,6 +19,14 @@ public class WaterDataStore {
             data.put(id,waterData);
         }
     }
+
+    public void clearWater(String id) {
+        if (data.containsKey(id)) {
+            WaterData waterData = data.get(id);
+            waterData.setAmount(WaterDataType.TODAY,0);
+            data.put(id,waterData);
+        }
+    }
     public String toString_Day(){
         StringBuilder builder = new StringBuilder();
         for (String id : data.keySet()){

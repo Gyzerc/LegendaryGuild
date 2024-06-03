@@ -50,6 +50,10 @@ help_admin:
   - '&8 - buff add/take/set [Guild] buffID [Amount] &f- &7"Operate the specified guild buff"'
   - '&8 - activity add/take/set [Guild] [Amount] &f- &7"Operate the guild activity of the specified guild"'
   - '&8 - activity add/take/set [Guild] [Amount] &f- &7"Operate the guild activity level of the specified player guild"'
+  - '&8 - reset guild activity [Guild] &f- &7"Reset guild activity data"'
+  - '&8 - reset user shop once/day/week/month [Player] &f- &7"Reset player guild store purchase restriction data"'
+  - '&8 - reset user tree wish [Player] &f- &7"Reset player tree wish data"'
+  - '&8 - reset user pot [ID] [Player] &f- &7"Reset the number of times the player specified the pot to be watered today"'
   - '&8 - delete [Guild] &f- &7"Delete guild"'
 user:
   recive_points: '&fYour guild contribution points have increased &a%value%'
@@ -229,3 +233,8 @@ notice:
 chat:
   enable: '&aYou have opened guild chat, and the following messages will only be seen by guild members.'
   disable: '&cYou have closed guild chat, and the following messages will be seen by all players.'
+reset:
+  activity: '&cYou have reset the guild activity data for &f%guild%'
+  shop: '&cYou have reset the player %type% shop date for &e%player%'
+  wish: '&cYou have reset the guild tree wish data for &e%player%'
+  pot: '&cYou have reset the guild tree water data for &e%player% &c, id &e%pot%'

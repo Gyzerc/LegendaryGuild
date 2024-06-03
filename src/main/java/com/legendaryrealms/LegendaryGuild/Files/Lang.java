@@ -182,6 +182,10 @@ public class Lang extends FileProvider{
     public String notice_remove;
     public String chat_enable;
     public String chat_disable;
+    public String reset_activity;
+    public String reset_shop;
+    public String reset_wish;
+    public String reset_pot;
 
 
     @Override
@@ -384,8 +388,11 @@ public class Lang extends FileProvider{
         this.chat_enable = legendaryGuild.color(getValue("chat.enable","&a你已开启公会聊天,接下来的消息仅会被公会成员所看见."));
         this.chat_disable = legendaryGuild.color(getValue("chat.disable","&c你关闭了公会聊天,接下的消息将被全体玩家所看见."));
 
+        this.reset_activity = legendaryGuild.color(getValue("reset.activity","&cYou have reset the guild activity data for &f%guild%"));
+        this.reset_shop = legendaryGuild.color(getValue("reset.shop","&cYou have reset the player %type% shop date for &e%player%"));
+        this.reset_wish = legendaryGuild.color(getValue("reset.wish","&cYou have reset the guild tree wish data for &e%player%"));
+        this.reset_pot = legendaryGuild.color(getValue("reset.pot","&cYou have reset the guild tree water data for &e%player% &c, id &e%pot%"));
 
-        saveYml();
     }
 
     public enum LangType {
