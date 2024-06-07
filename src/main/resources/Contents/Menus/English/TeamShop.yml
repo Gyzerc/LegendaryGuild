@@ -1,0 +1,55 @@
+title: '&6&l公会团购'
+size: 27
+placeholder:
+  #Product purchase restriction variables
+  limit: '&c&l| &f限购 &e%purchased%/%limit%'
+  #Variables displayed after bargaining
+  bargains-already: '&a%player% - %bargain-price%'
+  #Variables displayed before bargaining
+  bargains-not: '&7%player% - 0.0'
+  whether-bargain-already: '&f[&aBargained&f] '
+  whether_bargain-wait: '&f[&eNegotiable&f] '
+customItem:
+  item:
+    display: '%display%'
+    material: APPLE
+    lore:
+      - '%lore%'
+    slot: '[13]'
+    fuction:
+      #item: team shop item
+      #bargains: Guild member bargaining information list button
+      type: item
+  bargains:
+    display: '&3&lBargaining Information List &e(%bargain%/%members%)'
+    material: PAPER
+    data: 0
+    model: 0
+    lore:
+      #You can add more %bargains% for display on one page
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - ''
+      - '&aLeft Click &7to toggle next page'
+      - '&aRight Click &7to toggle previous page'
+    slot: '[15]'
+    fuction:
+      type: bargains
+  item5:
+    display: '&f&l< &cBack &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [10]

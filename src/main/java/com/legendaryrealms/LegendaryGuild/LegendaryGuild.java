@@ -139,7 +139,6 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
     private LegendaryGuildPlaceholderAPI legendaryGuildPlaceholderAPI;
     @Override
     public void onDisable() {
-
         //断开数据库连接
         dataProvider.closeDataBase();
         netWork.disable();
@@ -167,6 +166,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         }
         activityRewardsManager = new ActivityRewardsManager(this);
         menuLoadersManager = new MenuLoadersManager(this);
+        teamShopManager = new TeamShopManager(this);
     }
 
     public void reloadData(){
@@ -179,6 +179,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
             storesManager = new GuildStoresManager(this);
         }
         guildActivityDataManager = new GuildActivityDataManager(this);
+        guildTeamShopDataManager = new GuildTeamShopDataManager(this);
 
     }
 
@@ -319,6 +320,14 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         return activityRewardsManager;
     }
 
+    public TeamShopManager getTeamShopManager() {
+        return teamShopManager;
+    }
+
+    public GuildTeamShopDataManager getGuildTeamShopDataManager() {
+        return guildTeamShopDataManager;
+    }
+
     private ActivityRewardsManager activityRewardsManager;
     private MsgUtils msgUtils;
     private GuildsManager guildsManager;
@@ -341,6 +350,8 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
     private BuffsManager buffsManager;
     private GuildActivityDataManager guildActivityDataManager;
     private ChatEvent chatControl;
+    private TeamShopManager teamShopManager;
+    private GuildTeamShopDataManager guildTeamShopDataManager;
     private void loadDatabase(){
         DataProvider.DatabaseType type = fileManager.getConfig().store;
         switch (type){

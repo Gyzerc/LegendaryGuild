@@ -40,6 +40,7 @@ public class MenuLoadersManager {
         register(new ActivityRewardsLoader(legendaryGuild));
         register(new PositionsLoader(legendaryGuild));
         register(new GuildMenuLoader(legendaryGuild));
+        register(new TeamShopLoader(legendaryGuild));
     }
 
     private void register(MenuLoader loader){

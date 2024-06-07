@@ -72,6 +72,9 @@ public class NetWorkHandle extends NetWork{
             case REFRESH_ACTIVITY:
                 legendaryGuild.getGuildActivityDataManager().removeAll();
                 break;
+            case UPDATE_TEAMSHOPDATA:
+                legendaryGuild.getGuildTeamShopDataManager().removeIfCached(value);
+                break;
             case SCAN_PLAYER_IS_OPEN_STORE: {
                 String player = value.split("/")[0];
                 int id = Integer.parseInt(value.split("/")[1]);

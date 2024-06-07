@@ -454,20 +454,26 @@ public class GuildAPI {
     public static void addGuildActivity(Player p, Guild guild, double amount, ActivityCommand.AddType type){
 
         Guild addGuild = guild;
-        if (type.equals(ActivityCommand.AddType.PLAYER)){
-            if (p!=null){
-                p.sendMessage(lang.plugin+lang.activity_gain.replace("%value%",""+amount));
-            }
-            User user = UserAPI.getUser(p.getName());
-            if (!user.hasGuild()){
-                return;
-            }
-            addGuild = legendaryguild.getGuildsManager().getGuild(user.getGuild());
+        GuildActivityData data = null;
+        if (type.equals(ActivityCommand.AddType.PLAYER)) {
+            if (p != null) {
+                User user = UserAPI.getUser(p.getName());
+                if (!user.hasGuild()) {
+                    return;
+                }
+                addGuild = legendaryguild.getGuildsManager().getGuild(user.getGuild());
+                data = legendaryguild.getGuildActivityDataManager().getData(addGuild.getGuild());
 
+                p.sendMessage(lang.plugin + lang.activity_gain.replace("%value%", "" + amount));
+
+                data.setPlayerHistoryActivity(p.getName(), data.getPlayerTotalActivity(p.getName()) + amount);
+                data.setPlayerActivity(p.getName(), data.getPlayerActivity(p.getName()) + amount);
+            }
+        } else {
+            data = legendaryguild.getGuildActivityDataManager().getData(addGuild.getGuild());
         }
-
-        GuildActivityData data = legendaryguild.getGuildActivityDataManager().getData(addGuild.getGuild());
         data.setPoints( data.getPoints() + amount);
+        data.setTotal_points( data.getTotal_points() + amount);
         data.update();
 
         Bukkit.getPluginManager().callEvent(new GuildActivityChangeEvent(addGuild, GuildActivityChangeEvent.ChangeType.Add,amount));
@@ -530,5 +536,17 @@ public class GuildAPI {
                 legendaryguild.getBuffsManager().getProvider().updateBuff(p);
             });
         }
+    }
+
+    public static void resetGuildTeamShopData(Guild guild) {
+        GuildTeamShopData teamShopData = guild.getGuildTeamShopData();
+        teamShopData.clearBuys();
+        teamShopData.update(false);
+    }
+
+    public static void refreshGuildTeamShopItem(Guild guild) {
+        GuildTeamShopData teamShopData = guild.getGuildTeamShopData();
+        teamShopData.randomShop();
+        teamShopData.update(false);
     }
 }

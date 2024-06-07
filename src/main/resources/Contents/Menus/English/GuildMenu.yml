@@ -15,7 +15,9 @@ customItem:
       - '&fTree Level: &a%treelevel% &8(&e%treeexp%/%treenext%&8)'
       - '&fMoney: &a%money%'
       - '&fMembers: &a%members%/%maxmembers%'
-      - '&fActivity: &a%activity%'
+      - '&fWeek Activity: &a%activity%'
+      - '&fHistory Activity: &a%total_activity%'
+      - ''
       - '&fIntroduction:'
       - '%intro%'
       - ''
@@ -246,6 +248,19 @@ customItem:
     fuction:
       type: chat
     slot: [48]
+  teamshop:
+    display: '&bTeam Shop'
+    material: APPLE
+    data: 0
+    model: 0
+    lore:
+      - '&fGuild group buying products, randomly refreshed daily'
+      - '&fEach member can negotiate once'
+
+      - '&f[ &aClick to open &f]'
+    fuction:
+      type: teamshop
+    slot: [49]
   deco1:
     display: '&f '
     material: RED_STAINED_GLASS_PANE

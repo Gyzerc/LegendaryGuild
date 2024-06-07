@@ -35,7 +35,10 @@ public abstract class MenuLoader extends FileProvider {
         layout = new ArrayList<>();
 
         readEssentails();
+        readSpecials();
+    }
 
+    protected void readSpecials() {
     }
 
     private void readEssentails(){

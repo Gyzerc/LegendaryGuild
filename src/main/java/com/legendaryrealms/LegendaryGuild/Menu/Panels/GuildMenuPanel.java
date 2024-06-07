@@ -64,7 +64,7 @@ public class GuildMenuPanel extends MenuDraw {
 
                         double next = LegendaryGuild.getInstance().getFileManager().getConfig().EXP.getOrDefault(guild.getLevel(), Double.valueOf(-1));
                         double treenext = LegendaryGuild.getInstance().getFileManager().getConfig().TREEEXP.getOrDefault(guild.getTreelevel(), Double.valueOf(-1));
-                        int maxmembers = LegendaryGuild.getInstance().getFileManager().getConfig().MEMBERS.getOrDefault(guild.getLevel(),guild.getMembers().size());
+                        int maxmembers = guild.getMaxMembers();
                         GuildActivityData activityData = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guild.getGuild());
                         ReplaceHolderUtils replace = new ReplaceHolderUtils()
                                 .addSinglePlaceHolder("activity",activityData.getPoints()+"")
@@ -110,7 +110,7 @@ public class GuildMenuPanel extends MenuDraw {
                     }
                     case "members" : {
                         ItemStack i = menuItem.getI();
-                        int maxmembers = LegendaryGuild.getInstance().getFileManager().getConfig().MEMBERS.getOrDefault(guild.getLevel(),guild.getMembers().size());
+                        int maxmembers = guild.getMaxMembers();
                         ReplaceHolderUtils replaceHolderUtils = new ReplaceHolderUtils()
                                 .addSinglePlaceHolder("members",guild.getMembers().size()+"")
                                 .addSinglePlaceHolder("maxmembers",maxmembers+"");

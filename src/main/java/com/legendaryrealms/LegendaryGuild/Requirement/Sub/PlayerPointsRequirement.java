@@ -10,6 +10,8 @@ public class PlayerPointsRequirement extends Requirement {
     private String SYMBOL = "playerpoints";
     public boolean canPass(Player p, String str){
         if (!legendaryGuild.getHookManager().getPlayerPointsHook().isEnable()){
+            legendaryGuild.info("检测到服务器未安装 PlayerPoints .",Level.SEVERE);
+            legendaryGuild.info("Please install PlayerPoints to use 'playerpoints;XXX'.",Level.SEVERE);
             return false;
         }
         try {

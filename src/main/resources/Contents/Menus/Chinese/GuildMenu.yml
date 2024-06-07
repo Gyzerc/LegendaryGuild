@@ -15,7 +15,8 @@ customItem:
       - '&f公会神树等级: &a%treelevel% &8(&e%treeexp%/%treenext%&8)'
       - '&f公会资金: &a%money%'
       - '&f公会人数: &a%members%/%maxmembers%'
-      - '&f公会活跃度: &a%activity%'
+      - '&f本周活跃度: &a%activity%'
+      - '&f历史活跃度: &a%total_activity%'
       - '&f公会介绍:'
       - '%intro%'
       - ''
@@ -246,6 +247,18 @@ customItem:
     fuction:
       type: chat
     slot: [48]
+  teamshop:
+    display: '&b公会团购'
+    material: APPLE
+    data: 0
+    model: 0
+    lore:
+      - '&fMC版拼多多，快喊公会成员来砍一刀'
+      - ''
+      - '&f[ &a点击打开 &f]'
+    fuction:
+      type: teamshop
+    slot: [49]
   deco1:
     display: '&f '
     material: RED_STAINED_GLASS_PANE

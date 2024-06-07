@@ -30,7 +30,10 @@ public class NewCycle implements Listener {
         switch (id){
             case 0:
                 //刷新全体玩家数据
-                updateDayilyData();
+                updateDailyData();
+
+                //公会团购数据刷新
+                legendaryGuild.getDataBase().clearGuildTeamShopData(null);
 
                 //公会商店每日限购缓存刷新
                 guildShopData.setLast_date(e.getValue());
@@ -63,7 +66,7 @@ public class NewCycle implements Listener {
     }
 
 
-    private void updateDayilyData(){
+    private void updateDailyData(){
         legendaryGuild.sync(new Runnable() {
             @Override
             public void run() {

@@ -88,6 +88,7 @@ public class GuildListPanel extends MenuDraw {
                         i = new ItemStack(icon.getMaterial(),1,(short) icon.getData());
                     }
                     ItemMeta id = i.getItemMeta();
+                    id.setDisplayName(loader.getGuild_display());
                     List<String> lore = new ArrayList<>(loader.getGuild_lore());
                     id.setLore(lore);
                     if (legendaryGuild.version_high) {
@@ -104,11 +105,12 @@ public class GuildListPanel extends MenuDraw {
                             .addSinglePlaceHolder("exp_next",String.valueOf(legendaryGuild.getFileManager().getConfig().EXP.get(guild.getLevel())))
                             .addSinglePlaceHolder("money",String.valueOf(guild.getMoney()))
                             .addSinglePlaceHolder("members", String.valueOf(guild.getMembers().size()))
-                            .addSinglePlaceHolder("maxmembers",String.valueOf(legendaryGuild.getFileManager().getConfig().MEMBERS.get(guild.getLevel())))
+                            .addSinglePlaceHolder("maxmembers",String.valueOf(guild.getMaxMembers()))
                             .addSinglePlaceHolder("treelevel",String.valueOf(guild.getTreelevel()))
                             .addSinglePlaceHolder("treeexp",String.valueOf(guild.getTreeexp()))
                             .addSinglePlaceHolder("treeexp_next",String.valueOf(legendaryGuild.getFileManager().getConfig().TREEEXP.get(guild.getLevel())))
                             .addSinglePlaceHolder("activity", String.valueOf(activityData.getPoints()))
+                            .addSinglePlaceHolder("total_activity",String.valueOf(activityData.getTotal_points()))
                             .addListPlaceHolder("intro",guild.getIntro());
 
 //                    id.setDisplayName(loader.getGuild_display().replace("%guild%", guild.getDisplay()));

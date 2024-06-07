@@ -32,6 +32,7 @@ public class NetWorkMessage {
         UPDATE_GUILD_SHOP,
         UPDATE_GUILD_ACTIVITY_DATA,
         REFRESH_ACTIVITY,
+        UPDATE_TEAMSHOPDATA,
         UPDATE_STORE;
 
     }

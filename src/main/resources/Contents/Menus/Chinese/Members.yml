@@ -19,6 +19,8 @@ playeritem:
     - '&f职位: &a%position%'
     - '&f入会时间: &a%date%'
     - '&f总贡献值: &a%total_points%'
+    - '&f玩家活跃度: &a%activity%'
+    - '&f历史活跃度: &a%total_activity%'
     - ''
     #这里使用的是 PAPI变量
     - '&f玩家原版等级: &a%player_level%'

@@ -19,6 +19,8 @@ playeritem:
     - '&fPosition: &a%position%'
     - '&fJoin date: &a%date%'
     - '&fTotal Points: &a%total_points%'
+    - '&fActivity: &a%activity%'
+    - '&fHistory Activity: &a%total_activity%'
     - ''
     #这里使用的是 PAPI变量
     - '&fLevel: &a%player_level%'

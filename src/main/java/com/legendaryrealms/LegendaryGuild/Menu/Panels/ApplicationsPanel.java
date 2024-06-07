@@ -3,6 +3,7 @@ package com.legendaryrealms.LegendaryGuild.Menu.Panels;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.Others.IntStore;
+import com.legendaryrealms.LegendaryGuild.Data.User.Position;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.ApplicationsLoader;
 import com.legendaryrealms.LegendaryGuild.Menu.MenuDraw;
@@ -116,8 +117,8 @@ public class ApplicationsPanel extends MenuDraw {
                 if (target != null){
                     User clickUser = LegendaryGuild.getInstance().getUsersManager().getUser(p.getName());
                     Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(clickUser.getGuild());
-
-                    if (clickUser.getPosition().equals(LegendaryGuild.getInstance().getPositionsManager().getOwnerPosition().getId())){
+                    Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(clickUser.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
+                    if (position.isAccept()){
 
                         if (e.isRightClick()){
 
@@ -144,7 +145,7 @@ public class ApplicationsPanel extends MenuDraw {
                             applicationsPanel.open();
                             return;
                         }
-                        if (guild.getMembers().size() >= LegendaryGuild.getInstance().getFileManager().getConfig().MEMBERS.get(guild.getLevel())){
+                        if (guild.getMembers().size() >= guild.getMaxMembers()){
                             p.sendMessage(lang.plugin+lang.member_max);
                             return;
                         }
@@ -158,7 +159,7 @@ public class ApplicationsPanel extends MenuDraw {
                         applicationsPanel.open();
                         return;
                     }
-                    p.sendMessage(lang.plugin+lang.notowner);
+                    p.sendMessage(lang.plugin+lang.nopass_position);
                     return;
                 }
             }

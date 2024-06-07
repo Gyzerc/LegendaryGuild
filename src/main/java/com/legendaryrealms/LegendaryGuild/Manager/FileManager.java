@@ -17,6 +17,7 @@ public class FileManager {
         this.guildShopFile = new GuildShopFile(legendaryGuild);
         this.buffFile = new BuffFile(legendaryGuild);
         this.activityRewardsFile = new ActivityRewardsFile(legendaryGuild);
+        this.teamShopFile = new TeamShopFile(legendaryGuild);
     }
 
     public Config getConfig() {
@@ -59,6 +60,10 @@ public class FileManager {
         return activityRewardsFile;
     }
 
+    public TeamShopFile getTeamShopFile() {
+        return teamShopFile;
+    }
+
     private Config config;
     private Lang lang;
     private PostionFile postionFile;
@@ -69,4 +74,6 @@ public class FileManager {
     private GuildShopFile guildShopFile;
     private BuffFile buffFile;
     private ActivityRewardsFile activityRewardsFile;
+    private TeamShopFile teamShopFile;
+
 }

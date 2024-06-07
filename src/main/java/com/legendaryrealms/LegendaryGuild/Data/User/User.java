@@ -28,7 +28,7 @@ public class User {
     private PvpType pvp;
     private boolean chat;
 
-    public User(String player, String guild, String position, String date, WaterDataStore waterDataStore, int cooldown, boolean wish, boolean teleport_guild_home, double points, double total_points,PvpType pvp) {
+    public User(String player, String guild, String position, String date, WaterDataStore waterDataStore, int cooldown, boolean wish, boolean teleport_guild_home, double points, double total_points,PvpType pvp ) {
         this.player = player;
         this.guild = guild;
         this.position = position;
@@ -51,6 +51,7 @@ public class User {
     public void setChat(boolean chat) {
         this.chat = chat;
     }
+
 
     public boolean hasGuild(){
         if (guild == null || guild.isEmpty() || (guild != null && guild.equals(lang.default_guild))){

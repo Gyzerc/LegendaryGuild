@@ -3,6 +3,7 @@ package com.legendaryrealms.LegendaryGuild.Command.AdminCommands;
 import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Command.CommandTabBuilder;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.GuildShopData;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Shop.Item.ShopType;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.LegendaryCommand {
@@ -27,17 +29,36 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
     public void handle(CommandSender sender, String[] args) {
         String symbol = args[2];
         String id = args[3];
-        if (args.length == 5 && symbol.equalsIgnoreCase("guild") && id.equalsIgnoreCase("activity")) {
+        if (args.length == 5 && symbol.equalsIgnoreCase("guild") ) {
             String guildName = args[4];
-            GuildAPI.getGuild(guildName).ifPresent(guild -> {
-                GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guildName);
-                data.setClaimed(new StringStore());
-                data.setPoints(0);
-                data.update();
-                sender.sendMessage(lang.plugin + lang.reset_activity.replace("%guild%",guild.getDisplay()));
-                return;
-            });
-            sender.sendMessage(lang.plugin + lang.notguild);
+            switch (id) {
+                case "activity" : {
+                    Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
+                    if (GuildAPI.getGuild(guildName).isPresent()) {
+                        Guild guild = guildOptional.get();
+                        GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guildName);
+                        data.setClaimed(new StringStore());
+                        data.setPoints(0);
+                        data.update();
+                        sender.sendMessage(lang.plugin + lang.reset_activity.replace("%guild%",guild.getDisplay()));
+                        return;
+                    }
+                    sender.sendMessage(lang.plugin + lang.notguild);
+                    return;
+                }
+                case "teamshop" : {
+                    Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
+                    if (GuildAPI.getGuild(guildName).isPresent()) {
+                        Guild guild = guildOptional.get();
+                        GuildAPI.resetGuildTeamShopData(guild);
+                        sender.sendMessage(lang.plugin + lang.reset_guild_teamshop.replace("%guild%",guild.getDisplay()));
+                        return;
+                    }
+                    sender.sendMessage(lang.plugin + lang.notguild);
+                    return;
+                }
+            }
+            return;
         }
         if (args.length == 6 && symbol.equalsIgnoreCase("user")) {
             String player = args[5];
@@ -47,6 +68,20 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
                 return;
             }
             switch (id) {
+                case "teamshop" : {
+                    Optional<Guild> guildOptional = UserAPI.getGuild(player);
+                    if (UserAPI.getGuild(player).isPresent()) {
+                        int amount = Integer.parseInt(value);
+                        if (amount >= 0) {
+                            Guild guild = guildOptional.get();
+                            UserAPI.resetGuildTeamShopData(guild, player, amount);
+                            sender.sendMessage(lang.plugin + lang.reset_user_teamshop.replace("%player%", player));
+                        }
+                        return;
+                    }
+                    sender.sendMessage(lang.plugin + lang.nothasguild);
+                    return;
+                }
                 case "shop": {
                     ShopType type = ShopType.valueOf(value.toUpperCase());
                     GuildShopData shopData = LegendaryGuild.getInstance().getGuildShopDataManager().getData();
@@ -87,11 +122,11 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
         return new CommandTabBuilder()
                 .addTab(Arrays.asList("guild","user") , 2 , Arrays.asList("reset") , 1)
 
-                .addTab(Arrays.asList("activity") , 3 , Arrays.asList("guild") , 2)
+                .addTab(Arrays.asList("activity","teamshop") , 3 , Arrays.asList("guild") , 2)
                 .addTab(legendaryGuild.getGuildsManager().getGuilds() , 4 , Arrays.asList("activity") , 3)
+                .addTab(Arrays.asList("0","1","2","10","32","64") , 4 , Arrays.asList("teamshop") , 3)
 
-
-                .addTab(Arrays.asList("shop","tree","pot") , 3 , Arrays.asList("user") , 2)
+                .addTab(Arrays.asList("shop","tree","pot","teamshop") , 3 , Arrays.asList("user") , 2)
 
                 .addTab(Arrays.asList("day","week","month","once") , 4 , Arrays.asList("shop") , 3)
                 .addTab(Arrays.asList("wish") , 4 , Arrays.asList("tree") , 3)

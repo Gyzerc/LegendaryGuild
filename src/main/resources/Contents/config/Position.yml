@@ -16,6 +16,10 @@ positions:
     weight: 3
     display: '&f普通成员'
     attrs: []
+    #是否可以同意入会申请
+    accept: false
+    #是否可以踢出公会成员
+    kick: false
   精英成员:
     weight: 2
     display: '&a精英成员'
@@ -23,9 +27,13 @@ positions:
     max: 5
     attrs:
       - '攻击力 +10'
+    accept: false
+    kick: false
   长老:
     weight: 1
     display: '&e长老'
     max: 2
     attrs:
       - '攻击力 +15'
+    accept: true
+    kick: true

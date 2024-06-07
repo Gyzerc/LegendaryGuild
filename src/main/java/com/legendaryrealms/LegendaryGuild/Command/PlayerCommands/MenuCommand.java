@@ -83,6 +83,10 @@ public class MenuCommand extends LegendaryCommand {
                     PositionsPanel positionsPanel = new PositionsPanel((Player) sender);
                     positionsPanel.open();
                     return;
+                case "TeamShop":
+                    TeamShopPanel teamShopPanel = new TeamShopPanel((Player) sender,1);
+                    teamShopPanel.open();
+                    return;
                 default:
                     sender.sendMessage(lang.plugin+lang.no_panel);
                     break;

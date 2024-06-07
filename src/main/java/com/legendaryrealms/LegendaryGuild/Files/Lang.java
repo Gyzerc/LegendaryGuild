@@ -72,6 +72,9 @@ public class Lang extends FileProvider{
     public String admin_activity_add;
     public String admin_activity_take;
     public String admin_activity_set;
+    public String admin_maxmembers_add;
+    public String admin_maxmembers_set;
+    public String admin_teamshop_refresh;
     public String default_null;
     public String default_guild;
     public String default_position;
@@ -85,6 +88,8 @@ public class Lang extends FileProvider{
     public String reuirement_notenough_vault;
     public String reuirement_notenough_playerpoints;
     public String requirement_notenough_item;
+    public String requirement_notenough_activity;
+    public String requirement_notenough_total_activity;
     public String application_send;
     public String application_recive;
     public String application_already;
@@ -186,6 +191,14 @@ public class Lang extends FileProvider{
     public String reset_shop;
     public String reset_wish;
     public String reset_pot;
+    public String reset_guild_teamshop;
+    public String reset_user_teamshop;
+    public String bargain_already;
+    public String bargain_success;
+    public String bargain_bargain_broad;
+    public String bargain_buy;
+    public String bargain_buy_broad;
+    public String bargain_buy_limit;
 
 
     @Override
@@ -254,6 +267,9 @@ public class Lang extends FileProvider{
         this.admin_activity_add = legendaryGuild.color(getValue("admin.activity_add","&f你将公会 &e%target% &f的活跃度提升了 &e%value%"));
         this.admin_activity_take = legendaryGuild.color(getValue("admin.activity_take","&f你将公会 &e%target% &f的活跃度减少了 &e%value%"));
         this.admin_activity_set = legendaryGuild.color(getValue("admin.activity_set","&f你将公会 &e%target% &f的活跃度设置为 &e%value%"));
+        this.admin_maxmembers_add = legendaryGuild.color(getValue("admin.maxmembers_add","&fYou have increased the maximum number of members in the guild &e%target% &fby &e%value%"));
+        this.admin_maxmembers_set = legendaryGuild.color(getValue("admin.maxmembers_set","&fYou have set the maximum number of members in the guild &e%target% &fby &e%value%"));
+        this.admin_teamshop_refresh = legendaryGuild.color(getValue("admin.teamshop-refresh","&fYou have refresh the item of teamshop for guild &e%target%"));
 
         this.default_null = legendaryGuild.color(getValue("default.null","无"));
         this.default_guild = legendaryGuild.color(getValue("default.guild","无公会"));
@@ -270,6 +286,8 @@ public class Lang extends FileProvider{
         this.reuirement_notenough_vault = legendaryGuild.color(getValue("requirements.notenough_vault","&f你的游戏币不足 &e%value%"));
         this.reuirement_notenough_playerpoints = legendaryGuild.color(getValue("requirements.notenough_playerpoints","&f你的点券不足 &e%value%"));
         this.requirement_notenough_item = legendaryGuild.color(getValue("requirements.notenough_item","&f你的 %item% &f不足 &e%value%个"));
+        this.requirement_notenough_activity = legendaryGuild.color(getValue("requirements.notenough_activity","&fYour activity points did not reach &e%value% &fthis week"));
+        this.requirement_notenough_total_activity = legendaryGuild.color(getValue("requirements.notenough_total-activity","&fYour history activity points did not reach &e%value%"));
 
         this.application_send = legendaryGuild.color(getValue("application.send","&f你向 %value% &f发送了入会申请,请等待会长审核."));
         this.application_recive = legendaryGuild.color(getValue("application.recive","&f玩家 &e%player% &f想要加入公会,请及时处理入会申请.."));
@@ -392,7 +410,15 @@ public class Lang extends FileProvider{
         this.reset_shop = legendaryGuild.color(getValue("reset.shop","&cYou have reset the player %type% shop date for &e%player%"));
         this.reset_wish = legendaryGuild.color(getValue("reset.wish","&cYou have reset the guild tree wish data for &e%player%"));
         this.reset_pot = legendaryGuild.color(getValue("reset.pot","&cYou have reset the guild tree water data for &e%player% &c, id &e%pot%"));
+        this.reset_guild_teamshop = legendaryGuild.color(getValue("reset.guild-teamshop","&cYou have reset the guild teamshop data for the members of &f%guild%"));
+        this.reset_user_teamshop = legendaryGuild.color(getValue("reset.user-teamshop","&cYou have reset the guild team shop data to &e%amount% &cfor &e%player%"));
 
+        this.bargain_already = legendaryGuild.color(getValue("bargain.already","&cYou have already discounted the price."));
+        this.bargain_success = legendaryGuild.color(getValue("bargain.success","&aYou have successfully negotiated a price of &e%bargain%, &aand the current group purchase price is &e%current%"));
+        this.bargain_bargain_broad = legendaryGuild.color(getValue("bargain.bargain-broad","&6Guild members &f%player% &6slashed the price of group buying products, resulting in a decrease of &a%bargain% &6.Currently, the price of group buying products is &a%current%"));
+        this.bargain_buy = legendaryGuild.color(getValue("bargain.buy","&aYou have successfully purchased the guild group buying gift pack %display%"));
+        this.bargain_buy_broad = legendaryGuild.color(getValue("bargain.buy-broad","&6Guild members &f%player% &6purchased the guild group buying gift pack %display% &6at a price of &a%price%&6"));
+        this.bargain_buy_limit = legendaryGuild.color(getValue("bargain.buy-limit","&cYou have already purchased this gift pack &f%limit% &ctimes today and cannot make any further purchases！"));
     }
 
     public enum LangType {

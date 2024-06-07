@@ -8,7 +8,6 @@ import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 
 import java.sql.*;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 
 public abstract class DataProvider {
@@ -215,10 +214,7 @@ public abstract class DataProvider {
         GUILD_ACTIVITY_DATA("guild_activity_data",new Builder("guild_activity_data")
                 .addVarcharKey("guild",32)
                 .addDoubleKey("points")
-                .addDoubleKey("total")
                 .addTextKey("claimed")
-                .addTextKey("current")
-                .addTextKey("history")
                 .build("guild"));
 
 
@@ -255,7 +251,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" TEXT DEFAULT NULL");
-            keys.add(new Column(keyName,"TEXT DEFAULT NULL"));
+            keys.add(new Column(keyName,"TEXT NOT NULL"));
             return this;
         }
 
@@ -264,7 +260,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" UUID DEFAULT NULL");
-            keys.add(new Column(keyName,"UUID DEFAULT NULL"));
+            keys.add(new Column(keyName,"UUID NOT NULL"));
             return this;
         }
 
@@ -273,7 +269,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("").append(keyName).append(" BLOB DEFAULT NULL");
-            keys.add(new Column(keyName,"BLOB DEFAULT NULL"));
+            keys.add(new Column(keyName,"BLOB NOT NULL"));
             return this;
         }
 
@@ -281,8 +277,8 @@ public abstract class DataProvider {
             if (!stringBuilder.toString().endsWith(",") && !stringBuilder.toString().endsWith("(")){
                 stringBuilder.append(",");
             }
-            stringBuilder.append("`").append(keyName).append("` INTEGER DEFAULT 0");
-            keys.add(new Column(keyName,"INTEGER DEFAULT 0"));
+            stringBuilder.append("`").append(keyName).append("` INTEGER NOT NULL");
+            keys.add(new Column(keyName,"INTEGER NOT NULL"));
             return this;
         }
 
@@ -290,8 +286,8 @@ public abstract class DataProvider {
             if (!stringBuilder.toString().endsWith(",") && !stringBuilder.toString().endsWith("(")){
                 stringBuilder.append(",");
             }
-            stringBuilder.append("`").append(keyName).append("` DOUBLE DEFAULT 0");
-            keys.add(new Column(keyName,"DOUBLE DEFAULT 0"));
+            stringBuilder.append("`").append(keyName).append("` DOUBLE NOT NULL");
+            keys.add(new Column(keyName,"DOUBLE NOT NULL"));
             return this;
         }
         public Builder addLongKey(String keyName){
@@ -315,7 +311,7 @@ public abstract class DataProvider {
                 stringBuilder.append(",");
             }
             stringBuilder.append("`").append(keyName).append("` BOOLEAN NOT NULL");
-            keys.add(new Column(keyName,"BOOLEAN NOT NULL"));
+            keys.add(new Column(tableName,"BOOLEAN NOT NULL"));
             return this;
         }
         public Builder build(String mainKey){
@@ -345,7 +341,7 @@ public abstract class DataProvider {
             StringBuilder keys = new StringBuilder("(");
             StringBuilder keys_unknow = new StringBuilder("(");
             for (int i =0 ; i < this.keys.size() ; i ++) {
-                keys.append("`").append(this.keys.get(i).getColumn()).append("`");
+                keys.append("`").append(this.keys.get(i)).append("`");
                 keys_unknow.append("?");
                 if (i == this.keys.size() - 1 ) {
                     keys.append(")");

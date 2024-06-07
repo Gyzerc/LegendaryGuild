@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Files;
 
 import com.legendaryrealms.LegendaryGuild.Data.Database.DataProvider;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildTeamShopData;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -49,6 +50,7 @@ public class Config extends FileProvider{
     public List<String> HOME_BLACK_WORLD;
     public List<String> HOME_BLACK_SERVER;
 
+    public GuildTeamShopData.BargainMode bargainMode;
     @Override
     public void readDefault() {
 
@@ -158,6 +160,9 @@ public class Config extends FileProvider{
         HOME_BLACK_SERVER = getValue("settings.guild.home.black_server",new ArrayList<>());
 
         GUILD_CHAT = getValue("settings.guild.chat.format","&f[&e公会聊天&f][%position%&f]&3%player%&f: %message%");
+
+        //公会团购
+        bargainMode = GuildTeamShopData.BargainMode.valueOf(getValue("settings.guild.bargain.mode","BASE_ON_MAXMEMBER"));
         saveYml();
     }
 

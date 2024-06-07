@@ -1,0 +1,67 @@
+#每个公会每日将在下方礼包中随机选取一个礼包作为今日团购礼包
+#每日团购数据都会刷新
+#Each guild will randomly select a gift package from the following gift packages every day as the group buying gift package for today
+#Daily group buying data will be refreshed
+shops:
+  #id
+  团购礼包1:
+    display: '&e团购特惠礼包 &7[一]'
+    pirce:
+      #基础值 （即原价）
+      #Basic price
+      base: 1700
+      #可被砍到的最低价格
+      #The lowest price that can be discounted
+      min: 250
+    #该礼包每个成员可买多少次(-1为无限量)
+    #How many times can each member buy this gift package (-1 is unlimited)
+    limit: 1
+    #Vault(需安装插件 Vault) / PlayerPoints(点券,需安装插件 PlayerPoints) / Guild_Points(公会贡献点)
+    currency: PlayerPoints
+    preview:
+      material: CHEST
+      data: 0
+      amount: 1
+      model: 0
+      #可用变量，可使用 papi 变量
+      #%placeholder_whether_bargain% 玩家当前是否已砍过价格变量（内容在GUI配置文件中更改） & Has the player currently cut the price variable
+      #%placeholder_limit% 限购变量（内容在GUI配置文件中更改） & Restricted purchase variables
+      #%current_price% 当前价格 & Current price
+      #%bargain% 已砍价人数 & Number of people whose purchase restrictions have changed to bargaining
+      #%members% 公会人数 & Number of guild members
+      display: '%placeholder_whether_bargain% &e团购特惠礼包 &7[一] '
+      lore:
+        - '&6&l礼包内容'
+        - '&f - 测试...'
+        - ''
+        - '&e&l| &f已砍价 &d%bargain%/%members% &f人'
+        - '&e&l| &f当前价格: &a%current_price%&7&o(原价1700) &a点券'
+        - '%placeholder_limit%'
+        - ''
+        - '&f[ &b左键砍一刀 | 右键购买礼包 &f]'
+    run:
+      - '[console]money give %player% 5000'
+  团购礼包2:
+    display: '&e团购特惠礼包 &7[二]'
+    price:
+      base: 1999
+      min: 233
+    limit: 1
+    currency: PlayerPoints
+    preview:
+      material: CHEST
+      data: 0
+      amount: 1
+      model: 0
+      display: '%placeholder_whether_bargain% &e&e团购特惠礼包 &7[二] '
+      lore:
+        - '&6&l礼包内容'
+        - '&f - 测试...'
+        - ''
+        - '&e&l| &f已砍价 &d%bargain%/%members% &f人'
+        - '&e&l| &f当前价格: &a%current_price%&7&o(原价1999) &a点券'
+        - '%placeholder_limit%'
+        - ''
+        - '&f[ &b左键砍一刀 | 右键购买礼包 &f]'
+    run:
+      - '[console]money give %player% 5000'

@@ -2,6 +2,7 @@ package com.legendaryrealms.LegendaryGuild.Menu.Panels;
 
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
+import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
 import com.legendaryrealms.LegendaryGuild.Data.User.Position;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Menu.Loaders.MembersLoader;
@@ -55,6 +56,8 @@ public class MembersPanel extends MenuDraw {
                 int a = 0;
                 List<String> members = getPage(page);
                 if (!members.isEmpty()){
+                    Guild guild = UserAPI.getGuild(p.getName()).get();
+                    GuildActivityData activityData = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guild.getGuild());
                     for (String target : members){
                         User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(target);
                         Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(targetUser.getPosition()).get();
@@ -66,7 +69,9 @@ public class MembersPanel extends MenuDraw {
                         lore = LegendaryGuild.getInstance().getHookManager().getPlaceholderAPIHook().replaceHolder(lore, Bukkit.getOfflinePlayer(target));
                         lore.replaceAll(l -> l.replace("%date%",targetUser.getDate())
                                 .replace("%total_points%",""+targetUser.getTotal_points())
-                                .replace("%position%",position.getDisplay()));
+                                .replace("%position%",position.getDisplay())
+                                .replace("%activity%",String.valueOf(activityData.getPlayerActivity(target)))
+                                .replace("%total_activity%",String.valueOf(activityData.getPlayerTotalActivity(target))));
                         id.setLore(lore);
                         if (LegendaryGuild.getInstance().version_high){
                             id.setCustomModelData(load.getMm_model());
@@ -169,7 +174,9 @@ public class MembersPanel extends MenuDraw {
                             return;
                         }
                         User user = LegendaryGuild.getInstance().getUsersManager().getUser(p.getName());
-                        if (user.getPosition().equals(LegendaryGuild.getInstance().getPositionsManager().getOwnerPosition().getId())) {
+                        Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(user.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
+
+                        if (position.isKick()) {
                             User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(member);
                             if (UserAPI.kick(p,targetUser)){
                                 MembersPanel membersPanel = new MembersPanel(p,1,sort);

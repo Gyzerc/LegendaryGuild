@@ -14,18 +14,64 @@ import java.util.List;
 public class GuildActivityData {
     private String guild;
     private double points;
+    private double total_points;
     private StringStore claimed;
+    private HashMap<String,Double> current;
+    private HashMap<String,Double> history;
 
     public GuildActivityData(String guild) {
         this.guild = guild;
         this.points = 0.0;
+        this.total_points = 0.0;
         this.claimed = new StringStore();
+        this.current = new HashMap<>();
+        this.history = new HashMap<>();
     }
 
-    public GuildActivityData(String guild, double points, StringStore claimed) {
+    public GuildActivityData(String guild, double points, double total_points, StringStore claimed, HashMap<String, Double> current, HashMap<String, Double> history) {
         this.guild = guild;
         this.points = points;
+        this.total_points = total_points;
         this.claimed = claimed;
+        this.current = current;
+        this.history = history;
+    }
+
+    public void clearPlayerData(String player) {
+        current.remove(player);
+        history.remove(player);
+    }
+    public double getPlayerActivity(String player) {
+        return current.getOrDefault(player,0.0);
+    }
+    public double getPlayerTotalActivity(String player) {
+        return history.getOrDefault(player,0.0);
+    }
+    public void setPlayerActivity(String player,double amount) {
+        current.put(player,amount);
+    }
+    public void setPlayerHistoryActivity(String player,double amount) {
+        history.put(player,amount);
+    }
+
+    public double getTotal_points() {
+        return total_points;
+    }
+
+    public HashMap<String, Double> getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(HashMap<String, Double> current) {
+        this.current = current;
+    }
+
+    public void setHistory(HashMap<String, Double> history) {
+        this.history = history;
+    }
+
+    public HashMap<String, Double> getHistory() {
+        return history;
     }
 
     public String getGuild() {
@@ -39,6 +85,11 @@ public class GuildActivityData {
     public void setPoints(double points) {
         this.points = points;
     }
+
+    public void setTotal_points(double total_points) {
+        this.total_points = total_points;
+    }
+
 
     public void setClaimed(StringStore claimed) {
         this.claimed = claimed;

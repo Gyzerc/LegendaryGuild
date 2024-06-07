@@ -1,0 +1,55 @@
+title: '&6&l公会团购'
+size: 27
+placeholder:
+  #限购变量
+  limit: '&c&l| &f限购 &e%purchased%/%limit%'
+  #当该成员已砍价后显示的变量
+  bargains-already: '&a%player% - %bargain-price%'
+  #当该成员还未进行砍价时显示的变量
+  bargains-not: '&7%player% - 0.0'
+  whether-bargain-already: '&f[&a已砍价&f] '
+  whether_bargain-wait: '&f[&e可砍价&f] '
+customItem:
+  item:
+    display: '%display%'
+    material: APPLE
+    lore:
+      - '%lore%'
+    slot: '[13]'
+    fuction:
+      #item: 团购商品
+      #bargains: 团购商品公会成员砍价信息
+      type: item
+  bargains:
+    display: '&3&l公会成员砍价信息列表 &e(%bargain%/%members%)'
+    material: PAPER
+    data: 0
+    model: 0
+    lore:
+      #这里添加了多少个 %placeholder_bargains% 则每一页lore显示多少行
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - '&f- %placeholder_bargains%'
+      - ''
+      - '&a左键 &7查看下一页'
+      - '&a右键 &7查看上一夜'
+    slot: '[15]'
+    fuction:
+      type: bargains
+  item5:
+    display: '&f&l< &c返回 &f&l>'
+    material: BARRIER
+    data: 0
+    model: 0
+    lore:
+      - ' '
+    fuction:
+      type: back
+    slot: [10]

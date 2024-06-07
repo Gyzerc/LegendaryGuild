@@ -56,22 +56,24 @@ public class GuildActivityDataManager {
 
     public void checkCycle(){
         int targetInt = legendaryGuild.getFileManager().getConfig().ACTIVITY_CYCLE;
-        int value = Integer.parseInt(legendaryGuild.getDataBase().getSystemData("activity_day").orElse("0"));
-        int set = value + 1;
-        if (value >= (targetInt-1)){
-            set = 0;
-            legendaryGuild.info("刷新所有公会活跃度", Level.INFO);
-            legendaryGuild.info("Refresh all guild activity levels",Level.INFO);
-            resetAllGuild();
-            Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
-            if (p != null) {
-                new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-                        .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.REFRESH_ACTIVITY, "null"))
-                        .setReciver("ALL")
-                        .sendPluginMessage(p);
+        if (targetInt > 0) {
+            int value = Integer.parseInt(legendaryGuild.getDataBase().getSystemData("activity_day").orElse("0"));
+            int set = value + 1;
+            if (value >= (targetInt - 1)) {
+                set = 0;
+                legendaryGuild.info("刷新所有公会活跃度", Level.INFO);
+                legendaryGuild.info("Refresh all guild activity levels", Level.INFO);
+                resetAllGuild();
+//            Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
+//            if (p != null) {
+//                new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
+//                        .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.REFRESH_ACTIVITY, "null"))
+//                        .setReciver("ALL")
+//                        .sendPluginMessage(p);
+//            }
             }
+            legendaryGuild.getDataBase().saveSystemData("activity_day", set + "");
         }
-        legendaryGuild.getDataBase().saveSystemData("activity_day",set+"");
     }
 
     private void resetAllGuild(){
@@ -81,6 +83,7 @@ public class GuildActivityDataManager {
                 for (String guild : legendaryGuild.getDataBase().getGuildActivityDatas()){
                     GuildActivityData data = getData(guild);
                     data.setPoints(0);
+                    data.setCurrent(new HashMap<>());
                     data.setClaimed(new StringStore());
                     data.update();
                 }

@@ -34,8 +34,9 @@ public class Guild {
     private LinkedList<String> members;
     private LinkedList<Application> applications;
     private GuildHomeLocation home;
+    private int extra_members;
 
-    public Guild(String guild, String owner,String icon, String date, double money, double exp, double treeexp, int level, int treelevel, List<String> intro, List<String> notice, List<String> friends, StringStore buffs, List<String> unlock_icons, LinkedList<String> members, LinkedList<Application> applications, GuildHomeLocation home) {
+    public Guild(String guild, String owner,String icon, String date, double money, double exp, double treeexp, int level, int treelevel, List<String> intro, List<String> notice, List<String> friends, StringStore buffs, List<String> unlock_icons, LinkedList<String> members, LinkedList<Application> applications, GuildHomeLocation home,int extra_members) {
         this.guild = guild;
         this.icon = icon;
         this.owner = owner;
@@ -53,6 +54,11 @@ public class Guild {
         this.members = members;
         this.applications = applications;
         this.home = home;
+        this.extra_members = extra_members;
+    }
+
+    public int getExtra_members() {
+        return extra_members;
     }
 
     public void setOwner(String owner) {
@@ -171,8 +177,15 @@ public class Guild {
         return unlock_icons != null ? unlock_icons : new ArrayList<>();
     }
 
+    public GuildTeamShopData getGuildTeamShopData() {
+        return LegendaryGuild.getInstance().getGuildTeamShopDataManager().getGuildTeamShopData(guild);
+    }
     public LinkedList<String> getMembers() {
         return members != null ? members : (LinkedList<String>) Arrays.asList(owner);
+    }
+    public int getMaxMembers() {
+        int defaultAmount = LegendaryGuild.getInstance().getFileManager().getConfig().MEMBERS.get(level);
+        return defaultAmount + extra_members;
     }
 
     public void addMoney(double amount){
@@ -189,6 +202,9 @@ public class Guild {
         return home;
     }
 
+    public void setExtra_members(int extra_members) {
+        this.extra_members = extra_members;
+    }
 
     public void addApplication(String target){
         SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss");

@@ -22,10 +22,10 @@ public class PostionFile extends FileProvider{
         String owner = getValue("owner","会长");
         String member = getValue("default","普通成员");
 
-        Position ownerPos = new Position(owner,legendaryGuild.color(getValue("positions."+owner+".display","&6会长")),getValue("positions."+owner+".weight",0),1,getValue("positions."+owner+".attrs",new ArrayList<>()));
+        Position ownerPos = new Position(owner,legendaryGuild.color(getValue("positions."+owner+".display","&6会长")),getValue("positions."+owner+".weight",0),1,getValue("positions."+owner+".attrs",new ArrayList<>()),true,true);
         manager.setOwnerPosition(ownerPos);
 
-        Position memberPos = new Position(member,legendaryGuild.color(getValue("positions."+member+".display","&f普通成员")),getValue("positions."+member+".weight",99),-1,getValue("positions."+member+".attrs",new ArrayList<>()));
+        Position memberPos = new Position(member,legendaryGuild.color(getValue("positions."+member+".display","&f普通成员")),getValue("positions."+member+".weight",99),-1,getValue("positions."+member+".attrs",new ArrayList<>()),false,false);
         manager.setDefaultPosition(memberPos);
 
         getSection("positions").ifPresent(configurationSection -> {
@@ -57,8 +57,11 @@ public class PostionFile extends FileProvider{
                     max = configurationSection.getInt(id+".max");
                 }
 
+                boolean accept = configurationSection.getBoolean(id+".accept",false);
+                boolean kick = configurationSection.getBoolean(id+".kick",false);
+
                 List<String> attrs = configurationSection.getStringList(id+".attrs");
-                manager.addPostion(id,new Position(id,display,weight,max,attrs));
+                manager.addPostion(id,new Position(id,display,weight,max,attrs,accept,kick));
             }
         });
 

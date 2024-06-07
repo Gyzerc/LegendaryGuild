@@ -215,3 +215,26 @@ settings:
       #可使用 papi 变量
       #can use PlaceholderAPI
       format: '&f[&e公会聊天&f][%position%&f]&3%player%&f: %message%'
+    bargain:
+      #砍价模式
+      #Base_On_MaxMember: 每次砍价基于公会最大人数平均划分 {
+      #  每次砍价随机区间 = 0 ~ ( (商品基础价格 - 最低价格 ) / 公会最大人数)
+      # }
+      #Base_On_Member: 每次砍价基于当前公会成员人数平均划分 {
+      #  每次砍价随机区间 = 0 ~ ( (商品基础价格 - 最低价格 ) / 公会成员 )
+      # }
+      #Random: 每次砍价随机(当商品已经被砍到最低价格后，剩余公会成员砍价将为 0 ) {
+      #  每次砍价随机区间 = 0 ~ (商品基础价格 - 最低价格 )
+      # }
+      # ——————————————————————
+      #Bargaining mode
+      #Base_On_MaxMember: Each bargaining is based on the average division of the maximum number of people in the guild {
+      #  Random interval for each bargaining session = 0 ~ ( (Base price - Min price ) / the maximum number of member)
+      # }
+      #Base_On_Member: Each bargaining session is divided based on the average number of current guild members {
+      #  Random interval for each bargaining session = 0 ~ ( (Base price - Min price) / the number of member )
+      # }
+      #Random: Random bargaining every time(When the product has been discounted to the lowest price, the remaining guild members will be discounted to 0) {
+      #  Random interval for each bargaining session = 0 ~ (Base price - Min price)
+      # }
+      mode: Base_On_MaxMember
