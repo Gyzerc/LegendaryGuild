@@ -574,6 +574,7 @@ public class UserAPI {
                     if (LegendaryGuild.getInstance().getHookManager().getPlayerPointsHook().getPlayerPoints().getAPI().look(p.getUniqueId()) >= price) {
                         canBuy = true;
                         LegendaryGuild.getInstance().getHookManager().getPlayerPointsHook().getPlayerPoints().getAPI().take(p.getUniqueId(), (int) price);
+                        break;
                     }
                     p.sendMessage(lang.plugin + lang.reuirement_notenough_playerpoints.replace("%value%" , String.valueOf(price)));
                     break;
