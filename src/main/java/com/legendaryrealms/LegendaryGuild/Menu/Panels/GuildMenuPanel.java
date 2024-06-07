@@ -122,6 +122,11 @@ public class GuildMenuPanel extends MenuDraw {
                                 .addSinglePlaceHolder("amount",guild.getApplications().size()+"");
                         menuItem.setI(replaceHolderUtils.startReplace(i,true,p.getName()));
                     }
+                    case "teamshop" : {
+                        TeamShopPanel teamShopPanel = new TeamShopPanel(p,1);
+                        teamShopPanel.open();
+                        return;
+                    }
                 }
             });
         }
