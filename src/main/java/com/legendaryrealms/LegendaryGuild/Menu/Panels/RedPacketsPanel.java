@@ -43,6 +43,11 @@ public class RedPacketsPanel extends MenuDraw {
                 int a = 0;
                 for (UUID uuid : uids){
                     Guild_Redpacket.Redpacket redpacket = guild_redpacket.getRedpackets().get(uuid);
+                    if (redpacket.getLess() <= 0) {
+                        guild_redpacket.getRedpackets().remove(uuid);
+                        LegendaryGuild.getInstance().getRedPacketsManager().updateRedPacket(guild_redpacket);
+                        continue;
+                    }
 
                     if (redpacket != null) {
                         ItemStack i = new ItemStack(loader.getPacket_icon_bef(), 1, (short) loader.getPacket_data_bef());

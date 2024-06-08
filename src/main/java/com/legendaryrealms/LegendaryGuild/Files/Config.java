@@ -162,7 +162,7 @@ public class Config extends FileProvider{
         GUILD_CHAT = getValue("settings.guild.chat.format","&f[&e公会聊天&f][%position%&f]&3%player%&f: %message%");
 
         //公会团购
-        bargainMode = GuildTeamShopData.BargainMode.valueOf(getValue("settings.guild.bargain.mode","BASE_ON_MAXMEMBER"));
+        bargainMode = GuildTeamShopData.BargainMode.valueOf(getValue("settings.guild.bargain.mode","BASE_ON_MAXMEMBER").toUpperCase());
         saveYml();
     }
 

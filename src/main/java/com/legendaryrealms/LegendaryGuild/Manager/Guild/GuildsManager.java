@@ -93,6 +93,14 @@ public class GuildsManager {
         //更新数据库数据以及通知其他子服务器更新数据
         user.update(false);
 
+        //防止残留
+        GuildActivityData data = legendaryGuild.getGuildActivityDataManager().getData(guild);
+        data.setCurrent(new HashMap<>());
+        data.setHistory(new HashMap<>());
+        data.setTotal_points(0);
+        data.setPoints(0);
+        data.update();
+
         //通知其他子服务器更新公会数据
         //....
         new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
