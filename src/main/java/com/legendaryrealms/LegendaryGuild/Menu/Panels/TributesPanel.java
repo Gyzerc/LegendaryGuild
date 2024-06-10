@@ -84,8 +84,8 @@ public class TributesPanel extends MenuDraw {
                 if (tributesId.isPresent())
                 {
                     TributeItem tributes= tributesId.get();
-                    points+=tributes.getPoints()*i.getAmount();
-                    exp+=tributes.getExp()*i.getAmount();
+                    points+=tributes.getPoints() * i.getAmount();
+                    exp+=tributes.getExp() * i.getAmount();
                 }
             }
         }

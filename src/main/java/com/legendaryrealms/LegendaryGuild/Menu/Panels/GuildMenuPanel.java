@@ -68,6 +68,7 @@ public class GuildMenuPanel extends MenuDraw {
                         GuildActivityData activityData = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guild.getGuild());
                         ReplaceHolderUtils replace = new ReplaceHolderUtils()
                                 .addSinglePlaceHolder("activity",activityData.getPoints()+"")
+                                .addSinglePlaceHolder("total_activity",activityData.getTotal_points()+"")
                                 .addSinglePlaceHolder("owner",guild.getOwner())
                                 .addSinglePlaceHolder("level",""+guild.getLevel())
                                 .addSinglePlaceHolder("exp",""+guild.getExp())

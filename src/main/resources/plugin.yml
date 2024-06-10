@@ -1,6 +1,6 @@
 name: LegendaryGuild
 main: com.legendaryrealms.LegendaryGuild.LegendaryGuild
-version: 5.1.7.1
+version: 5.1.7.2
 api-version: 1.14
 depend:
   - Vault
@@ -10,6 +10,7 @@ softdepend:
   - PlayerPoints
   - AttributePlus
   - SX-Attribute
+  - MythicLib
 commands:
   legendaryguild:
     aliases:

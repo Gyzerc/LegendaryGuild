@@ -222,7 +222,7 @@ public class Guild {
     }
 
     public void update(){
-        LegendaryGuild.getInstance().getGuildsManager().updateGuild(this,true);
+        LegendaryGuild.getInstance().getGuildsManager().updateGuild(this,false);
         Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
         if (p != null) {
             new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)

@@ -28,12 +28,14 @@ public class MaxMembersCommand extends com.legendaryrealms.LegendaryGuild.Comman
                         int a = guild.getExtra_members();
                         guild.setExtra_members(a + amount);
                         guild.update();
+
                         sender.sendMessage(lang.plugin + lang.admin_maxmembers_add.replace("%target%",guild.getDisplay()).replace("%value%",String.valueOf(amount)));
                         return;
                     }
                     case "set" : {
                         guild.setExtra_members(amount);
                         guild.update();
+
                         sender.sendMessage(lang.plugin + lang.admin_maxmembers_set.replace("%target%",guild.getDisplay()).replace("%value%",String.valueOf(amount)));
                         return;
                     }

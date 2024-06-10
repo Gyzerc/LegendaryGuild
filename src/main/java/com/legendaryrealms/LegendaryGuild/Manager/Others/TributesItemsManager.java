@@ -35,7 +35,7 @@ public class TributesItemsManager {
         int a = 0;
         if (section != null){
             for (String id : section.getKeys(false)){
-                Material material = Material.getMaterial(section.getString(id+".material",null));
+                Material material = Material.getMaterial(section.getString(id+".material",null).toUpperCase());
                 int data = section.getInt(id+".data",0);
                 String display = legendaryGuild.color(section.getString(id+".display",null));
 
@@ -55,8 +55,6 @@ public class TributesItemsManager {
         for (TributeItem tributeItem : getTributesItems()){
             if (tributeItem.getMaterial() != null){
                 if (!i.getType().equals(tributeItem.getMaterial()) || i.getDurability() != (short)tributeItem.getData()){
-                    System.out.println(i.getType().equals(tributeItem.getMaterial()));
-                    System.out.println(i.getDurability()+"/"+(short)tributeItem.getData());
                     continue;
                 }
             }

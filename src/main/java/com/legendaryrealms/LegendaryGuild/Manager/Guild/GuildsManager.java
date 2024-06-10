@@ -130,7 +130,9 @@ public class GuildsManager {
                 legendaryGuild.getDataBase().saveGuild(guild);
                 if (removeCache){
                     cache.remove(guild.getGuild());
+                    return;
                 }
+                cache.put(guild.getGuild(),guild);
             }
         });
 

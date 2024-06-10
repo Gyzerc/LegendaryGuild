@@ -173,7 +173,7 @@ public class Config extends FileProvider{
         try {
             return Optional.of(Sound.valueOf(sound.toUpperCase()));
         } catch (Exception e){
-            legendaryGuild.info("音效ID出错！"+file.getName()+" ->" +sound, Level.SEVERE,e);
+            legendaryGuild.info("音效ID出错！"+file.getName()+" ->" +sound, Level.SEVERE);
             return Optional.empty();
         }
     }
