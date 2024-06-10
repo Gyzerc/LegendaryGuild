@@ -35,7 +35,8 @@ public class TributesItemsManager {
         int a = 0;
         if (section != null){
             for (String id : section.getKeys(false)){
-                Material material = Material.getMaterial(section.getString(id+".material",null).toUpperCase());
+
+                Material material = section.getString(id+".material") != null ? Material.getMaterial(section.getString(id+".material").toUpperCase() ): null;
                 int data = section.getInt(id+".data",0);
                 String display = legendaryGuild.color(section.getString(id+".display",null));
 
