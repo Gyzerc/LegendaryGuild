@@ -161,12 +161,10 @@ public class UserAPI {
             return false;
         }
         Position position = legendaryGuild.getPositionsManager().getPosition(user.getPosition()).orElse(legendaryGuild.getPositionsManager().getDefaultPosition());
-        if (!position.isKick()){
-            if (sender != null){
-                sender.sendMessage(lang.plugin+lang.nopass_position);
-            }
-            return false;
+        if (sender != null){
+            sender.sendMessage(lang.plugin+lang.nopass_position);
         }
+
         String guildName=user.getGuild();
 
         //设置用户数据
