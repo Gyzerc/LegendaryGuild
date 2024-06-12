@@ -29,33 +29,35 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
     public void handle(CommandSender sender, String[] args) {
         String symbol = args[2];
         String id = args[3];
-        if (args.length == 5 && symbol.equalsIgnoreCase("guild") ) {
-            String guildName = args[4];
-            switch (id) {
-                case "activity" : {
-                    Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
-                    if (GuildAPI.getGuild(guildName).isPresent()) {
-                        Guild guild = guildOptional.get();
-                        GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guildName);
-                        data.setClaimed(new StringStore());
-                        data.setPoints(0);
-                        data.update();
-                        sender.sendMessage(lang.plugin + lang.reset_activity.replace("%guild%",guild.getDisplay()));
+        if (args.length == 5 ) {
+            if (symbol.equalsIgnoreCase("guild")) {
+                String guildName = args[4];
+                switch (id) {
+                    case "activity": {
+                        Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
+                        if (GuildAPI.getGuild(guildName).isPresent()) {
+                            Guild guild = guildOptional.get();
+                            GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guildName);
+                            data.setClaimed(new StringStore());
+                            data.setPoints(0);
+                            data.update();
+                            sender.sendMessage(lang.plugin + lang.reset_activity.replace("%guild%", guild.getDisplay()));
+                            return;
+                        }
+                        sender.sendMessage(lang.plugin + lang.notguild);
                         return;
                     }
-                    sender.sendMessage(lang.plugin + lang.notguild);
-                    return;
-                }
-                case "teamshop" : {
-                    Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
-                    if (GuildAPI.getGuild(guildName).isPresent()) {
-                        Guild guild = guildOptional.get();
-                        GuildAPI.resetGuildTeamShopData(guild);
-                        sender.sendMessage(lang.plugin + lang.reset_guild_teamshop.replace("%guild%",guild.getDisplay()));
+                    case "teamshop": {
+                        Optional<Guild> guildOptional = GuildAPI.getGuild(guildName);
+                        if (GuildAPI.getGuild(guildName).isPresent()) {
+                            Guild guild = guildOptional.get();
+                            GuildAPI.resetGuildTeamShopData(guild);
+                            sender.sendMessage(lang.plugin + lang.reset_guild_teamshop.replace("%guild%", guild.getDisplay()));
+                            return;
+                        }
+                        sender.sendMessage(lang.plugin + lang.notguild);
                         return;
                     }
-                    sender.sendMessage(lang.plugin + lang.notguild);
-                    return;
                 }
             }
             return;
@@ -67,7 +69,17 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
                 sender.sendMessage(lang.plugin + lang.notplayer);
                 return;
             }
+            User user = UserAPI.getUser(player);
             switch (id) {
+                case "cooldown" : {
+                    int sec = Integer.parseInt(value);
+                    if( sec >= 0) {
+                        user.setCooldown(sec);
+                        user.update(false);
+                        sender.sendMessage(lang.plugin + lang.reset_user_cooldown.replace("%player%",player).replace("%second%",value));
+                    }
+                    return;
+                }
                 case "teamshop" : {
                     Optional<Guild> guildOptional = UserAPI.getGuild(player);
                     if (UserAPI.getGuild(player).isPresent()) {
@@ -92,7 +104,6 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
                 }
                 case "tree" : {
                     if (value.equalsIgnoreCase("wish")) {
-                        User user = UserAPI.getUser(player);
                         user.setWish(false);
                         user.update(false);
                         sender.sendMessage(lang.plugin + lang.reset_wish.replace("%player%",player));
@@ -102,7 +113,6 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
                 }
                 case "pot" : {
                     if (LegendaryGuild.getInstance().getWaterPotsManager().getWaterPot(value).isPresent()) {
-                        User user = UserAPI.getUser(player);
                         WaterDataStore waterDataStore = user.getWaterDataStore();
                          waterDataStore.clearWater(value);
                          user.setWaterDataStore(waterDataStore);
@@ -126,11 +136,12 @@ public class ResetCommand extends com.legendaryrealms.LegendaryGuild.Command.Leg
                 .addTab(legendaryGuild.getGuildsManager().getGuilds() , 4 , Arrays.asList("activity") , 3)
                 .addTab(Arrays.asList("0","1","2","10","32","64") , 4 , Arrays.asList("teamshop") , 3)
 
-                .addTab(Arrays.asList("shop","tree","pot","teamshop") , 3 , Arrays.asList("user") , 2)
+                .addTab(Arrays.asList("shop","tree","pot","teamshop","cooldown") , 3 , Arrays.asList("user") , 2)
 
                 .addTab(Arrays.asList("day","week","month","once") , 4 , Arrays.asList("shop") , 3)
                 .addTab(Arrays.asList("wish") , 4 , Arrays.asList("tree") , 3)
                 .addTab(legendaryGuild.getWaterPotsManager().getPots() , 4 , Arrays.asList("pot") , 3)
+                .addTab(Arrays.asList("0","60","180","3600","...") , 4 , Arrays.asList("cooldown") , 3)
 
                 .addTab(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), 5 , Arrays.asList("user") , 2)
                 .build(args)

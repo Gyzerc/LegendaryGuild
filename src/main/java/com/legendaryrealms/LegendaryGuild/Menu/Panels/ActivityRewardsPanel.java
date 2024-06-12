@@ -1,6 +1,7 @@
 package com.legendaryrealms.LegendaryGuild.Menu.Panels;
 
 import com.legendaryrealms.LegendaryGuild.API.Events.ActivityRewardClaimEvent;
+import com.legendaryrealms.LegendaryGuild.API.GuildAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.Data.Guild.GuildActivityData;
@@ -76,11 +77,13 @@ public class ActivityRewardsPanel extends MenuDraw {
                         String id = menuItem.getValue();
                         if (LegendaryGuild.getInstance().getActivityRewardsManager().getReward(id).isPresent()) {
 
-                            Guild guild = UserAPI.getGuild(p.getName()).orElse(null);
+                            Guild guild = UserAPI.getGuild(p.getName()).get();
                             GuildActivityData data = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guild.getGuild());
                             StringStore store = data.getClaimed();
                             ActivityReward reward = LegendaryGuild.getInstance().getActivityRewardsManager().getReward(id).get();
-                            List<String> claims = (List<String>) store.getValue(reward.getId(), new ArrayList<>());
+
+
+                            List<String> claims = new ArrayList<>( (List<String>) store.getValue(reward.getId(), new ArrayList<>()));
 
                             if (reward.getPoints() <= data.getPoints()){
                                 if (claims.contains(p.getName())){

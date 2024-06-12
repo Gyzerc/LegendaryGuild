@@ -11,17 +11,17 @@ public class PlayerBeKickFromGuildEvent extends Event {
     public HandlerList getHandlers() {
         return handlers;
     }
-    private User user;
+    private String user;
     private Guild guild;
     public static HandlerList getHandlerList() {
         return handlers;
     }
-    public PlayerBeKickFromGuildEvent(User user, Guild guild) {
+    public PlayerBeKickFromGuildEvent(String user, Guild guild) {
         this.user = user;
         this.guild = guild;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 

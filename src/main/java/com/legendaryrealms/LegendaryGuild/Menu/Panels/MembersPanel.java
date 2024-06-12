@@ -60,7 +60,12 @@ public class MembersPanel extends MenuDraw {
                     GuildActivityData activityData = LegendaryGuild.getInstance().getGuildActivityDataManager().getData(guild.getGuild());
                     for (String target : members){
                         User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(target);
-                        Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(targetUser.getPosition()).get();
+                        Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(targetUser.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
+                        //5.1.7.3版本之前创建公会时会长的入会日期不会更新，所以在此进行一次更新
+                        if (targetUser.getDate() == null || targetUser.getDate().isEmpty()) {
+                            targetUser.setDate(guild.getDate());
+                            targetUser.update(false);
+                        }
 
                         ItemStack i =new ItemStack(load.getMm_icon(),1,(short) load.getMm_data());
                         ItemMeta id = i.getItemMeta();
@@ -101,8 +106,8 @@ public class MembersPanel extends MenuDraw {
     }
 
     public List<String> getBy(Sort sort){
-        User user = LegendaryGuild.getInstance().getUsersManager().getUser(p.getName());
-        Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
+
+        Guild guild = UserAPI.getGuild(p.getName()).get();
         LinkedList<String> members = guild.getMembers();
         List<String> list = members.stream().collect(Collectors.toList());
         if (sort.equals(Sort.DATE)){
@@ -113,14 +118,22 @@ public class MembersPanel extends MenuDraw {
             public int compare(String o1, String o2) {
                 User u1 = LegendaryGuild.getInstance().getUsersManager().getUser(o1);
                 User u2 = LegendaryGuild.getInstance().getUsersManager().getUser(o2);
-                switch (sort){
-                    case POSITION: {
-                        Position p1 = LegendaryGuild.getInstance().getPositionsManager().getPosition(u1.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
-                        Position p2 = LegendaryGuild.getInstance().getPositionsManager().getPosition(u2.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
-                        return (p2.getWeight() > p1.getWeight()) ? -1 : ((p2.getWeight() == p1.getMax()) ? 0 : 1);
-                    }
-                    case POINTS: {
-                        return (u1.getTotal_points() > u2.getTotal_points()) ? -1 : ((u1.getTotal_points() == u2.getTotal_points()) ? 0 : 1);
+                if ( u1 == null ) {
+                    return  1;
+                }
+                if (u2 == null) {
+                    return -1;
+                }
+                if (u1 != null && u2 != null) {
+                    switch (sort) {
+                        case POSITION: {
+                            Position p1 = LegendaryGuild.getInstance().getPositionsManager().getPosition(u1.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
+                            Position p2 = LegendaryGuild.getInstance().getPositionsManager().getPosition(u2.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
+                            return (p2.getWeight() > p1.getWeight()) ? -1 : ((p2.getWeight() == p1.getMax()) ? 0 : 1);
+                        }
+                        case POINTS: {
+                            return (u1.getTotal_points() > u2.getTotal_points()) ? -1 : ((u1.getTotal_points() == u2.getTotal_points()) ? 0 : 1);
+                        }
                     }
                 }
                 return 0;
@@ -177,8 +190,7 @@ public class MembersPanel extends MenuDraw {
                         Position position = LegendaryGuild.getInstance().getPositionsManager().getPosition(user.getPosition()).orElse(LegendaryGuild.getInstance().getPositionsManager().getDefaultPosition());
 
                         if (position.isKick()) {
-                            User targetUser = LegendaryGuild.getInstance().getUsersManager().getUser(member);
-                            if (UserAPI.kick(p,targetUser)){
+                            if (UserAPI.kick(user.getGuild(),p,member)){
                                 MembersPanel membersPanel = new MembersPanel(p,1,sort);
                                 membersPanel.loadPage();
                                 membersPanel.open();

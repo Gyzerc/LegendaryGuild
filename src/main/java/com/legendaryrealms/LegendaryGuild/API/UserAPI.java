@@ -13,18 +13,13 @@ import com.legendaryrealms.LegendaryGuild.Data.Guild.Guild;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import com.legendaryrealms.LegendaryGuild.Listener.MoveEvent;
-import com.legendaryrealms.LegendaryGuild.Listener.PlayerJoin;
-import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessage;
-import com.legendaryrealms.LegendaryGuild.Utils.BungeeCord.NetWorkMessageBuilder;
 import com.legendaryrealms.LegendaryGuild.Utils.MsgUtils;
 import com.legendaryrealms.LegendaryGuild.Utils.RunTaskUtils;
 import com.legendaryrealms.LegendaryGuild.Utils.RunUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -156,47 +151,40 @@ public class UserAPI {
         Bukkit.getPluginManager().callEvent(new PlayerJoinGuildEvent(user,guild));
     }
 
-    public static boolean kick(CommandSender sender, User user){
-        if (!user.hasGuild()){
-            return false;
+    public static boolean kick(String guildName, CommandSender sender, String name){
+        User user = getUser(name);
+        if (user != null) {
+            //设置用户数据
+            user.setGuild(lang.default_guild);
+            user.setPoints(0, false);
+            user.setTotal_points(0);
+            user.setPosition(lang.default_position);
+            user.setCooldown(legendaryGuild.getFileManager().getConfig().COOLDOWN * 60);
+            user.setDate("");
+            //更新数据库并通知其他子服务器
+            user.update(false);
         }
-        Position position = legendaryGuild.getPositionsManager().getPosition(user.getPosition()).orElse(legendaryGuild.getPositionsManager().getDefaultPosition());
-        if (sender != null){
-            sender.sendMessage(lang.plugin+lang.nopass_position);
-        }
-
-        String guildName=user.getGuild();
-
-        //设置用户数据
-        user.setGuild(lang.default_guild);
-        user.setPoints(0,false);
-        user.setTotal_points(0);
-        user.setPosition(lang.default_position);
-        user.setCooldown(legendaryGuild.getFileManager().getConfig().COOLDOWN * 60);
-        user.setDate("");
-        //更新数据库并通知其他子服务器
-        user.update(false);
 
 
         //设置公会数据
         Guild guild = legendaryGuild.getGuildsManager().getGuild(guildName);
-        guild.getMembers().remove(user.getPlayer());
+        guild.getMembers().remove(name);
         //更新数据库通知其他子服务器
         guild.update();
 
         //删除玩家所有的活跃度
         GuildActivityData activityData = legendaryGuild.getGuildActivityDataManager().getData(guildName);
-        activityData.clearPlayerData(user.getPlayer());
+        activityData.clearPlayerData(name);
         activityData.update();
 
         //发送消息
         if (sender != null){
-            sender.sendMessage(lang.plugin+lang.members_kick.replace("%value%",user.getPlayer()));
+            sender.sendMessage(lang.plugin+lang.members_kick.replace("%value%",name));
         }
-        msg.sendMessage(user.getPlayer(),lang.plugin+lang.members_bekick.replace("%value%",guild.getDisplay()));
-        msg.sendGuildMessage(guild.getMembers(),lang.plugin+lang.members_kick_broad.replace("%value%",user.getPlayer()));
+        msg.sendMessage(name,lang.plugin+lang.members_bekick.replace("%value%",guild.getDisplay()));
+        msg.sendGuildMessage(guild.getMembers(),lang.plugin+lang.members_kick_broad.replace("%value%",name));
 
-        Bukkit.getPluginManager().callEvent(new PlayerBeKickFromGuildEvent(user,guild));
+        Bukkit.getPluginManager().callEvent(new PlayerBeKickFromGuildEvent(name,guild));
         return true;
     }
 
@@ -460,6 +448,13 @@ public class UserAPI {
                 p.sendMessage(lang.plugin+lang.home_home_null);
                 return;
             }
+
+            GuildHomeTeleportEvent event = new GuildHomeTeleportEvent(p);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                return;
+            }
+
             MoveEvent.addPlayerWaitTeleport(p.getName());
             new RunTaskUtils(20,config.HOME_WAIT,p)
                     .setTaskEveryPeriod(m -> {
@@ -601,6 +596,8 @@ public class UserAPI {
                     .replace("%display%",display)
                     .replace("%price%",String.valueOf(price)));
             new RunUtils(shopItem.getRun(),p).start();
+
+            Bukkit.getPluginManager().callEvent(new TeamShopBuyEvent(p,shopItem.getId()));
         }
         return canBuy;
     }

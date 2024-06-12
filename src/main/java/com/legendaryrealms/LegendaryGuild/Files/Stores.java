@@ -1,8 +1,11 @@
 package com.legendaryrealms.LegendaryGuild.Files;
 
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
+import com.legendaryrealms.LegendaryGuild.Utils.MsgUtils;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,6 +20,12 @@ public class Stores extends FileProvider{
     private int SIZE;
     private HashMap<Integer,Integer> LEVEL_TO_MAX_STORES;
     private String TITLE;
+    private boolean limit_lore;
+    private boolean limit_materials;
+    private boolean limit_display;
+    private List<String> lore;
+    private List<Material> materials;
+    private List<String> display;
     @Override
     protected void readDefault() {
 
@@ -32,6 +41,22 @@ public class Stores extends FileProvider{
                     LEVEL_TO_MAX_STORES.put(level,sec.getInt(levelStr));
                 }
             });
+
+            limit_lore = getValue("settings.limit.contains-lore.enable",true);
+            limit_materials = getValue("settings.limit.materials.enable",true);
+            limit_display = getValue("settings.limit.display.enable",true);
+
+            lore = legendaryGuild.color(getValue("settings.limit.contains-lore.list", Arrays.asList("&c绑定")));
+            display = legendaryGuild.color(getValue("settings.limit.display.list", Arrays.asList("&cTest Item")));
+            materials = new ArrayList<>();
+            for (String material :  getValue("settings.limit.materials.list" , Arrays.asList("BEDROCK"))) {
+                Material id = Material.getMaterial(material.toUpperCase());
+                if (id != null) {
+                    materials.add(id);
+                }
+            }
+
+
             legendaryGuild.info("启用公会仓库模块 & Enabled Guild Stores.",Level.INFO);
             return;
         }
@@ -56,5 +81,29 @@ public class Stores extends FileProvider{
 
     public String getTITLE() {
         return TITLE;
+    }
+
+    public boolean isLimit_lore() {
+        return limit_lore;
+    }
+
+    public boolean isLimit_materials() {
+        return limit_materials;
+    }
+
+    public boolean isLimit_display() {
+        return limit_display;
+    }
+
+    public List<String> getLore() {
+        return lore;
+    }
+
+    public List<Material> getMaterials() {
+        return materials;
+    }
+
+    public List<String> getDisplay() {
+        return display;
     }
 }

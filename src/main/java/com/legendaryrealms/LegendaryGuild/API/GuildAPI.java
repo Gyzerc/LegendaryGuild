@@ -11,6 +11,7 @@ import com.legendaryrealms.LegendaryGuild.Data.User.Position;
 import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import com.legendaryrealms.LegendaryGuild.Data.User.User;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -330,6 +331,7 @@ public class GuildAPI {
         }
     }
 
+
     public static void addGuildTreeExp(String player,Guild guild,double amount){
         if (guild.getTreelevel() == config.MAX_TREE_LEVEL){
             return;
@@ -527,13 +529,8 @@ public class GuildAPI {
 
     public static void updateGuildMembersBuff(Guild guild) {
         if (legendaryguild.getBuffsManager().getProvider() != null) {
-            guild.getMembers().stream().filter(member -> {
-                if (Bukkit.getPlayerExact(member) != null) {
-                    return true;
-                }
-                return false;
-            }).map(m -> Bukkit.getPlayerExact(m)).collect(Collectors.toList()).forEach(p -> {
-                legendaryguild.getBuffsManager().getProvider().updateBuff(p);
+            guild.getMembers().stream().filter(member -> Bukkit.getPlayerExact(member) != null).collect(Collectors.toList()).forEach(p -> {
+                legendaryguild.getBuffsManager().getProvider().updateBuff(Bukkit.getPlayerExact(p));
             });
         }
     }

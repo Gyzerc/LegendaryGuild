@@ -41,6 +41,7 @@ help_admin:
   - '&a指令: &e/legendaryguild admin'
   - '&a子命令:'
   - '&8 - maxmembers add/set 公会 数量 &f- &7"在原有的基础上额外增加或设置公会最大成员数量"'
+  - '&8 - icons add/remove 公会 ID &f- &7"为公会解锁/移除指定图标"'
   - '&8 - points add/take/set 玩家 数量 &f- &7"操作指定玩家的公会贡献点"'
   - '&8 - money add/take/set 公会 数量 &f- &7"操作指定公会的公会资金"'
   - '&8 - level add/take/set 公会 数量 &f- &7"操作指定公会的公会等级"'
@@ -57,6 +58,7 @@ help_admin:
   - '&8 - reset user tree wish 玩家 &f- &7"重置玩家神树许愿数据"'
   - '&8 - reset user pot 水壶ID 玩家 &f- &7"重置玩家今日指定水壶的浇灌次数"'
   - '&8 - reset user teamshop 数量 玩家 &f- &7"重置玩家公会团购礼包购买数据为指定数量"'
+  - '&8 - reset user cooldown 时间(s) 玩家 &f- &7"重置玩家的入会冷却时间"'
   - '&8 - teamshop refresh 公会 &f- &7"刷新指定公会的团购礼包"'
   - '&8 - delete 公会 &f- &7"解散指定公会"'
 user:
@@ -99,6 +101,8 @@ admin:
   maxmembers_add: '&f你将公会 &e%target% &f的最大成员数量增加了 &a%value%'
   maxmembers_set: '&f你将公会 &e%target% &f的最大成员数量设置为了 &a%value%'
   teamshop-refresh: '&f你将公会 &e%target% &f的今日团购商品刷新.'
+  add-icon: '&f你将公会 &e%target% &f的图标 &e%value% &f解锁！'
+  remove-icon: '&f你移除了公会 &e%target% &f的图标 &e%value%'
 default:
   'null': '无'
   guild: '无公会'
@@ -146,6 +150,7 @@ stores:
   remove_white_title: '&f请输入移除该仓库白名单内的成员名字'
   remove_white_null: '&f该仓库的白名单内没有该成员'
   remove_white: '&f你已关闭 &e%target% &f的 &3%value%号仓库 &f使用权'
+  cant_put: '&c该物品无法放入公会仓库中！'
 redpacket:
   min_total: '&f最低红包金额为 &e100.0'
   min_amount: '&f红包份数最少为 &e2个'
@@ -180,6 +185,7 @@ icon:
   unlock: '&f你为公会解锁了公会图标 %value%'
   locked: '&f该图标还未解锁'
   put: '&f你将公会图标更改为 %value%'
+  not-exist: '&f该公会图标不存在！'
 shop:
   buy: '&f你购买了 %value%'
   limit: '&f你不能再购买该商品了...'
@@ -250,6 +256,7 @@ reset:
   pot: '&6你已重置 &f%player% &6的每日神树水壶 &e%pot% &6的浇灌数据'
   guild-teamshop: '&6你已重置 &f%guild% &6的公会团购所有公会成员购买数据.'
   user-teamshop: '&6你已重置 &f%player% &6的公会团购购买次数为 &f%amount%'
+  cooldown: '&6你已重置 &f%player% &6的入会冷却时间为 &e%cooldown%s.'
 bargain:
   already: '&c你已经砍过价了.'
   success: '&a你成功砍价了 &e%bargain% &a目前团购商品价格为 &e%current%'

@@ -38,19 +38,14 @@ public class GuildActivityDataManager {
             cache.put(guild, legendaryGuild.getDataBase().getGuildActivityData(guild).orElse(new GuildActivityData(guild)));
         }
     }
-    public void removeGuildCache(String guild){
-        cache.remove(guild);
-    }
     public void updataGuildActivityData(GuildActivityData data,boolean removeCache){
-        legendaryGuild.sync(new Runnable() {
-            @Override
-            public void run() {
-                legendaryGuild.getDataBase().saveGuildActivityData(data);
-                if (removeCache){
-                    cache.remove(data.getGuild());
-                }
-            }
-        });
+        legendaryGuild.getDataBase().saveGuildActivityData(data);
+
+        if (removeCache){
+            cache.remove(data.getGuild());
+            return;
+        }
+        cache.put(data.getGuild(),data);
     }
 
 
@@ -64,13 +59,6 @@ public class GuildActivityDataManager {
                 legendaryGuild.info("刷新所有公会活跃度", Level.INFO);
                 legendaryGuild.info("Refresh all guild activity levels", Level.INFO);
                 resetAllGuild();
-//            Player p = Iterables.getFirst(Bukkit.getOnlinePlayers(),null);
-//            if (p != null) {
-//                new NetWorkMessageBuilder().setMessageType(NetWorkMessageBuilder.MessageType.Forward)
-//                        .setNetWorkMessage(new NetWorkMessage(NetWorkMessage.NetWorkType.REFRESH_ACTIVITY, "null"))
-//                        .setReciver("ALL")
-//                        .sendPluginMessage(p);
-//            }
             }
             legendaryGuild.getDataBase().saveSystemData("activity_day", set + "");
         }

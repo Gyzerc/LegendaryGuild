@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Lang extends FileProvider{
     private LangType type;
+    public String reset_user_cooldown;
+    public String icon_not_exist;
 
     public Lang(LegendaryGuild legendaryGuild) {
         super(legendaryGuild,"./plugins/LegendaryGuild/Lang","Lang/",legendaryGuild.lang.name()+".yml");
@@ -75,6 +77,8 @@ public class Lang extends FileProvider{
     public String admin_maxmembers_add;
     public String admin_maxmembers_set;
     public String admin_teamshop_refresh;
+    public String admin_add_icon;
+    public String admin_remove_icon;
     public String default_null;
     public String default_guild;
     public String default_position;
@@ -113,6 +117,7 @@ public class Lang extends FileProvider{
     public String stores_add_white_title;
     public String stores_remove_white_title;
     public String stores_cant_use;
+    public String stores_cant_input;
     public String redpacket_min_total;
     public String redpacket_min_amount;
     public String redpacket_create;
@@ -270,6 +275,8 @@ public class Lang extends FileProvider{
         this.admin_maxmembers_add = legendaryGuild.color(getValue("admin.maxmembers_add","&fYou have increased the maximum number of members in the guild &e%target% &fby &e%value%"));
         this.admin_maxmembers_set = legendaryGuild.color(getValue("admin.maxmembers_set","&fYou have set the maximum number of members in the guild &e%target% &fby &e%value%"));
         this.admin_teamshop_refresh = legendaryGuild.color(getValue("admin.teamshop-refresh","&fYou have refresh the item of teamshop for guild &e%target%"));
+        this.admin_add_icon = legendaryGuild.color(getValue("admin.add-icon","&fYou have unlock the icon &e%value% &ffor guild &e%target%"));
+        this.admin_remove_icon = legendaryGuild.color(getValue("admin.remove-icon","&fYou have remove the icon &e%value% &ffor guild &e%target%"));
 
         this.default_null = legendaryGuild.color(getValue("default.null","无"));
         this.default_guild = legendaryGuild.color(getValue("default.guild","无公会"));
@@ -314,6 +321,7 @@ public class Lang extends FileProvider{
         this.stores_add_white_title = legendaryGuild.color(getValue("stores.add_white_title","&f请发送玩家名称到聊天栏, 输入 'cancel' 即可取消"));
         this.stores_remove_white_title = legendaryGuild.color(getValue("stores.remove_white_title","&f请发送移除该仓库白名单内的成员名字, 输入 'cancel' 即可取消"));
         this.stores_cant_use = legendaryGuild.color(getValue("stores.cant_use","&f该仓库被设置了权限，你不在该仓库的信任名单内"));
+        this.stores_cant_input = legendaryGuild.color(getValue("stores.cant_put","&cThis item cannot be placed in the guild store！"));
 
         this.redpacket_min_amount = legendaryGuild.color(getValue("redpacket.min_amount","&f最少红包份数为&e 2个"));
         this.redpacket_min_total = legendaryGuild.color(getValue("redpacket.min_total","&f最低红包金额为 &e100.0"));
@@ -345,6 +353,7 @@ public class Lang extends FileProvider{
         this.icon_unlock = legendaryGuild.color(getValue("icon.unlock","&f你为公会解锁了公会图标 %value%"));
         this.icon_locked = legendaryGuild.color(getValue("icon.locked","&f该图标还未解锁"));
         this.icon_put = legendaryGuild.color(getValue("icon.put","&f你将公会图标更改为 %value%"));
+        this.icon_not_exist = legendaryGuild.color(getValue("icon.not-exist","&fThe icon is not exist."));
 
         this.shop_buy = legendaryGuild.color(getValue("shop.buy","&f你购买了 %value%"));
         this.shop_limit = legendaryGuild.color(getValue("shop.limit","&f你不能再购买该商品了..."));
@@ -412,6 +421,7 @@ public class Lang extends FileProvider{
         this.reset_pot = legendaryGuild.color(getValue("reset.pot","&cYou have reset the guild tree water data for &e%player% &c, id &e%pot%"));
         this.reset_guild_teamshop = legendaryGuild.color(getValue("reset.guild-teamshop","&cYou have reset the guild teamshop data for the members of &f%guild%"));
         this.reset_user_teamshop = legendaryGuild.color(getValue("reset.user-teamshop","&cYou have reset the guild team shop data to &e%amount% &cfor &e%player%"));
+        this.reset_user_cooldown = legendaryGuild.color(getValue("reset.cooldown","&cYou have reset the cooldown time for joining &e%player% &cto &e%second% &cseconds"));
 
         this.bargain_already = legendaryGuild.color(getValue("bargain.already","&cYou have already discounted the price."));
         this.bargain_success = legendaryGuild.color(getValue("bargain.success","&aYou have successfully negotiated a price of &e%bargain%, &aand the current group purchase price is &e%current%"));

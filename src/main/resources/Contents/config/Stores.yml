@@ -19,3 +19,24 @@ settings:
   unlock:
     requirements:
       - 'guild_money;5000'
+  #限制不能放入的物品
+  limits:
+    #当物品含有指定lore时
+    contains-lore:
+      #是否启用
+      enable: true
+      #需完全匹配
+      list:
+        - '&c绑定'
+    #限制指定id物品放入
+    materials:
+      enable: true
+      #填写物品id
+      list:
+        - BEDROCK
+    #限制指定物品名称放入
+    display:
+      enable: true
+      #需完全匹配
+      list:
+        - '&c测试物品'

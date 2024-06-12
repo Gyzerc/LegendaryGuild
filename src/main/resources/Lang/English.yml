@@ -41,6 +41,7 @@ help_admin:
   - '&aCommand: &e/legendaryguild admin'
   - '&aSub Command:'
   - '&8 - maxmembers add/set [Guild] [Amount] &f- &7"Add or set the maximum number of guild members on the existing basis"'
+  - '&8 - icons add/remove [Guild] [ID] &f- &7"Unlock/remove icons for guild"'
   - '&8 - points add/take/set [Player] [Amount] &f- &7"Manage the guild contribution points of players"'
   - '&8 - money add/take/set [Guild] [Amount] &f- &7"Operate guild funds for designated guilds"'
   - '&8 - level add/take/set [Guild] [Amount] &f- &7"Operate the guild level of the specified guild"'
@@ -57,6 +58,7 @@ help_admin:
   - '&8 - reset user tree wish [Player] &f- &7"Reset player tree wish data"'
   - '&8 - reset user pot [ID] [Player] &f- &7"Reset the number of times the player specified the pot to be watered today"'
   - '&8 - reset user teamshop [amount] [Player] &f- &7"Reset player guild team shop purchase data"'
+  - '&8 - reset user cooldown [Second] [Player] &f- &7"Reset the join guild cooldown for player"'
   - '&8 - teamshop refresh [Guild] &f- &7"Refresh team shop item for specified guilds"'
   - '&8 - delete [Guild] &f- &7"Delete guild"'
 user:
@@ -99,6 +101,8 @@ admin:
   maxmembers_add: '&fYou have increased the maximum number of members in the guild &e%target% &fby &e%value%'
   maxmembers_set: '&fYou have set the maximum number of members in the guild &e%target% &fby &e%value%'
   teamshop-refresh: '&fYou have refresh the item of teamshop for guild &e%target%'
+  add-icon: '&fYou have unlock the icon &e%value% &ffor guild &e%target%'
+  remove-icon: '&fYou have remove the icon &e%value% &ffor guild &e%target%'
 default:
   'null': 'unknown'
   guild: 'no guild'
@@ -146,6 +150,7 @@ stores:
   remove_white_title: '&fPlease enter the member names to remove from the store whitelist'
   remove_white_null: '&fThe member is not on the whitelist of this store'
   remove_white: '&fYou have closed the &e%value% &fstore usage rights for &e%targte%'
+  cant_put: '&cThis item cannot be placed in the guild store！'
 redpacket:
   min_total: '&fThe minimum red envelope amount is &e100.0'
   min_amount: '&f The minimum number of amounbt is &e2'
@@ -179,6 +184,7 @@ icon:
   unlock: '&fYou have unlocked guild icon %value% for the guild '
   locked: '&fThe icon has not been unlocked yet'
   put: '&fYou have changed the guild icon to %value%'
+  not-exist: '&fThe icon is not exist.'
 shop:
   buy: '&fYou purchased %value%'
   limit: '&fYou can no longer purchase this product...'
@@ -249,6 +255,7 @@ reset:
   pot: '&cYou have reset the guild tree water data for &e%player% &c, id &e%pot%'
   guild-teamshop: '&cYou have reset the guild teamshop data for the members of &e%guild%'
   user-teamshop: '&cYou have reset the guild team shop data to &e%amount% &cfor &e%player%'
+  cooldown: '&cYou have reset the cooldown time for joining &e%player% &cto &e%second% &cseconds'
 bargain:
   already: '&cYou have already discounted the price.'
   success: '&aYou have successfully negotiated a price of &e%bargain%, &aand the current group purchase price is &e%current%'

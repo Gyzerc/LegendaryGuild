@@ -79,14 +79,17 @@ public class GuildsManager {
         }
         String owner = user.getPlayer();
         SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = df.format(System.currentTimeMillis());
+
         LinkedList<String> members = new LinkedList<>();
         members.add(owner);
-        Guild guildData = new Guild(guild,owner,"",df.format(System.currentTimeMillis()),0.0,0.0,0.0,0,0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new StringStore(),new ArrayList<>(), members,new LinkedList<>(),new Guild.GuildHomeLocation("null",LegendaryGuild.getInstance().SERVER,0.0,0.0,0.0),0);
+        Guild guildData = new Guild(guild,owner,"",date,0.0,0.0,0.0,0,0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new StringStore(),new ArrayList<>(), members,new LinkedList<>(),new Guild.GuildHomeLocation("null",LegendaryGuild.getInstance().SERVER,0.0,0.0,0.0),0);
         cache.put(guild,guildData);
         //更新公会数据库
         updateGuild(guildData,false);
 
         //设置基础数据
+        user.setDate(date);
         user.setGuild(guild);
         user.setPosition(legendaryGuild.getPositionsManager().getOwnerPosition().getId());
         user.setPoints(0.0,false);
@@ -124,18 +127,12 @@ public class GuildsManager {
 
 
     public void updateGuild(Guild guild,boolean removeCache){
-        legendaryGuild.sync(new Runnable() {
-            @Override
-            public void run() {
-                legendaryGuild.getDataBase().saveGuild(guild);
-                if (removeCache){
-                    cache.remove(guild.getGuild());
-                    return;
-                }
-                cache.put(guild.getGuild(),guild);
-            }
-        });
-
+        legendaryGuild.getDataBase().saveGuild(guild);
+        if (removeCache){
+            cache.remove(guild.getGuild());
+            return;
+        }
+        cache.put(guild.getGuild(),guild);
     }
 
     public List<String> getGuilds(){

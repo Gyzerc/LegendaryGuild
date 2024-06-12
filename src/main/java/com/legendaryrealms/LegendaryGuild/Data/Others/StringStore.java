@@ -10,7 +10,7 @@ public class StringStore<T>{
         this.map = new HashMap<>();
     }
     public void setValue(String a,T v,T def){
-        T set = v !=null ? v : def;
+        T set = (v !=null ? v : def);
         map.put(a,set);
     }
     public T getValue(String a,T def){

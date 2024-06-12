@@ -118,45 +118,49 @@ public class GuildIconsShopPanel extends MenuDraw {
                 if (icon != null){
                     User user = UserAPI.getUser(p.getName());
                     Guild guild = LegendaryGuild.getInstance().getGuildsManager().getGuild(user.getGuild());
-                    if (e.isLeftClick()) {
-                        if (!guild.getIcon().equals(icon.getId())){
-                            if (guild.getUnlock_icons().contains(icon.getId())){
-                                guild.setIcon(icon.getId());
+                    if (user.getPosition().equals(LegendaryGuild.getInstance().getPositionsManager().getOwnerPosition().getId())) {
+                        if (e.isLeftClick()) {
+                            if (!guild.getIcon().equals(icon.getId())) {
+                                if (guild.getUnlock_icons().contains(icon.getId())) {
+                                    guild.setIcon(icon.getId());
+                                    guild.update();
+
+                                    p.sendMessage(lang.plugin + lang.icon_put.replace("%value%", icon.getDisplay()));
+
+                                    GuildIconsShopPanel guildIconsShopPanel = new GuildIconsShopPanel(p, page);
+                                    guildIconsShopPanel.loadPage(page);
+                                    guildIconsShopPanel.open();
+                                    return;
+                                }
+                                p.sendMessage(lang.plugin + lang.icon_locked);
+                                return;
+                            }
+                            return;
+                        }
+                        if (e.isRightClick()) {
+                            if (guild.getUnlock_icons().contains(icon.getId())) {
+                                return;
+                            }
+                            if (LegendaryGuild.getInstance().getRequirementsManager().check(p, icon.getRequirements())) {
+                                LegendaryGuild.getInstance().getRequirementsManager().deal(p, icon.getRequirements());
+
+                                List<String> icons = new ArrayList<>(guild.getUnlock_icons());
+                                icons.add(icon.getId());
+                                guild.setUnlock_icons(icons);
                                 guild.update();
 
-                                p.sendMessage(lang.plugin+lang.icon_put.replace("%value%",icon.getDisplay()));
-
+                                p.sendMessage(lang.plugin + lang.icon_unlock.replace("%value%", icon.getDisplay()));
                                 GuildIconsShopPanel guildIconsShopPanel = new GuildIconsShopPanel(p, page);
                                 guildIconsShopPanel.loadPage(page);
                                 guildIconsShopPanel.open();
                                 return;
                             }
-                            p.sendMessage(lang.plugin+lang.icon_locked);
                             return;
                         }
                         return;
                     }
-                    if (e.isRightClick()) {
-                        if (guild.getUnlock_icons().contains(icon.getId())){
-                         return;
-                        }
-                        if (LegendaryGuild.getInstance().getRequirementsManager().check(p,icon.getRequirements())){
-                            LegendaryGuild.getInstance().getRequirementsManager().deal(p,icon.getRequirements());
-
-                            List<String> icons = new ArrayList<>(guild.getUnlock_icons());
-                            icons.add(icon.getId());
-                            guild.setUnlock_icons(icons);
-                            guild.update();
-
-                            p.sendMessage(lang.plugin+lang.icon_unlock.replace("%value%",icon.getDisplay()));
-
-                            GuildIconsShopPanel guildIconsShopPanel = new GuildIconsShopPanel(p, page);
-                            guildIconsShopPanel.loadPage(page);
-                            guildIconsShopPanel.open();
-                            return;
-                        }
-                        return;
-                    }
+                    p.sendMessage(lang.plugin + lang.nopass_position);
+                    return;
                 }
             }
         }

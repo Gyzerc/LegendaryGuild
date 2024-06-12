@@ -28,16 +28,12 @@ public class UsersManager {
 
 
     public void updateUser(User user,boolean removeInCache){
-        legendaryGuild.sync(new Runnable() {
-            @Override
-            public void run() {
-                legendaryGuild.getDataBase().saveUser(user);
-                if (removeInCache){
-                    cache.remove(user.getPlayer());
-                }
-            }
-        });
-
+        legendaryGuild.getDataBase().saveUser(user);
+        if (removeInCache){
+            cache.remove(user.getPlayer());
+            return;
+        }
+        cache.put(user.getPlayer(),user);
     }
 
     public void reloadUserDataIfCached(String target){
