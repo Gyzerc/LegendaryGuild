@@ -185,7 +185,7 @@ public class MysqlStore extends DataProvider{
         PreparedStatement ps = null;
         try {
             connection = connectPool.getConnection();
-            if (guild != null) {
+            if (guild == null) {
                 ps = connection.prepareStatement("TRUNCATE TABLE  "+DatabaseTable.GUILD_TEAMSHOP.getName());
             } else {
                 ps = connection.prepareStatement("DELETE FROM `"+DatabaseTable.GUILD_TEAMSHOP.getName()+"` WHERE guild=?");

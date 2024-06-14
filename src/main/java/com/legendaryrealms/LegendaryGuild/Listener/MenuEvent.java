@@ -32,6 +32,10 @@ public class MenuEvent implements Listener {
             MenuDraw draw = (MenuDraw) e.getInventory().getHolder();
             draw.onDrag(e);
         }
+        if (e.getInventory().getHolder() instanceof StoresPanel.StoreContainer ) {
+            StoresPanel.StoreContainer container = (StoresPanel.StoreContainer) e.getInventory().getHolder();
+            container.onDrag(e);
+        }
     }
 
     @EventHandler

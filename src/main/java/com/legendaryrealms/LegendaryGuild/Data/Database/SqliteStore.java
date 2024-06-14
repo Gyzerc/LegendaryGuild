@@ -193,7 +193,7 @@ public class SqliteStore extends DataProvider{
     public void clearGuildTeamShopData(String guild) {
         PreparedStatement ps = null;
         try {
-            if (guild != null) {
+            if (guild == null) {
                 ps = connection.prepareStatement("DELETE FROM  "+DatabaseTable.GUILD_TEAMSHOP.getName());
             } else {
                 ps = connection.prepareStatement("DELETE FROM `"+DatabaseTable.GUILD_TEAMSHOP.getName()+"` WHERE guild=?");
