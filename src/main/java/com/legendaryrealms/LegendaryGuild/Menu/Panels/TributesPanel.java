@@ -44,6 +44,9 @@ public class TributesPanel extends MenuDraw {
 
     @Override
     public void onClick(InventoryClickEvent e) {
+        if (e.isShiftClick()) {
+            e.setCancelled(true);
+        }
         if (dealEssentailsButton(e.getRawSlot())) {
             e.setCancelled(true);
             return;
@@ -59,14 +62,10 @@ public class TributesPanel extends MenuDraw {
                 sell(e.getInventory());
                 return;
             }
-            if (getLayout().contains(e.getRawSlot())){
-                LegendaryGuild.getInstance().sync(new Runnable() {
-                    @Override
-                    public void run() {
-                        updataInv(e.getInventory());
-                    }
-                },5);
-                return;
+            if (getLayout().contains(e.getRawSlot())  ){
+                Bukkit.getScheduler().runTaskLater(LegendaryGuild.getInstance(),()->{
+                    updataInv(e.getInventory());
+                },3);
             }
         }
     }

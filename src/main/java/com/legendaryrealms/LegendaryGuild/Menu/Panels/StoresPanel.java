@@ -310,18 +310,7 @@ public class StoresPanel extends MenuDraw {
         }
 
         public void onDrag(InventoryDragEvent e) {
-            for (int slot : e.getRawSlots()) {
-                if (slot >=0 && slot < legendaryGuild.getFileManager().getStores().getSIZE()) {
-                    ItemStack i = e.getCursor();
-                    if (i != null && !i.getType().equals(Material.AIR)) {
-                        if (!canPlace(i)) {
-                            e.setCancelled(true);
-                            p.sendMessage(lang.plugin + lang.stores_cant_input);
-                            return;
-                        }
-                    }
-                }
-            }
+            e.setCancelled(true);
         }
         private boolean canPlace(ItemStack i) {
             if (i != null) {

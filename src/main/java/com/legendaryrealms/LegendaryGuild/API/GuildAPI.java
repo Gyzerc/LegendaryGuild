@@ -528,7 +528,7 @@ public class GuildAPI {
     }
 
     public static void updateGuildMembersBuff(Guild guild) {
-        if (legendaryguild.getBuffsManager().getProvider() != null) {
+        if (legendaryguild.getBuffsManager() != null && legendaryguild.getBuffsManager().getProvider() != null) {
             guild.getMembers().stream().filter(member -> Bukkit.getPlayerExact(member) != null).collect(Collectors.toList()).forEach(p -> {
                 legendaryguild.getBuffsManager().getProvider().updateBuff(Bukkit.getPlayerExact(p));
             });
