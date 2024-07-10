@@ -377,6 +377,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
             }
             builder.append(c);
         }
+        groups.add(builder.toString());
 
         int version = Integer.parseInt(groups.get(1));
         return (version >= 13);
