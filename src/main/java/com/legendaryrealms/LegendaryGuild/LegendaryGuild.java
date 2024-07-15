@@ -413,27 +413,29 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         return date;
     }
     private void checkDate(){
-        int day = Integer.parseInt(dataProvider.getSystemData("last_date").orElse("0"));
-        int week = Integer.parseInt(dataProvider.getSystemData("last_week").orElse("0"));
-        int month = Integer.parseInt(dataProvider.getSystemData("last_month").orElse("0"));
+        if (getFileManager().getConfig().checkData) {
+            int day = Integer.parseInt(dataProvider.getSystemData("last_date").orElse("0"));
+            int week = Integer.parseInt(dataProvider.getSystemData("last_week").orElse("0"));
+            int month = Integer.parseInt(dataProvider.getSystemData("last_month").orElse("0"));
 
-        Calendar calendar = Calendar.getInstance();
-        int today = calendar.get(Calendar.DATE);
-        int thisWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        int thisMonth = calendar.get(Calendar.MONTH);
+            Calendar calendar = Calendar.getInstance();
+            int today = calendar.get(Calendar.DATE);
+            int thisWeek = calendar.get(Calendar.WEEK_OF_MONTH);
+            int thisMonth = calendar.get(Calendar.MONTH);
 
-        if (day != today){
-            dataProvider.saveSystemData("last_date",today+"");
-            Bukkit.getScheduler().runTask(this,()->Bukkit.getPluginManager().callEvent(new NewCycleEvent(0,today)));
+            if (day != today) {
+                dataProvider.saveSystemData("last_date", today + "");
+                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(0, today)));
 
-        }
-        if (week != thisWeek){
-            dataProvider.saveSystemData("last_week",thisWeek+"");
-            Bukkit.getScheduler().runTask(this,()->Bukkit.getPluginManager().callEvent(new NewCycleEvent(1,thisWeek)));
-        }
-        if (month != thisMonth){
-            dataProvider.saveSystemData("last_month",thisMonth+"");
-            Bukkit.getScheduler().runTask(this,()->Bukkit.getPluginManager().callEvent(new NewCycleEvent(2,thisMonth)));
+            }
+            if (week != thisWeek) {
+                dataProvider.saveSystemData("last_week", thisWeek + "");
+                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(1, thisWeek)));
+            }
+            if (month != thisMonth) {
+                dataProvider.saveSystemData("last_month", thisMonth + "");
+                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(2, thisMonth)));
+            }
         }
     }
 }
