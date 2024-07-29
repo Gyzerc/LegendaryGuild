@@ -382,6 +382,10 @@ public class UserAPI {
         activityData.clearPlayerData(user.getPlayer());
         activityData.update();
 
+        //刷新公会buff
+        updatePlayerBuffAttribute(p);
+
+
         Bukkit.getPluginManager().callEvent(new PlayerQuitGuildEvent(p,guild));
 
         legendaryGuild.getMsgUtils().sendGuildMessage(guild.getMembers(),lang.plugin+lang.quit_broad.replace("%value%",p.getName()).replace("%position%",position));

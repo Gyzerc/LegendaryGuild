@@ -11,6 +11,8 @@ public class VaultRequirement extends Requirement {
 
     public boolean canPass(Player p,String str){
         if (!legendaryGuild.getHookManager().getVaultHook().isEnable()){
+            legendaryGuild.info("检测到服务器未安装 Vault .",Level.SEVERE);
+            legendaryGuild.info("Please install Vault to use 'vault;XXX'.",Level.SEVERE);
             return false;
         }
         try {
