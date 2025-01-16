@@ -517,7 +517,7 @@ public class UserAPI {
         MoveEvent.deletePlayerWaitTeleport(p.getName());
         if (location.getServer().equals(legendaryGuild.SERVER)){
             if (location.getLocation().isPresent()){
-                Bukkit.getScheduler().runTask(legendaryGuild,()->
+                LegendaryGuild.getInstance().getScheduler().runTask(legendaryGuild,()->
                 {
                     p.teleport(location.getLocation().get());
                     p.sendMessage(lang.plugin+lang.home_teleport);

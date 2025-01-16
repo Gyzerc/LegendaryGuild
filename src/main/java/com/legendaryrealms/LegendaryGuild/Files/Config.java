@@ -22,6 +22,8 @@ public class Config extends FileProvider{
     public boolean CROSS_SERVER;
     public int max_length;
 
+    public int DESC_MAX_LENGTH;
+    public int NOTICE_MAX_LENGTH;
 
     public boolean checkData;
     public HashMap<Integer, Double> EXP;
@@ -60,6 +62,8 @@ public class Config extends FileProvider{
         TREE_REQUIREMENTS = new HashMap<>();
         MEMBERS = new HashMap<>();
         WISH = new HashMap<>();
+        DESC_MAX_LENGTH = getValue("settings.guild.introduce-max-line",5);
+        NOTICE_MAX_LENGTH = getValue("settings.guild.notice-max-line",5);
 
 
         checkData = getValue("settings.DataCheck",true);

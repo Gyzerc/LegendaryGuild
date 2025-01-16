@@ -44,7 +44,7 @@ public class PlayerJoin implements Listener {
             if (user.getPosition().equals(legendaryGuild.getPositionsManager().getOwnerPosition().getId())){
                 Guild guild = legendaryGuild.getGuildsManager().getGuild(user.getGuild());
                 if (guild.getApplications().size() > 0){
-                    Bukkit.getScheduler().runTaskLaterAsynchronously(legendaryGuild, new Runnable() {
+                    LegendaryGuild.getInstance().getScheduler().runTaskLaterAsynchronously(legendaryGuild, new Runnable() {
                         @Override
                         public void run() {
                             p.sendMessage(lang.plugin+lang.application_wait.replace("%value%",""+guild.getApplications().size()));
@@ -58,7 +58,7 @@ public class PlayerJoin implements Listener {
         UserAPI.updatePlayerBuffAttribute(p);
 
         //检测是否是要传送至驻地
-        Bukkit.getScheduler().runTaskLater(legendaryGuild,()->{
+        LegendaryGuild.getInstance().getScheduler().runTaskLater(legendaryGuild,()->{
             if (user.isTeleport_guild_home()){
                 Guild guild = UserAPI.getGuild(p.getName()).orElse(null);
                 if (guild != null && guild.getHome()!=null){

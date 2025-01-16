@@ -14,6 +14,8 @@ noenough_guildmembers: '&fInsufficient number of guild members &e%value%'
 noenough_guildpoints: '&fYour guild contribution points is not enough &e%value%'
 nopass_position: '&cYour guild position does not allow this operation.'
 nopass_chance: '&cYour luck doesnt seem to be very good...'
+max-length-intro: '&fGuild introductions can only have a maximum of 5 entries！'
+max-length-notice: '&fGuild notice can only have a maximum of 5 articles！'
 no_panel: "&f There is no such panel ."
 input: '&fPlease send content in the chat, enter &c"cancel" &fto cancel'
 vault_noenough: '&fYour game currency is not enough &e%value%'

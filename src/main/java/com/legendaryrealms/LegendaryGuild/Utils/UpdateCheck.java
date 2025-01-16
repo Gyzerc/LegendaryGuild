@@ -1,5 +1,6 @@
 package com.legendaryrealms.LegendaryGuild.Utils;
 
+import com.legendaryrealms.LegendaryGuild.LegendaryGuild;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,7 +20,7 @@ public class UpdateCheck {
     }
 
     public void getVersion(final Consumer<String> consumer) {
-        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
+        LegendaryGuild.getInstance().getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try (InputStream is = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId + "/~").openStream();
                  Scanner scann = new Scanner(is)) {
                 if (scann.hasNext()) {

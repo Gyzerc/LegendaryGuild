@@ -158,11 +158,19 @@ public class Guild {
     }
 
     public List<String> getIntro() {
-        return intro != null ? intro : new ArrayList<>();
+        List<String> i = (intro != null ? intro : new ArrayList<>());
+        if (i.size() < LegendaryGuild.getInstance().getFileManager().getConfig().DESC_MAX_LENGTH) {
+            return i;
+        }
+        return new ArrayList<>(i.subList(0,LegendaryGuild.getInstance().getFileManager().getConfig().DESC_MAX_LENGTH));
     }
 
     public List<String> getNotice() {
-        return notice != null ? notice : new ArrayList<>();
+        List<String> l = (notice != null ? notice : new ArrayList<>());
+        if (l.size() < LegendaryGuild.getInstance().getFileManager().getConfig().NOTICE_MAX_LENGTH) {
+            return l;
+        }
+        return new ArrayList<>(l.subList(0,LegendaryGuild.getInstance().getFileManager().getConfig().NOTICE_MAX_LENGTH));
     }
 
     public List<String> getFriends() {

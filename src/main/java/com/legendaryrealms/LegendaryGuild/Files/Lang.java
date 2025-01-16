@@ -25,6 +25,8 @@ public class Lang extends FileProvider{
     public String nothasguild;
     public String notowner;
     public String notmember;
+    public String max_length_intro;
+    public String max_length_notice;
     public String vault_noenough;
     public String no_guildmoney;
     public String noenough_level;
@@ -217,6 +219,8 @@ public class Lang extends FileProvider{
         this.notowner = legendaryGuild.color(getValue("notowner","&f你不是会长！"));
         this.notmember = legendaryGuild.color(getValue("notmember","&f公会内没有该成员"));
         this.no_guildmoney = legendaryGuild.color(getValue("no_guildmoney","&f公会资金不足 &e%value%"));
+        max_length_intro = legendaryGuild.color(getValue("max-length-intro","&fGuild introductions can only have a maximum of 5 entries！"));
+        max_length_notice = legendaryGuild.color(getValue("max-length-notice","&fGuild notice can only have a maximum of 5 articles！"));
         this.noenough_level = legendaryGuild.color(getValue("noenough_level","&f公会等级不足 &e%value%"));
         this.noenough_treelevel = legendaryGuild.color(getValue("noenough_treelevel","&f公会神树等级不足 &e%value%"));
         this.noenough_members = legendaryGuild.color(getValue("noenough_members","&f公会成员人数不足 &e%value%"));

@@ -63,7 +63,7 @@ public class TributesPanel extends MenuDraw {
                 return;
             }
             if (getLayout().contains(e.getRawSlot())  ){
-                Bukkit.getScheduler().runTaskLater(LegendaryGuild.getInstance(),()->{
+                LegendaryGuild.getInstance().getScheduler().runTaskLater(LegendaryGuild.getInstance(),()->{
                     updataInv(e.getInventory());
                 },3);
             }

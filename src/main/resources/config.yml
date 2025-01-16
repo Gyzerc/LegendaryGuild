@@ -84,6 +84,10 @@ settings:
     #每捐赠1游戏币获得多少点贡献
     #How many contributions do you earn for each donation of 1 game coin (Valut)
     moneyToPoints: 0.1
+    #公会介绍最多行数
+    introduce-max-line: 5
+    #公会公告最多行数
+    notice-max-line: 5
     level:
       #最高等级
       #the highest guild level

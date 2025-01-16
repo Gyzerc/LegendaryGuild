@@ -6,6 +6,8 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import com.google.common.collect.Iterables;
 import com.legendaryrealms.LegendaryGuild.API.LegendaryGuildPlaceholderAPI;
 import com.legendaryrealms.LegendaryGuild.API.UserAPI;
@@ -59,6 +61,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
 
         players = new ArrayList<>();
         legendaryGuild = this;
+        scheduler = UniversalScheduler.getScheduler(this);
         //获取是否高版本
         version_high = BukkitVersionHigh();
 
@@ -194,7 +197,7 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
     }
 
     private void updateCheck(){
-        Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
+        scheduler.runTaskLaterAsynchronously(this, new Runnable() {
             @Override
             public void run() {
                 new UpdateCheck(legendaryGuild,114036).getVersion(v ->{
@@ -328,6 +331,11 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         return guildTeamShopDataManager;
     }
 
+    public TaskScheduler getScheduler() {
+        return scheduler;
+    }
+
+    private TaskScheduler scheduler;
     private ActivityRewardsManager activityRewardsManager;
     private MsgUtils msgUtils;
     private GuildsManager guildsManager;
@@ -399,13 +407,13 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
         return isNum.matches();
     }
     public void sync(Runnable consumer){
-        Bukkit.getScheduler().runTaskAsynchronously(legendaryGuild,consumer);
+        scheduler.runTaskAsynchronously(legendaryGuild,consumer);
     }
     public void sync(Runnable runnable,int delay){
-        Bukkit.getScheduler().runTaskLaterAsynchronously(legendaryGuild,runnable,delay);
+        scheduler.runTaskLaterAsynchronously(legendaryGuild,runnable,delay);
     }
     public void sync(Runnable runnable,int delay,int timer){
-        Bukkit.getScheduler().runTaskTimerAsynchronously(legendaryGuild,runnable,delay,timer);
+        scheduler.runTaskTimerAsynchronously(legendaryGuild,runnable,delay,timer);
     }
     public String getDate(){
         SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -425,16 +433,16 @@ public class LegendaryGuild extends JavaPlugin implements PluginMessageListener 
 
             if (day != today) {
                 dataProvider.saveSystemData("last_date", today + "");
-                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(0, today)));
+                scheduler.runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(0, today)));
 
             }
             if (week != thisWeek) {
                 dataProvider.saveSystemData("last_week", thisWeek + "");
-                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(1, thisWeek)));
+                scheduler.runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(1, thisWeek)));
             }
             if (month != thisMonth) {
                 dataProvider.saveSystemData("last_month", thisMonth + "");
-                Bukkit.getScheduler().runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(2, thisMonth)));
+                scheduler.runTask(this, () -> Bukkit.getPluginManager().callEvent(new NewCycleEvent(2, thisMonth)));
             }
         }
     }

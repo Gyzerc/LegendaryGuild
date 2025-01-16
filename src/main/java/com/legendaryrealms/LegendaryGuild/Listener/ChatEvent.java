@@ -71,17 +71,25 @@ public class ChatEvent {
                             switch (mode) {
                                 case 0 :
                                     List<String> intro = new ArrayList<>(guild.getIntro());
-                                    intro.add(target);
-                                    guild.setIntro(intro);
-                                    guild.update();
-                                    p.sendMessage(lang.plugin+lang.intro_add.replace("%value%",target));
+                                    if (intro.size() < LegendaryGuild.getInstance().getFileManager().getConfig().DESC_MAX_LENGTH) {
+                                        intro.add(target);
+                                        guild.setIntro(intro);
+                                        guild.update();
+                                        p.sendMessage(lang.plugin + lang.intro_add.replace("%value%", target));
+                                        return;
+                                    }
+                                    p.sendMessage(lang.plugin + lang.max_length_intro);
                                     break;
                                 case 1:
                                     List<String> notice = new ArrayList<>(guild.getNotice());
-                                    notice.add(target);
-                                    guild.setNotice(notice);
-                                    guild.update();
-                                    p.sendMessage(lang.plugin+lang.notice_add.replace("%value%",target));
+                                    if (notice.size() < LegendaryGuild.getInstance().getFileManager().getConfig().NOTICE_MAX_LENGTH) {
+                                        notice.add(target);
+                                        guild.setNotice(notice);
+                                        guild.update();
+                                        p.sendMessage(lang.plugin + lang.notice_add.replace("%value%", target));
+                                        return;
+                                    }
+                                    p.sendMessage(lang.plugin+lang.max_length_notice);
                                     break;
                                 case 2:
                                     UserAPI.setPlayerPositionByPlayer(p,target,value);
@@ -140,7 +148,7 @@ public class ChatEvent {
                             }
                         }
                         GuildMenuPanel menuPanel = new GuildMenuPanel(p);
-                        Bukkit.getScheduler().runTask(legendaryGuild,()->menuPanel.open());
+                        LegendaryGuild.getInstance().getScheduler().runTask(legendaryGuild,()->menuPanel.open());
                         return;
                     }
                     if (user.isChat()) {

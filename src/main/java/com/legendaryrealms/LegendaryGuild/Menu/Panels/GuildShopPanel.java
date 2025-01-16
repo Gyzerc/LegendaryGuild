@@ -129,7 +129,7 @@ public class GuildShopPanel extends MenuDraw {
                         LegendaryGuild.getInstance().getRequirementsManager().deal(p, shopItem.getRequirements());
 
                         RunUtils runUtils = new RunUtils(shopItem.getRuns(), p);
-                        Bukkit.getScheduler().runTask(LegendaryGuild.getInstance(), () -> runUtils.start());
+                        LegendaryGuild.getInstance().getScheduler().runTask(LegendaryGuild.getInstance(), () -> runUtils.start());
 
                         //更新限购数据
                         buyData.addBuyAmount(p.getName(), shopItem.getType(), 1);
